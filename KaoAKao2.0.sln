@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KaoAKao.WEB", "KaoAKao.WEB", "{A02E69F6-ACF0-4425-A19D-E75F88E3B2C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaoAKao.Web", "KaoAKao2.0.Web\KaoAKao.Web.csproj", "{C430FB80-D770-4595-9292-AB037E00D714}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KaoAKao.Core", "KaoAKao.Core", "{3A3AAD07-87B0-42A4-9D18-E78D5426B96F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaoAKao.DAL", "KaoAKao.DAL\KaoAKao.DAL.csproj", "{CDE94A79-C3B6-4075-BBCF-D68DA2112668}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaoAKao.Business", "KaoAKao.Business\KaoAKao.Business.csproj", "{54A4AD0F-F029-405E-929D-EB57BE96BF59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaoAKao.Entity", "KaoAKao.Entity\KaoAKao.Entity.csproj", "{7EB6B003-C0A2-42F7-9F56-20F79D45F0EE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C430FB80-D770-4595-9292-AB037E00D714}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C430FB80-D770-4595-9292-AB037E00D714}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C430FB80-D770-4595-9292-AB037E00D714}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C430FB80-D770-4595-9292-AB037E00D714}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDE94A79-C3B6-4075-BBCF-D68DA2112668}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDE94A79-C3B6-4075-BBCF-D68DA2112668}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDE94A79-C3B6-4075-BBCF-D68DA2112668}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDE94A79-C3B6-4075-BBCF-D68DA2112668}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54A4AD0F-F029-405E-929D-EB57BE96BF59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54A4AD0F-F029-405E-929D-EB57BE96BF59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54A4AD0F-F029-405E-929D-EB57BE96BF59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54A4AD0F-F029-405E-929D-EB57BE96BF59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EB6B003-C0A2-42F7-9F56-20F79D45F0EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EB6B003-C0A2-42F7-9F56-20F79D45F0EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EB6B003-C0A2-42F7-9F56-20F79D45F0EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EB6B003-C0A2-42F7-9F56-20F79D45F0EE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C430FB80-D770-4595-9292-AB037E00D714} = {A02E69F6-ACF0-4425-A19D-E75F88E3B2C8}
+		{CDE94A79-C3B6-4075-BBCF-D68DA2112668} = {3A3AAD07-87B0-42A4-9D18-E78D5426B96F}
+		{54A4AD0F-F029-405E-929D-EB57BE96BF59} = {3A3AAD07-87B0-42A4-9D18-E78D5426B96F}
+		{7EB6B003-C0A2-42F7-9F56-20F79D45F0EE} = {3A3AAD07-87B0-42A4-9D18-E78D5426B96F}
+	EndGlobalSection
+EndGlobal

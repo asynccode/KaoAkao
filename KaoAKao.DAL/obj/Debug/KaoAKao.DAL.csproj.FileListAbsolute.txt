@@ -1,0 +1,4 @@
+D:\KaoAKao\KaoAKao2.0\KaoAKao.DAL\bin\Debug\KaoAKao.DAL.dll
+D:\KaoAKao\KaoAKao2.0\KaoAKao.DAL\bin\Debug\KaoAKao.DAL.pdb
+D:\KaoAKao\KaoAKao2.0\KaoAKao.DAL\obj\Debug\KaoAKao.DAL.dll
+D:\KaoAKao\KaoAKao2.0\KaoAKao.DAL\obj\Debug\KaoAKao.DAL.pdb

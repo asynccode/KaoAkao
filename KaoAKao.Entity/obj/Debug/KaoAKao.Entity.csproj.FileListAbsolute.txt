@@ -1,0 +1,4 @@
+D:\KaoAKao\KaoAKao2.0\KaoAKao.Entity\bin\Debug\KaoAKao.Entity.dll
+D:\KaoAKao\KaoAKao2.0\KaoAKao.Entity\bin\Debug\KaoAKao.Entity.pdb
+D:\KaoAKao\KaoAKao2.0\KaoAKao.Entity\obj\Debug\KaoAKao.Entity.dll
+D:\KaoAKao\KaoAKao2.0\KaoAKao.Entity\obj\Debug\KaoAKao.Entity.pdb
