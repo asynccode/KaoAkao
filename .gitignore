@@ -1,5 +1,3 @@
-# git ignore file
-
 .dbmdl
 *.dbmdl
 # Build results
