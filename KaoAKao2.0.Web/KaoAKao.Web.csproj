@@ -95,6 +95,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Manage\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Manage\ManageAreaRegistration.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -173,7 +176,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
+    <Folder Include="Areas\Manage\Models\" />
+    <Folder Include="Areas\Manage\Views\Shared\" />
     <Folder Include="Models\" />
     <Folder Include="modules\script\" />
   </ItemGroup>
@@ -189,6 +193,15 @@
       <Project>{7eb6b003-c0a2-42f7-9f56-20f79d45f0ee}</Project>
       <Name>KaoAKao.Entity</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Home\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
