@@ -173,33 +173,5 @@ namespace KaoAKao.Business
 
         #endregion
 
-        #region 生成课程分类编码
-        public static object SingLockCategoryCode = new object();
-        public static string CategoryDay = string.Empty;
-        public static int CategoryCount = 1;
-        /// <summary>
-        /// 获取课程分类编码
-        /// </summary>
-        /// <returns></returns>
-        public static string GetCategoryCode()
-        {
-            lock (SingLockCategoryCode)
-            {
-                string code = string.Empty;
-                string now = DateTime.Now.ToString("yyMMdd");
-                if (!CategoryDay.Equals(now))
-                {
-                    CategoryDay = now;
-                    CategoryCount = 1;
-                }
-                else
-                {
-                    CategoryCount++;
-                }
-                code = CategoryDay + CategoryCount.ToString("0000");
-                return code;
-            }
-        }
-        #endregion
     }
 }

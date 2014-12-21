@@ -1,7 +1,7 @@
 .dbmdl
 *.dbmdl
 # Build results
-[Dd]ebug/
+[Dd]ebug/*
 [Dd]ebugPublic/
 [Rr]elease/
 x64/
@@ -10,6 +10,6 @@ build/
 node_modules/
 bld/
 PublishProfiles/
-[Bb]in/
-[Oo]bj/
+[Bb]in/*
+[Oo]bj/*
 *.v11.suo
