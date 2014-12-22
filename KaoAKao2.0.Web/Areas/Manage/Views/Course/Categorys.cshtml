@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Category";
+}
+@section css{
+    <link rel="stylesheet" href="/modules/manage/css/course-category.css" />
+}
+@section LeftMenu{
+    @Html.Partial("_CourseLeftMenu")
+}
+@section scripts{
+     <script type="text/javascript">
+         seajs.use(["manage/scripts/course-category.js"], function (category) {
+             category.init();
+        });
+    </script>
+}
+<div class="header-box">
+    <span class="header-title left">课程分类列表</span>
+</div>
+<div class="search-opt mLeft20">
+    <div class="left mTop20 mLeft20">
+        <span class="width80">上级分类：</span>
+        <select id="category">
+            <option value="-1">全部</option>
+            @foreach (var item in (List<KaoAKao.Entity.CourseCategoryEntity>)ViewBag.PList)
+            {
+                <option value="@item.CategoryID">@item.CategoryName</option>
+            }
+        </select>
+    </div>
+    <div class="right searth-module mRight20">
+        <input type="text" class="search-ipt" id="keywords" placeholder="搜索..." />
+        <span class="search-ico hand"></span>
+    </div>
+</div>
+<table class="table-list mLeft20 mTop20">
+    <tr class="tr-header">
+        <td>操作</td>
+        <td>名称</td>
+        <td>标签</td>
+        <td>上级分类</td>
+        <td>创建日期</td>
+    </tr>
+
+</table>
+<div style="width:90%;">
+    <div id="pager" class="mTop20"></div>
+</div>

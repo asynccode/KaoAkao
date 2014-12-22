@@ -1,0 +1,15 @@
+﻿{%
+	for(var i=0, j=$data.length; i < j; i++){
+	var item = $data[i];
+%}
+<tr>
+    <td class="center">
+        <a href="/Manage/Course/CategoryDetail/{%=item.CategoryID%}">编辑</a>
+        <a href="javascript:void(0)" class="delete" data-id="{%=item.CategoryID%}">删除</a>
+    </td>
+    <td>{%=item.CategoryName%}</td>
+    <td>{%=item.KeyWords%}</td>
+    <td>{%=item.PName%}</td>
+    <td>{%=item.CreateDate.toDate("yyyy-MM-dd hh:mm:ss")%}</td>
+</tr>
+{% } %}

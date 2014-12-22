@@ -1,0 +1,15 @@
+﻿{%
+	for(var i=0, j=$data.length; i < j; i++){
+	var item = $data[i];
+%}
+<tr>
+    <td class="center">
+        <a href="/Manage/Customer/TeacherDetail/{%=item.UserID%}" class="{%= item.IsTeacher==0?'hide':'' %}">编辑</a>
+        <!--<a href="javascript:void(0)" class="delete" data-id="{%=item.CategoryID%}">删除</a>-->
+    </td>
+    <td>{%=item.Name%}</td>
+    <td>{%=item.MobileTele%}</td>
+    <td>{%=item.Email%}</td>
+    <td>{%=item.RegisterDate.toDate("yyyy-MM-dd hh:mm:ss")%}</td>
+</tr>
+{% } %}

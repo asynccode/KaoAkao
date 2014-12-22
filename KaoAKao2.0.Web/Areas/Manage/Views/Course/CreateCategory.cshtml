@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "CreateCategory";
+}
+@section LeftMenu{
+    @Html.Partial("_CourseLeftMenu")
+}
+@section css{
+    <link rel="stylesheet" href="/modules/manage/css/course-category.css" />
+}
+@section scripts{
+    <script type="text/javascript">
+           seajs.use(["manage/scripts/course-category.js"], function (category) {
+               category.initCreate();
+           });
+    </script>
+}
+
+<div class="header-box">
+    <span class="header-title left">新建课程分类</span>
+</div>
+<ul class="category-add-main">
+    <li class="category-item">
+        <span class="width80">名称：</span><input type="text" id="categoryName" data-empty="* 必填" class="input verify" />
+    </li>
+    <li class="category-item">
+        <span class="width80">上级分类：</span>
+        <select id="pcategory">
+            @*<option value="">无上级</option>*@
+            @foreach (var item in (List<KaoAKao.Entity.CourseCategoryEntity>)ViewBag.PList)
+            {
+                <option value="@item.CategoryID">@item.CategoryName</option>
+            }
+        </select>
+    </li>
+    <li class="category-item">
+        <span class="width80">标签：</span><input type="text" id="categoryKeyWords" class="input" />
+    </li>
+    <li class="category-item">
+        <span class="width80">描述：</span><textarea id="description"></textarea>
+    </li>
+</ul>
+<div class="mTop20 mLeft20">
+    <input type="button" class="btn" id="btnSavecategory" value="保存" />
+</div>
