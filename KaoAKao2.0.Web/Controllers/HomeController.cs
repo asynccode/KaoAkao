@@ -16,5 +16,15 @@ namespace KaoAKao2._0.Web.Controllers
             return View();
         }
 
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
     }
 }

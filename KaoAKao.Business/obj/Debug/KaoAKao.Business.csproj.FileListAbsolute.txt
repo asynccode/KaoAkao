@@ -7,3 +7,12 @@ D:\KaoAKao\KaoAKao2.0\KaoAKao.Business\bin\Debug\KaoAKao.DAL.dll
 D:\KaoAKao\KaoAKao2.0\KaoAKao.Business\bin\Debug\KaoAKao.Entity.dll
 D:\KaoAKao\KaoAKao2.0\KaoAKao.Business\bin\Debug\KaoAKao.DAL.pdb
 D:\KaoAKao\KaoAKao2.0\KaoAKao.Business\bin\Debug\KaoAKao.Entity.pdb
+F:\kaoakao2\KaoAKao.Business\bin\Debug\KaoAKao.Business.dll
+F:\kaoakao2\KaoAKao.Business\bin\Debug\KaoAKao.Business.pdb
+F:\kaoakao2\KaoAKao.Business\bin\Debug\KaoAKao.DAL.dll
+F:\kaoakao2\KaoAKao.Business\bin\Debug\KaoAKao.Entity.dll
+F:\kaoakao2\KaoAKao.Business\bin\Debug\KaoAKao.DAL.pdb
+F:\kaoakao2\KaoAKao.Business\bin\Debug\KaoAKao.Entity.pdb
+F:\kaoakao2\KaoAKao.Business\obj\Debug\KaoAKao.Business.csprojResolveAssemblyReference.cache
+F:\kaoakao2\KaoAKao.Business\obj\Debug\KaoAKao.Business.dll
+F:\kaoakao2\KaoAKao.Business\obj\Debug\KaoAKao.Business.pdb
