@@ -327,7 +327,6 @@
     <Content Include="Areas\Manage\Views\Home\_HomeLeftMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Content Include="Views\Home\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -341,7 +340,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\font\SourceHanSansCN-Regular.otf" />
-=======
     <Content Include="Areas\Manage\Views\Course\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -360,7 +358,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Manage\Views\Course\CategoryDetail.cshtml" />
->>>>>>> 2001eca00e6c30c91b99187bc425e55cb335c647
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
