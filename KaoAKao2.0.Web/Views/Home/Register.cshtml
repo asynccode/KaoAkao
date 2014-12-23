@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "考啊考-注册";
+    Layout = null;
+}
+<link href="../../Content/css/common.css" rel="stylesheet" />
+<link href="../../Content/css/global.css" rel="stylesheet" />
+<link href="../../Content/css/layout.css" rel="stylesheet" />
+
+<script src="../../Content/jqueryLB/jquery-1.7.2.js"></script>
+<script src="../../Content/js/common.js"></script>
+<script src="../../Content/js/register.js"></script>
+
+<body>
+<div class="header">
+  <div class="main clearfix"><div class="l"><a href="/home/index" class="logo">考啊考</a></div></div>
+</div>
+<div class="main toppt2 register-bg clearfix">
+  <div class="main-cont">
+    <div class="m-l-bt">
+      <h1>注册</h1>
+    </div>
+    <form  autocomplete="off">
+        <div class="m-l-content">
+         <dl class="m-l-c-dl">
+           <dt class="dt1">请输入邮箱地址</dt>
+           <dd class="dd1">
+             <input type="text" id="txt_userEmail" class="input-txt" />
+             <span class="m-l-c-ico"><img src="/Content/Images/login_02.png" alt=""></span>
+           </dd>
+           <dt class="dt1">密码</dt>
+           <dd class="dd1">
+             <input type="password" id="txt_userPwd" class="input-txt" />
+             <span class="m-l-c-ico"><img src="/Content/Images/login_03.png" alt=""></span>
+             <div class="m-l-c-ts">请输入6-16位密码，区分大小写，不能使用空格</div>
+           </dd>
+           <dt class="dt1">确认密码</dt>
+           <dd class="dd1">
+             <input type="password" id="txt_userConfirmPwd" class="input-txt" />
+             <span class="m-l-c-ico"><img src="/Content/Images/register_03.png" alt=""></span>
+           </dd>
+           <dt class="dt1">验证码</dt>
+           <dd class="dd1 clearfix">
+             <input type="text" id="txt_code" class="input-txt code l" />
+             <span class="code-ico l"><img src="/Content/Images/register_02.jpg" alt=""></span>
+           </dd>
+         </dl>
+         <div class="mt20">
+          <input type="button" id="btn_register" onclick="location.href = '/home/Register'" class="button blue" value="注册" />
+         </div>
+         <div class="mt20">
+           <a href="/home/login" class="button">返回登录</a>
+         </div>
+         <div class="share clearfix">
+           <div class="share-left">使用其他帐号登录</div>
+           <ul class="share-right clearfix">
+             <li><a href="#" class="sina"  title="微博账号">微博</a></li>
+             <li><a href="#" class="qq" title="QQ账号">QQ</a></li>
+             <li><a href="#" class="douban" title="豆瓣账号">豆瓣</a></li>
+             <li><a href="#" class="renren" title="人人账号">人人</a></li>
+           </ul>
+         </div>
+        </div>
+    </form>
+  </div>
+</div>
+
+ <div>@{Html.RenderPartial("_Footer");}</div>
+</body>
+
+
