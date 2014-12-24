@@ -1,23 +1,3 @@
-
-.dbmdl
-*.dbmdl
-# Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-x64/
-build/
-.transport/
-node_modules/
-bld/
-PublishProfiles/
-[Bb]in/
-[Oo]bj/
-*.v11.suo
-
-#ignore thumbnails created by windows
-Thumbs.db
-#Ignore files build by Visual Studio
 *.obj
 *.exe
 *.pdb
@@ -42,11 +22,3 @@ Thumbs.db
 obj/
 [Rr]elease*/
 _ReSharper*/
-[Tt]est[Rr]esult*
-=======
-# git ignore file
-
-bin\
-*.suo
-obj\
-

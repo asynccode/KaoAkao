@@ -56,3 +56,5 @@ F:\kaoakao2\KaoAKao2.0.Web\bin\zh-Hans\System.Web.Providers.resources.dll
 F:\kaoakao2\KaoAKao2.0.Web\obj\Debug\KaoAKao.Web.csprojResolveAssemblyReference.cache
 F:\kaoakao2\KaoAKao2.0.Web\obj\Debug\KaoAKao2.0.Web.dll
 F:\kaoakao2\KaoAKao2.0.Web\obj\Debug\KaoAKao2.0.Web.pdb
+F:\kaoakao2\KaoAKao2.0.Web\bin\Newtonsoft.Json.dll
+F:\kaoakao2\KaoAKao2.0.Web\bin\Newtonsoft.Json.xml
