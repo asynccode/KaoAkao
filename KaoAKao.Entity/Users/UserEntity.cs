@@ -15,6 +15,7 @@
 *└──────────────────────────────────┘
 */
 using System;
+using System.Data;
 namespace KaoAKao.Entity
 {
 	/// <summary>
@@ -360,6 +361,9 @@ namespace KaoAKao.Entity
 			get{return _operateid;}
 		}
 		#endregion Model
+
+        public void FillData(DataRow dr)
+        { }
 
 	}
 }

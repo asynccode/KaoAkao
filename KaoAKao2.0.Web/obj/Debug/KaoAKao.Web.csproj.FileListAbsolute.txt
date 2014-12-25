@@ -58,3 +58,5 @@ F:\kaoakao2\KaoAKao2.0.Web\obj\Debug\KaoAKao2.0.Web.dll
 F:\kaoakao2\KaoAKao2.0.Web\obj\Debug\KaoAKao2.0.Web.pdb
 F:\kaoakao2\KaoAKao2.0.Web\bin\Newtonsoft.Json.dll
 F:\kaoakao2\KaoAKao2.0.Web\bin\Newtonsoft.Json.xml
+D:\KaoAKao\KaoAKao2.0\KaoAKao2.0.Web\bin\Newtonsoft.Json.dll
+D:\KaoAKao\KaoAKao2.0\KaoAKao2.0.Web\bin\Newtonsoft.Json.xml
