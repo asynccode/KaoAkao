@@ -15,6 +15,8 @@
 *└──────────────────────────────────┘
 */
 using System;
+using System.Data;
+
 namespace KaoAKao.Entity
 {
 	/// <summary>
@@ -27,7 +29,7 @@ namespace KaoAKao.Entity
 		{}
 		#region Model
 		private int _id;
-		private Guid _roleid;
+		private string _roleid;
 		private string _rolename;
 		private string _description="";
 		/// <summary>
@@ -41,7 +43,7 @@ namespace KaoAKao.Entity
 		/// <summary>
 		/// 
 		/// </summary>
-		public Guid RoleID
+		public string RoleID
 		{
 			set{ _roleid=value;}
 			get{return _roleid;}
@@ -62,6 +64,15 @@ namespace KaoAKao.Entity
 			set{ _description=value;}
 			get{return _description;}
 		}
+
+        public void FillData(DataRow dr)
+        {
+            var cl = dr.Table.Columns;
+            this.ID = cl.Contains("ID") && dr["ID"] != DBNull.Value ? Convert.ToInt32(dr["ID"]) : 0;
+            this.RoleID = cl.Contains("RoleID") && dr["RoleID"] != DBNull.Value ? dr["RoleID"].ToString() : "";
+            this.RoleName = cl.Contains("RoleName") && dr["RoleName"] != DBNull.Value ? dr["RoleName"].ToString() : "";
+            this.Description = cl.Contains("Description") && dr["Description"] != DBNull.Value ? dr["Description"].ToString() : "";
+        }
 		#endregion Model
 
 	}

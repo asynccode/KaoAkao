@@ -15,6 +15,8 @@
 *└──────────────────────────────────┘
 */
 using System;
+using System.Data;
+
 namespace KaoAKao.Entity
 {
 	/// <summary>
@@ -27,18 +29,18 @@ namespace KaoAKao.Entity
 		{}
 		#region Model
 		private int _id;
-		private Guid _courseid;
+		private string _courseid;
 		private string _coursename="";
 		private string _categoryid;
 		private string _imgurl;
 		private int? _status;
-		private Guid _teacherid;
+		private string _teacherid;
 		private int? _limitlevel=0;
 		private decimal? _price=0M;
 		private decimal? _discount=1M;
 		private int? _viewcount=0;
 		private int? _praisecount=0;
-		private int? _sharecoun=0;
+		private int? _sharecount=0;
 		private int? _collectcount=0;
 		private int? _sort;
 		private int? _ishot=0;
@@ -59,7 +61,7 @@ namespace KaoAKao.Entity
 		/// <summary>
 		/// 
 		/// </summary>
-		public Guid CourseID
+		public string CourseID
 		{
 			set{ _courseid=value;}
 			get{return _courseid;}
@@ -99,7 +101,7 @@ namespace KaoAKao.Entity
 		/// <summary>
 		/// 
 		/// </summary>
-		public Guid TeacherID
+		public string TeacherID
 		{
 			set{ _teacherid=value;}
 			get{return _teacherid;}
@@ -147,10 +149,10 @@ namespace KaoAKao.Entity
 		/// <summary>
 		/// 
 		/// </summary>
-		public int? ShareCoun
+		public int? ShareCount
 		{
-			set{ _sharecoun=value;}
-			get{return _sharecoun;}
+			set{ _sharecount=value;}
+			get{return _sharecount;}
 		}
 		/// <summary>
 		/// 
@@ -224,6 +226,33 @@ namespace KaoAKao.Entity
 			set{ _operateid=value;}
 			get{return _operateid;}
 		}
+
+        public void FillData(DataRow dr)
+        {
+            var cl = dr.Table.Columns;
+            this.ID = cl.Contains("ID") && dr["ID"] != DBNull.Value ? Convert.ToInt32(dr["ID"]) : 0;
+            this.CourseID = cl.Contains("CourseID") && dr["CourseID"] != DBNull.Value ? dr["CourseID"].ToString() : "";
+            this.CourseName = cl.Contains("CourseName") && dr["CourseName"] != DBNull.Value ? dr["CourseName"].ToString() : "";
+            this.CategoryID = cl.Contains("CategoryID") && dr["CategoryID"] != DBNull.Value ? dr["CategoryID"].ToString() : "";
+            this.ImgURL = cl.Contains("ImgURL") && dr["ImgURL"] != DBNull.Value ? dr["ImgURL"].ToString() : "";
+            this.Status = cl.Contains("Status") && dr["Status"] != DBNull.Value ? Convert.ToInt32(dr["Status"]) : 0;
+            this.TeacherID = cl.Contains("TeacherID") && dr["TeacherID"] != DBNull.Value ? dr["TeacherID"].ToString() : "";
+            this.LimitLevel = cl.Contains("LimitLevel") && dr["LimitLevel"] != DBNull.Value ? Convert.ToInt32(dr["LimitLevel"]) : 0;
+            this.Price = cl.Contains("Price") && dr["Price"] != DBNull.Value ? Convert.ToDecimal(dr["Price"]) : 0;
+            this.Discount = cl.Contains("Discount") && dr["Discount"] != DBNull.Value ? Convert.ToDecimal(dr["Discount"]) : 0;
+            this.ViewCount = cl.Contains("ViewCount") && dr["ViewCount"] != DBNull.Value ? Convert.ToInt32(dr["ViewCount"]) : 0;
+            this.PraiseCount = cl.Contains("PraiseCount") && dr["PraiseCount"] != DBNull.Value ? Convert.ToInt32(dr["PraiseCount"]) : 0;
+            this.ShareCount = cl.Contains("ShareCount") && dr["ShareCount"] != DBNull.Value ? Convert.ToInt32(dr["ShareCount"]) : 0;
+            this.CollectCount = cl.Contains("CollectCount") && dr["CollectCount"] != DBNull.Value ? Convert.ToInt32(dr["CollectCount"]) : 0;
+            this.Sort = cl.Contains("Sort") && dr["Sort"] != DBNull.Value ? Convert.ToInt32(dr["Sort"]) : 0;
+            this.IsHot = cl.Contains("IsHot") && dr["IsHot"] != DBNull.Value ? Convert.ToInt32(dr["IsHot"]) : 0;
+            this.CreateDate = cl.Contains("CreateDate") && dr["CreateDate"] != DBNull.Value ? Convert.ToDateTime(dr["CreateDate"]) : DateTime.MinValue;
+            this.LastOperateDate = cl.Contains("LastOperateDate") && dr["LastOperateDate"] != DBNull.Value ? Convert.ToDateTime(dr["LastOperateDate"]) : DateTime.MinValue;
+            this.Keywords = cl.Contains("Keywords") && dr["Keywords"] != DBNull.Value ? dr["Keywords"].ToString() : "";
+            this.Description = cl.Contains("Description") && dr["Description"] != DBNull.Value ? dr["Description"].ToString() : "";
+            this.OperateIP = cl.Contains("OperateIP") && dr["OperateIP"] != DBNull.Value ? dr["OperateIP"].ToString() : "";
+            this.OperateID = cl.Contains("OperateID") && dr["OperateID"] != DBNull.Value ? dr["OperateID"].ToString() : "";
+        }
 		#endregion Model
 
 	}

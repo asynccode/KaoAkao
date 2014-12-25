@@ -16,6 +16,7 @@
 */
 using System;
 using System.Data;
+
 namespace KaoAKao.Entity
 {
 	/// <summary>
@@ -28,7 +29,7 @@ namespace KaoAKao.Entity
 		{}
 		#region Model
 		private int _id;
-		private Guid _userid;
+		private string _userid;
 		private string _username;
 		private string _name="";
 		private string _petname="";
@@ -75,7 +76,7 @@ namespace KaoAKao.Entity
 		/// <summary>
 		/// 
 		/// </summary>
-		public Guid UserID
+		public string UserID
 		{
 			set{ _userid=value;}
 			get{return _userid;}
@@ -360,10 +361,50 @@ namespace KaoAKao.Entity
 			set{ _operateid=value;}
 			get{return _operateid;}
 		}
-		#endregion Model
 
         public void FillData(DataRow dr)
-        { }
+        {
+            var cl = dr.Table.Columns;
+            this.ID = cl.Contains("ID") && dr["ID"] != DBNull.Value ? Convert.ToInt32(dr["ID"]) : 0;
+            this.UserID = cl.Contains("UserID") && dr["UserID"] != DBNull.Value ? dr["UserID"].ToString() : "";
+            this.UserName = cl.Contains("UserName") && dr["UserName"] != DBNull.Value ? dr["UserName"].ToString() : "";
+            this.Name = cl.Contains("Name") && dr["Name"] != DBNull.Value ? dr["Name"].ToString() : "";
+            this.PetName = cl.Contains("PetName") && dr["PetName"] != DBNull.Value ? dr["PetName"].ToString() : "";
+            this.Status = cl.Contains("Status") && dr["Status"] != DBNull.Value ? Convert.ToInt32(dr["Status"]) : 0;
+            this.LoginPwd = cl.Contains("LoginPwd") && dr["LoginPwd"] != DBNull.Value ? dr["LoginPwd"].ToString() : "";
+            this.SecurityPwd = cl.Contains("SecurityPwd") && dr["SecurityPwd"] != DBNull.Value ? dr["SecurityPwd"].ToString() : "";
+            this.LevelID = cl.Contains("LevelID") && dr["LevelID"] != DBNull.Value ? Convert.ToInt32(dr["LevelID"]) : 0;
+            this.UserType = cl.Contains("UserType") && dr["UserType"] != DBNull.Value ? Convert.ToInt32(dr["UserType"]) : 0;
+            this.Degree = cl.Contains("Degree") && dr["Degree"] != DBNull.Value ? Convert.ToInt32(dr["Degree"]) : 0;
+            this.HomeTele = cl.Contains("HomeTele") && dr["HomeTele"] != DBNull.Value ? dr["HomeTele"].ToString() : "";
+            this.MobileTele = cl.Contains("MobileTele") && dr["MobileTele"] != DBNull.Value ? dr["MobileTele"].ToString() : "";
+            this.Email = cl.Contains("Email") && dr["Email"] != DBNull.Value ? dr["Email"].ToString() : "";
+            this.Sex = cl.Contains("Sex") && dr["Sex"] != DBNull.Value ? Convert.ToInt32(dr["Sex"]) : 0;
+            this.Birthday = cl.Contains("Birthday") && dr["Birthday"] != DBNull.Value ? Convert.ToDateTime(dr["Birthday"]) : DateTime.MinValue;
+            this.AreaCode = cl.Contains("AreaCode") && dr["AreaCode"] != DBNull.Value ? dr["AreaCode"].ToString() : "";
+            this.Address = cl.Contains("Address") && dr["Address"] != DBNull.Value ? dr["Address"].ToString() : "";
+            this.PhotoPath = cl.Contains("PhotoPath") && dr["PhotoPath"] != DBNull.Value ? dr["PhotoPath"].ToString() : "";
+            this.Question = cl.Contains("Question") && dr["Question"] != DBNull.Value ? dr["Question"].ToString() : "";
+            this.Answer = cl.Contains("Answer") && dr["Answer"] != DBNull.Value ? dr["Answer"].ToString() : "";
+            this.PostCode = cl.Contains("PostCode") && dr["PostCode"] != DBNull.Value ? dr["PostCode"].ToString() : "";
+            this.PaperTypeCode = cl.Contains("PaperTypeCode") && dr["PaperTypeCode"] != DBNull.Value ? dr["PaperTypeCode"].ToString() : "";
+            this.PaperNumber = cl.Contains("PaperNumber") && dr["PaperNumber"] != DBNull.Value ? dr["PaperNumber"].ToString() : "";
+            this.IntegralIn = cl.Contains("IntegralIn") && dr["IntegralIn"] != DBNull.Value ? Convert.ToInt32(dr["IntegralIn"]) : 0;
+            this.IntegralOut = cl.Contains("IntegralOut") && dr["IntegralOut"] != DBNull.Value ? Convert.ToInt32(dr["IntegralOut"]) : 0;
+            this.GrowValue = cl.Contains("GrowValue") && dr["GrowValue"] != DBNull.Value ? Convert.ToInt32(dr["GrowValue"]) : 0;
+            this.ExpValue = cl.Contains("ExpValue") && dr["ExpValue"] != DBNull.Value ? Convert.ToInt32(dr["ExpValue"]) : 0;
+            this.RegisterDate = cl.Contains("RegisterDate") && dr["RegisterDate"] != DBNull.Value ? Convert.ToDateTime(dr["RegisterDate"]) : DateTime.MinValue;
+            this.LastloginDate = cl.Contains("LastloginDate") && dr["LastloginDate"] != DBNull.Value ? Convert.ToDateTime(dr["LastloginDate"]) : DateTime.MinValue;
+            this.PwdErrorTimes = cl.Contains("PwdErrorTimes") && dr["PwdErrorTimes"] != DBNull.Value ? Convert.ToInt32(dr["PwdErrorTimes"]) : 0;
+            this.LoginTimes = cl.Contains("LoginTimes") && dr["LoginTimes"] != DBNull.Value ? Convert.ToInt32(dr["LoginTimes"]) : 0;
+            this.LastOperateDate = cl.Contains("LastOperateDate") && dr["LastOperateDate"] != DBNull.Value ? Convert.ToDateTime(dr["LastOperateDate"]) : DateTime.MinValue;
+            this.Keywords = cl.Contains("Keywords") && dr["Keywords"] != DBNull.Value ? dr["Keywords"].ToString() : "";
+            this.Description = cl.Contains("Description") && dr["Description"] != DBNull.Value ? dr["Description"].ToString() : "";
+            this.OperateIP = cl.Contains("OperateIP") && dr["OperateIP"] != DBNull.Value ? dr["OperateIP"].ToString() : "";
+            this.OperateID = cl.Contains("OperateID") && dr["OperateID"] != DBNull.Value ? dr["OperateID"].ToString() : "";
+        }
+		#endregion Model
+
 
 	}
 }

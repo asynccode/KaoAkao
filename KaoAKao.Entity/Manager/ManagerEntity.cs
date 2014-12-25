@@ -15,6 +15,8 @@
 *└──────────────────────────────────┘
 */
 using System;
+using System.Data;
+
 namespace KaoAKao.Entity
 {
 	/// <summary>
@@ -27,7 +29,7 @@ namespace KaoAKao.Entity
 		{}
 		#region Model
 		private int _id;
-		private Guid _managerid;
+		private string _managerid;
 		private string _loginname;
 		private string _loginpwd;
 		private string _name="";
@@ -42,8 +44,8 @@ namespace KaoAKao.Entity
 		private int? _education=0;
 		private string _jobs="";
 		private string _avatar;
-		private Guid _departid;
-		private Guid _pid;
+		private string _departid;
+		private string _pid;
 		private string _allocation= "0";
 		private string _description="";
 		private DateTime? _createdate= DateTime.Now;
@@ -60,7 +62,7 @@ namespace KaoAKao.Entity
 		/// <summary>
 		/// 
 		/// </summary>
-		public Guid ManagerID
+		public string ManagerID
 		{
 			set{ _managerid=value;}
 			get{return _managerid;}
@@ -182,7 +184,7 @@ namespace KaoAKao.Entity
 		/// <summary>
 		/// 
 		/// </summary>
-		public Guid DepartID
+		public string DepartID
 		{
 			set{ _departid=value;}
 			get{return _departid;}
@@ -190,7 +192,7 @@ namespace KaoAKao.Entity
 		/// <summary>
 		/// 
 		/// </summary>
-		public Guid PID
+		public string PID
 		{
 			set{ _pid=value;}
 			get{return _pid;}
@@ -235,6 +237,34 @@ namespace KaoAKao.Entity
 			set{ _turnoverdate=value;}
 			get{return _turnoverdate;}
 		}
+
+        public void FillData(DataRow dr)
+        {
+            var cl = dr.Table.Columns;
+            this.ID = cl.Contains("ID") && dr["ID"] != DBNull.Value ? Convert.ToInt32(dr["ID"]) : 0;
+            this.ManagerID = cl.Contains("ManagerID") && dr["ManagerID"] != DBNull.Value ? dr["ManagerID"].ToString() : "";
+            this.LoginName = cl.Contains("LoginName") && dr["LoginName"] != DBNull.Value ? dr["LoginName"].ToString() : "";
+            this.LoginPWD = cl.Contains("LoginPWD") && dr["LoginPWD"] != DBNull.Value ? dr["LoginPWD"].ToString() : "";
+            this.Name = cl.Contains("Name") && dr["Name"] != DBNull.Value ? dr["Name"].ToString() : "";
+            this.Email = cl.Contains("Email") && dr["Email"] != DBNull.Value ? dr["Email"].ToString() : "";
+            this.Mobile = cl.Contains("Mobile") && dr["Mobile"] != DBNull.Value ? dr["Mobile"].ToString() : "";
+            this.Tel = cl.Contains("Tel") && dr["Tel"] != DBNull.Value ? dr["Tel"].ToString() : "";
+            this.AreaCode = cl.Contains("AreaCode") && dr["AreaCode"] != DBNull.Value ? dr["AreaCode"].ToString() : "";
+            this.Address = cl.Contains("Address") && dr["Address"] != DBNull.Value ? dr["Address"].ToString() : "";
+            this.Birthday = cl.Contains("Birthday") && dr["Birthday"] != DBNull.Value ? Convert.ToDateTime(dr["Birthday"]) : DateTime.MinValue;
+            this.Age = cl.Contains("Age") && dr["Age"] != DBNull.Value ? Convert.ToInt32(dr["Age"]) : 0;
+            this.Sex = cl.Contains("Sex") && dr["Sex"] != DBNull.Value ? Convert.ToInt32(dr["Sex"]) : 0;
+            this.Age = cl.Contains("Education") && dr["Education"] != DBNull.Value ? Convert.ToInt32(dr["Education"]) : 0;
+            this.Jobs = cl.Contains("Jobs") && dr["Jobs"] != DBNull.Value ? dr["Jobs"].ToString() : "";
+            this.Avatar = cl.Contains("Avatar") && dr["Avatar"] != DBNull.Value ? dr["Avatar"].ToString() : "";
+            this.DepartID = cl.Contains("DepartID") && dr["DepartID"] != DBNull.Value ? dr["DepartID"].ToString() : "";
+            this.PID = cl.Contains("PID") && dr["PID"] != DBNull.Value ? dr["PID"].ToString() : "";
+            this.Allocation = cl.Contains("Allocation") && dr["Allocation"] != DBNull.Value ? dr["Allocation"].ToString() : "";
+            this.Description = cl.Contains("Description") && dr["Description"] != DBNull.Value ? dr["Description"].ToString() : "";            
+            this.CreateDate = cl.Contains("CreateDate") && dr["CreateDate"] != DBNull.Value ? Convert.ToDateTime(dr["CreateDate"]) : DateTime.MinValue;
+            this.EffectDate = cl.Contains("EffectDate") && dr["EffectDate"] != DBNull.Value ? Convert.ToDateTime(dr["EffectDate"]) : DateTime.MinValue;
+            this.TurnoverDate = cl.Contains("TurnoverDate") && dr["TurnoverDate"] != DBNull.Value ? Convert.ToDateTime(dr["TurnoverDate"]) : DateTime.MinValue;
+        }
 		#endregion Model
 
 	}
