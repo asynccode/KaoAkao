@@ -1,12 +1,3 @@
-D:\KaoAKao\KaoAKao2.0\KaoAKao.Business\bin\Debug\KaoAKao.Business.dll
-D:\KaoAKao\KaoAKao2.0\KaoAKao.Business\bin\Debug\KaoAKao.Business.pdb
-D:\KaoAKao\KaoAKao2.0\KaoAKao.Business\obj\Debug\KaoAKao.Business.csprojResolveAssemblyReference.cache
-D:\KaoAKao\KaoAKao2.0\KaoAKao.Business\obj\Debug\KaoAKao.Business.dll
-D:\KaoAKao\KaoAKao2.0\KaoAKao.Business\obj\Debug\KaoAKao.Business.pdb
-D:\KaoAKao\KaoAKao2.0\KaoAKao.Business\bin\Debug\KaoAKao.DAL.dll
-D:\KaoAKao\KaoAKao2.0\KaoAKao.Business\bin\Debug\KaoAKao.Entity.dll
-D:\KaoAKao\KaoAKao2.0\KaoAKao.Business\bin\Debug\KaoAKao.DAL.pdb
-D:\KaoAKao\KaoAKao2.0\KaoAKao.Business\bin\Debug\KaoAKao.Entity.pdb
 F:\kaoakao2\KaoAKao.Business\bin\Debug\KaoAKao.Business.dll
 F:\kaoakao2\KaoAKao.Business\bin\Debug\KaoAKao.Business.pdb
 F:\kaoakao2\KaoAKao.Business\bin\Debug\KaoAKao.DAL.dll
@@ -25,3 +16,12 @@ D:\MyProgram\kaoakao\KaoAKao2.0\KaoAKao.Business\bin\Debug\KaoAKao.Entity.pdb
 D:\MyProgram\kaoakao\KaoAKao2.0\KaoAKao.Business\obj\Debug\KaoAKao.Business.csprojResolveAssemblyReference.cache
 D:\MyProgram\kaoakao\KaoAKao2.0\KaoAKao.Business\obj\Debug\KaoAKao.Business.dll
 D:\MyProgram\kaoakao\KaoAKao2.0\KaoAKao.Business\obj\Debug\KaoAKao.Business.pdb
+D:\KaoAKao\KaoAKao2.0\KaoAKao.Business\bin\Debug\KaoAKao.Business.dll
+D:\KaoAKao\KaoAKao2.0\KaoAKao.Business\bin\Debug\KaoAKao.Business.pdb
+D:\KaoAKao\KaoAKao2.0\KaoAKao.Business\bin\Debug\KaoAKao.DAL.dll
+D:\KaoAKao\KaoAKao2.0\KaoAKao.Business\bin\Debug\KaoAKao.Entity.dll
+D:\KaoAKao\KaoAKao2.0\KaoAKao.Business\bin\Debug\KaoAKao.DAL.pdb
+D:\KaoAKao\KaoAKao2.0\KaoAKao.Business\bin\Debug\KaoAKao.Entity.pdb
+D:\KaoAKao\KaoAKao2.0\KaoAKao.Business\obj\Debug\KaoAKao.Business.csprojResolveAssemblyReference.cache
+D:\KaoAKao\KaoAKao2.0\KaoAKao.Business\obj\Debug\KaoAKao.Business.dll
+D:\KaoAKao\KaoAKao2.0\KaoAKao.Business\obj\Debug\KaoAKao.Business.pdb
