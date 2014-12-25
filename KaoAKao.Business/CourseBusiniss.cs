@@ -120,6 +120,45 @@ namespace KaoAKao.Business
             return model;
         }
 
+
+        /// <summary>
+        /// 获取课程列表(分页)
+        /// </summary>
+        /// <param name="pid">上级ID</param>
+        /// <param name="keywords">关键字</param>
+        /// <param name="pageSize">每页记录数</param>
+        /// <param name="index">页码</param>
+        /// <param name="total">返回总记录数</param>
+        /// <param name="pages">返回总页码</param>
+        /// <returns></returns>
+        public static List<Entity.CourseEntity> GetCourses(string pid, string keywords, int pageSize, int index, out int total, out int pages)
+        {
+            List<Entity.CourseEntity> list = new List<Entity.CourseEntity>();
+            string table = "Courses c left join CourseCategory p on c.CategoryID=p.CategoryID";
+            string columns = " c.*,p.CategoryName CName";
+            StringBuilder build = new StringBuilder();
+            build.Append(" c.Status!= 9 and p.Status!= 9");
+            if (pid != "-1" && pid != "")
+            {
+                build.Append(" and (c.CategoryID='" + pid + "' or p.PID='" + pid + "') ");
+            }
+            if (keywords != "")
+            {
+                build.Append(" and (c.CourseName like '%" + keywords + "%' or p.CategoryName like '%" + keywords + "%')");
+            }
+
+            DataTable dt = CommonBusiness.GetPagerData(table, columns, build.ToString(), "c.AutoID", pageSize, index, out total, out pages);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                CourseEntity model = new CourseEntity();
+                model.FillData(dr);
+                list.Add(model);
+            }
+
+            return list;
+        }
+
         #endregion
 
         #region 添加
@@ -139,20 +178,42 @@ namespace KaoAKao.Business
         {
             string categoryid = GetCategoryCode();
 
-            //if (imgURL != "/modules/images/default.png")
-            //{
-            //    if (imgURL.IndexOf("?") > 0)
-            //    {
-            //        imgURL = imgURL.Substring(0, imgURL.IndexOf("?"));
-            //    }
-            //    FileInfo file = new FileInfo(HttpContext.Current.Server.MapPath(imgURL));
-            //    imgURL = "/Content/upload_images/" + file.Name;
-            //    file.MoveTo(HttpContext.Current.Server.MapPath(imgURL));
-            //}
-
             if (new CourseDAL().AddCourseCategoy(categoryid, categoryName, pid, imgURL, keyWords, desc, operateIP, operateID))
             {
                 return categoryid;
+            }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// 添加课程
+        /// </summary>
+        /// <param name="courseName">课程名</param>
+        /// <param name="cid">分类ID</param>
+        /// <param name="courseImg">图片</param>
+        /// <param name="price">单价</param>
+        /// <param name="teacherid">教师ID</param>
+        /// <param name="keyWords">关键词</param>
+        /// <param name="desc">描述</param>
+        /// <param name="operateIP">操作IP</param>
+        /// <param name="operateID">操作人</param>
+        /// <returns></returns>
+        public string AddCourse(string courseName, string cid, string imgURl, double price, string teacherid, int isHot ,int limitLevel,string keyWords, string desc, string operateIP, string operateID)
+        {
+            if (!string.IsNullOrEmpty(imgURl) && imgURl != "/modules/images/default.png")
+            {
+                if (imgURl.IndexOf("?") > 0)
+                {
+                    imgURl = imgURl.Substring(0, imgURl.IndexOf("?"));
+                }
+                FileInfo file = new FileInfo(HttpContext.Current.Server.MapPath(imgURl));
+                imgURl = "/Content/upload_images/" + file.Name;
+                file.MoveTo(HttpContext.Current.Server.MapPath(imgURl));
+            }
+            object obj = new CourseDAL().AddCourse(courseName, cid, imgURl, price, teacherid, isHot,limitLevel, keyWords, desc, operateIP, operateID);
+            if (obj != null && obj != DBNull.Value)
+            {
+                return obj.ToString();
             }
             return string.Empty;
         }

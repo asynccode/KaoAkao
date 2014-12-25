@@ -15,6 +15,7 @@
 *└──────────────────────────────────┘
 */
 using System;
+using System.Data;
 namespace KaoAKao.Entity
 {
 	/// <summary>
@@ -226,6 +227,10 @@ namespace KaoAKao.Entity
 		}
 		#endregion Model
 
+        public void FillData(DataRow dr)
+        {
+ 
+        }
 	}
 }
 
