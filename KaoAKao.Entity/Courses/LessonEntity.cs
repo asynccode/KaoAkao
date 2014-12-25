@@ -15,6 +15,8 @@
 *└──────────────────────────────────┘
 */
 using System;
+using System.Data;
+
 namespace KaoAKao.Entity
 {
 	/// <summary>
@@ -27,10 +29,10 @@ namespace KaoAKao.Entity
 		{}
 		#region Model
 		private int _id;
-		private Guid _lessonid;
+		private string _lessonid;
 		private string _lessonname;
-		private Guid _courseid;
-		private Guid _pid;
+		private string _courseid;
+		private string _pid;
 		private int? _status=1;
 		private string _radiourl;
 		private string _radiosize;
@@ -57,7 +59,7 @@ namespace KaoAKao.Entity
 		/// <summary>
 		/// 
 		/// </summary>
-		public Guid LessonID
+		public string LessonID
 		{
 			set{ _lessonid=value;}
 			get{return _lessonid;}
@@ -73,7 +75,7 @@ namespace KaoAKao.Entity
 		/// <summary>
 		/// 
 		/// </summary>
-		public Guid CourseID
+		public string CourseID
 		{
 			set{ _courseid=value;}
 			get{return _courseid;}
@@ -81,7 +83,7 @@ namespace KaoAKao.Entity
 		/// <summary>
 		/// 
 		/// </summary>
-		public Guid PID
+		public string PID
 		{
 			set{ _pid=value;}
 			get{return _pid;}
@@ -206,6 +208,31 @@ namespace KaoAKao.Entity
 			set{ _operateid=value;}
 			get{return _operateid;}
 		}
+
+        public void FillData(DataRow dr)
+        {
+            var cl = dr.Table.Columns;
+            this.ID = cl.Contains("ID") && dr["ID"] != DBNull.Value ? Convert.ToInt32(dr["ID"]) : 0;
+            this.LessonID = cl.Contains("LessonID") && dr["LessonID"] != DBNull.Value ? dr["LessonID"].ToString() : "";
+            this.LessonName = cl.Contains("LessonName") && dr["LessonName"] != DBNull.Value ? dr["LessonName"].ToString() : "";
+            this.CourseID = cl.Contains("CourseID") && dr["CourseID"] != DBNull.Value ? dr["CourseID"].ToString() : "";
+            this.PID = cl.Contains("PID") && dr["PID"] != DBNull.Value ? dr["PID"].ToString() : "";
+            this.Status = cl.Contains("Status") && dr["Status"] != DBNull.Value ? Convert.ToInt32(dr["Status"]) : 0;
+            this.RadioURL = cl.Contains("RadioURL") && dr["RadioURL"] != DBNull.Value ? dr["RadioURL"].ToString() : "";
+            this.RadioSize = cl.Contains("RadioSize") && dr["RadioSize"] != DBNull.Value ? dr["RadioSize"].ToString() : "";
+            this.ViewCount = cl.Contains("ViewCount") && dr["ViewCount"] != DBNull.Value ? Convert.ToInt32(dr["ViewCount"]) : 0;
+            this.PraiseCount = cl.Contains("PraiseCount") && dr["PraiseCount"] != DBNull.Value ? Convert.ToInt32(dr["PraiseCount"]) : 0;
+            this.ShareCount = cl.Contains("ShareCount") && dr["ShareCount"] != DBNull.Value ? Convert.ToInt32(dr["ShareCount"]) : 0;
+            this.CollectCount = cl.Contains("CollectCount") && dr["CollectCount"] != DBNull.Value ? Convert.ToInt32(dr["CollectCount"]) : 0;
+            this.Sort = cl.Contains("Sort") && dr["Sort"] != DBNull.Value ? Convert.ToInt32(dr["Sort"]) : 0;
+            this.IsHot = cl.Contains("IsHot") && dr["IsHot"] != DBNull.Value ? Convert.ToInt32(dr["IsHot"]) : 0;
+            this.CreateDate = cl.Contains("CreateDate") && dr["CreateDate"] != DBNull.Value ? Convert.ToDateTime(dr["CreateDate"]) : DateTime.MinValue;
+            this.LastOperateDate = cl.Contains("LastOperateDate") && dr["LastOperateDate"] != DBNull.Value ? Convert.ToDateTime(dr["LastOperateDate"]) : DateTime.MinValue;
+            this.Keywords = cl.Contains("Keywords") && dr["Keywords"] != DBNull.Value ? dr["Keywords"].ToString() : "";
+            this.Description = cl.Contains("Description") && dr["Description"] != DBNull.Value ? dr["Description"].ToString() : "";
+            this.OperateIP = cl.Contains("OperateIP") && dr["OperateIP"] != DBNull.Value ? dr["OperateIP"].ToString() : "";
+            this.OperateID = cl.Contains("OperateID") && dr["OperateID"] != DBNull.Value ? dr["OperateID"].ToString() : "";
+        }
 		#endregion Model
 
 	}

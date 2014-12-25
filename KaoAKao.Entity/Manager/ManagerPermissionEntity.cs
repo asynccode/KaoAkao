@@ -15,6 +15,8 @@
 *└──────────────────────────────────┘
 */
 using System;
+using System.Data;
+
 namespace KaoAKao.Entity
 {
 	/// <summary>
@@ -27,7 +29,7 @@ namespace KaoAKao.Entity
 		{}
 		#region Model
 		private int _id;
-		private Guid _managerid;
+		private string _managerid;
 		private string _permissioncode;
 		/// <summary>
 		/// 
@@ -40,7 +42,7 @@ namespace KaoAKao.Entity
 		/// <summary>
 		/// 
 		/// </summary>
-		public Guid ManagerID
+		public string ManagerID
 		{
 			set{ _managerid=value;}
 			get{return _managerid;}
@@ -53,6 +55,14 @@ namespace KaoAKao.Entity
 			set{ _permissioncode=value;}
 			get{return _permissioncode;}
 		}
+
+        public void FillData(DataRow dr)
+        {
+            var cl = dr.Table.Columns;
+            this.ID = cl.Contains("ID") && dr["ID"] != DBNull.Value ? Convert.ToInt32(dr["ID"]) : 0;
+            this.ManagerID = cl.Contains("ManagerID") && dr["ManagerID"] != DBNull.Value ? dr["ManagerID"].ToString() : "";
+            this.PermissionCode = cl.Contains("PermissionCode") && dr["PermissionCode"] != DBNull.Value ? dr["PermissionCode"].ToString() : "";
+        }
 		#endregion Model
 
 	}
