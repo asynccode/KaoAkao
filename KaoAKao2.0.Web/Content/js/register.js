@@ -3,9 +3,11 @@
 
     //基本参数
     register.options = {
-        ajaxUrl: "",
+        ajaxUrl: "/Ajax/Register",
         userName: "",
-        userPwd: ""
+        userPwd: "",
+        userConfirmPwd: "",
+        isEmail:1
     };
 
     //初始化
@@ -15,33 +17,23 @@
 
     //绑定事件
     register.bindEvent = function () {
-        $("#txt_userEmail").bind("focus", function () {
-            var userName = $("#txt_userEmail").val();
-            if (userName != "") {
-                if ((!RegExp.isEmail(userName)) && (!RegExp.isMobile(userName)))
-                    $(this).parent().find(".hint").show();
-                else
-                    $(this).parent().find(".hint").hide();
-            }
-        });
-
-        $("#txt_userPwd").bind("focus", function () {
-            var userPwd = $("#txt_userPwd").val();
-            if (userPwd != "") {
-                $(this).parent().find(".hint").hide();
-            }
-        });
-
         $("#txt_userName").bind("blur", function () {
             var userName = $("#txt_userName").val();
             if (userName != "") {
                 if ((!RegExp.isEmail(userName)) && (!RegExp.isMobile(userName)))
-                    $(this).parent().find(".hint").show();
+                {
+                    $("#registerError").show();
+                    $("#registerError").html("用户名输入错误！");
+                }
                 else
-                    $(this).parent().find(".hint").hide();
+                {
+                    $("#registerError").hide();
+                }
             }
             else
-                $(this).parent().find(".hint").show();
+            {
+                $("#registerError").hide();
+            }
         });
 
         $("#txt_userPwd").bind("blur", function () {
@@ -55,8 +47,8 @@
 
         });
 
-        $("#btn_userLogin").bind("click", function () {
-            login.userLogin();
+        $("#btn_register").bind("click", function () {
+            register.userRegister();
         });
     };
 
@@ -64,17 +56,24 @@
     register.userRegister = function () {
         $("#btn_register").val("注册中...");
         $("#btn_register").attr("disabled", true);
-        if (login.validate()) {
-            alert(login.options.userName);
-            AjaxRequest(login.options.ajaxUrl, "post",
+
+        if (register.validate()) {
+            AjaxRequest(register.options.ajaxUrl, "post",
                 {
-                    userName: login.options.userName,
-                    userPwd: login.options.userPwd
+                    UserName: register.options.userName,
+                    UserPwd: register.options.userPwd,
+                    IsEmail:register.options.isEmail
                 },
                 function (data) {
-
+                    if (data.result == "1") {
+                        alert("注册成功");
+                        location.href = "/home/index";
+                    }
+                    else {
+                        alert("注册成功");
+                    }
                 }
-                );
+            );
         }
         else {
             $("#btn_register").val("注册");
@@ -84,13 +83,45 @@
 
     //数据验证
     register.validate = function () {
-        login.options.userName = $("#txt_userName").val();
-        login.options.userPwd = $("#txt_userPwd").val();
+        register.options.userName = $("#txt_userName").val();
+        if (register.options.userName) {
+            if ((!RegExp.isEmail(register.options.userName)) && (!RegExp.isMobile(register.options.userName))) {
+                $("#registerError").show();
+                $("#registerError").html("用户名输入错误！");
+                return false;
+            }
+            else {
+                if (RegExp.isMobile(register.options.userName))
+                {
+                    register.options.isEmail = 0;
+                }
+            }
+        } else {
+            $("#registerError").show();
+            $("#registerError").html("用户名不能为空！");
+            return false;
+        }
 
-        if ((!RegExp.isEmail(login.options.userName)) && (!RegExp.isMobile(login.options.userName)))
+        register.options.userPwd = $("#txt_userPwd").val();
+        if (register.options.userPwd == "") {
+            $("#registerError").show();
+            $("#registerError").html("密码不能为空！");
             return false;
-        if (login.options.userPwd)
+        }
+
+        register.options.userConfirmPwd = $("#txt_userConfirmPwd").val();
+        if (register.options.userConfirmPwd) {
+            if (register.options.userPwd != register.options.userConfirmPwd) {
+                $("#registerError").show();
+                $("#registerError").html("确认密码错误！");
+                return false;
+            }
+        }
+        else {
+            $("#registerError").show();
+            $("#registerError").html("确认密码不能为空！");
             return false;
+        }
 
         return true;
     }

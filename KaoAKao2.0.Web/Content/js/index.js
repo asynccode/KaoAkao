@@ -20,16 +20,6 @@
                 $('.search-input').show();
             }
         });
-
-        //
-        $("#txt_userName,#txt_userPwd").bind("focus", function () {
-            $(this).parent().find(".hint").show();
-        });
-
-        $("#txt_userName,#txt_userPwd").bind("blur", function () {
-            $(this).parent().find(".hint").hide();
-        });
-
     };
 
     index.init();

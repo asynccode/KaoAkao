@@ -197,3 +197,19 @@ function isMoblieTerminal() {
     else
         return false;
 }
+
+//验证用户是否登录
+function validateLogin()
+{
+    AjaxRequest("/Ajax/Validate", "get", {},
+        function (data) {
+            alert(data);
+            if (data.result = "1") {
+                $(".clearfix li.button-min").hide();
+                var html = "<li>" + data.userName + "    |    " + "登出" + "</li>";
+
+            }
+        }
+    );
+
+}
