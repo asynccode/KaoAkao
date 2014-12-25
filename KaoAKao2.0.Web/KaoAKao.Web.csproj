@@ -101,6 +101,7 @@
     <Content Include="App_Code\AuthorizeLogin.cs" />
     <Compile Include="Areas\Manage\Controllers\BaseController.cs" />
     <Compile Include="Areas\Manage\Controllers\CourseController.cs" />
+    <Compile Include="Areas\Manage\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Manage\Controllers\HomeController.cs" />
     <Compile Include="Areas\Manage\ManageAreaRegistration.cs" />
     <Compile Include="Controllers\AjaxController.cs" />
@@ -363,6 +364,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Manage\Views\Course\CategoryDetail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Customer\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Customer\_CustomerLeftMenu.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -16,7 +16,10 @@
 */
 using System;
 using System.Data;
+<<<<<<< HEAD:KaoAKao.Entity/Users/UsersEntity.cs
 
+=======
+>>>>>>> 53fc2d84913aab6d7de8cfc858a11c446264e1da:KaoAKao.Entity/Users/UserEntity.cs
 namespace KaoAKao.Entity
 {
 	/// <summary>
@@ -404,6 +407,7 @@ namespace KaoAKao.Entity
             this.OperateID = cl.Contains("OperateID") && dr["OperateID"] != DBNull.Value ? dr["OperateID"].ToString() : "";
         }
 		#endregion Model
+
 
 	}
 }

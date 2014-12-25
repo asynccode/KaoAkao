@@ -16,7 +16,10 @@
 */
 using System;
 using System.Data;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 53fc2d84913aab6d7de8cfc858a11c446264e1da
 namespace KaoAKao.Entity
 {
 	/// <summary>
@@ -255,6 +258,10 @@ namespace KaoAKao.Entity
         }
 		#endregion Model
 
+        public void FillData(DataRow dr)
+        {
+ 
+        }
 	}
 }
 

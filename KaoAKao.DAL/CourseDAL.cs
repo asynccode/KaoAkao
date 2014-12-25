@@ -50,6 +50,29 @@ namespace KaoAKao.DAL
             return ExecuteNonQuery(sql, paras, CommandType.Text) > 0;
         }
 
+        public object AddCourse(string courseName, string cid, string courseImg, double price, string teacherid, int isHot, int limitLevel, string keyWords, string desc, string operateIP, string operateID)
+        {
+            string sql = @" declare @CourseID nvarchar(64) set @CourseID=NEWID() 
+                            INSERT INTO Courses(CourseID,CourseName,CategoryID,CIDList,CourseImg,Price,CourseLevel,TeacherID,IsHot ,LimitLevel,KeyWords,Description,CreateDate,LastOperateDate,OperateIP,OperateID)
+                            values(@CourseID,@CourseName,@CategoryID,'',@CourseImg,@Price,0,@TeacherID ,@IsHot,@LimitLevel,@KeyWords,@Description,GETDATE(),GETDATE(),@OperateIP,@OperateID)
+                            select @CourseID";
+
+            SqlParameter[] paras = { 
+                                       new SqlParameter("@CourseName",courseName),
+                                       new SqlParameter("@CategoryID",cid),
+                                       new SqlParameter("@CourseImg",courseImg),
+                                       new SqlParameter("@Price",price),
+                                       new SqlParameter("@TeacherID",teacherid),
+                                       new SqlParameter("@IsHot",isHot),
+                                       new SqlParameter("@LimitLevel",limitLevel),
+                                       new SqlParameter("@KeyWords",keyWords),
+                                       new SqlParameter("@Description",keyWords),
+                                       new SqlParameter("@OperateIP",operateIP),
+                                       new SqlParameter("@OperateID",operateID)
+                                   };
+            return ExecuteScalar(sql, paras, CommandType.Text);
+        }
+
         #endregion
 
         #region 编辑
