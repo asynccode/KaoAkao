@@ -15,6 +15,8 @@
 *└──────────────────────────────────┘
 */
 using System;
+using System.Data;
+
 namespace KaoAKao.Entity
 {
 	/// <summary>
@@ -125,6 +127,22 @@ namespace KaoAKao.Entity
 			set{ _operateid=value;}
 			get{return _operateid;}
 		}
+
+        public void FillData(DataRow dr)
+        {
+            var cl = dr.Table.Columns;
+            this.ID = cl.Contains("ID") && dr["ID"] != DBNull.Value ? Convert.ToInt32(dr["ID"]) : 0;
+            this.Level = cl.Contains("Level") && dr["Level"] != DBNull.Value ? Convert.ToInt32(dr["Level"]) : 0;
+            this.Name = cl.Contains("Name") && dr["Name"] != DBNull.Value ? dr["Name"].ToString() : "";
+            this.Type = cl.Contains("Type") && dr["Type"] != DBNull.Value ? Convert.ToInt32(dr["Type"]) : 0;
+            this.MinExp = cl.Contains("MinExp") && dr["MinExp"] != DBNull.Value ? Convert.ToInt32(dr["MinExp"]) : 0;
+            this.Discount = cl.Contains("Discount") && dr["Discount"] != DBNull.Value ? Convert.ToDecimal(dr["Discount"]) : 0;
+            this.ImgPath = cl.Contains("ImgPath") && dr["ImgPath"] != DBNull.Value ? dr["ImgPath"].ToString() : "";
+            this.Description = cl.Contains("Description") && dr["Description"] != DBNull.Value ? dr["Description"].ToString() : "";
+            this.LastOperateDate = cl.Contains("CreateDate") && dr["CreateDate"] != DBNull.Value ? Convert.ToDateTime(dr["CreateDate"]) : DateTime.MinValue;
+            this.OperateIP = cl.Contains("OperateIP") && dr["OperateIP"] != DBNull.Value ? dr["OperateIP"].ToString() : "";
+            this.OperateID = cl.Contains("OperateID") && dr["OperateID"] != DBNull.Value ? dr["OperateID"].ToString() : "";
+        }
 		#endregion Model
 
 	}

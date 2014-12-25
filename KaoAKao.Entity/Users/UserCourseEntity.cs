@@ -15,6 +15,8 @@
 *└──────────────────────────────────┘
 */
 using System;
+using System.Data;
+
 namespace KaoAKao.Entity
 {
 	/// <summary>
@@ -27,8 +29,8 @@ namespace KaoAKao.Entity
 		{}
 		#region Model
 		private int _id;
-		private Guid _userid;
-		private Guid _courseid;
+		private string _userid;
+		private string _courseid;
 		private int? _type;
 		private DateTime? _createdate= DateTime.Now;
 		/// <summary>
@@ -42,7 +44,7 @@ namespace KaoAKao.Entity
 		/// <summary>
 		/// 
 		/// </summary>
-		public Guid UserID
+		public string UserID
 		{
 			set{ _userid=value;}
 			get{return _userid;}
@@ -50,7 +52,7 @@ namespace KaoAKao.Entity
 		/// <summary>
 		/// 
 		/// </summary>
-		public Guid CourseID
+		public string CourseID
 		{
 			set{ _courseid=value;}
 			get{return _courseid;}
@@ -71,6 +73,16 @@ namespace KaoAKao.Entity
 			set{ _createdate=value;}
 			get{return _createdate;}
 		}
+
+        public void FillData(DataRow dr)
+        {
+            var cl = dr.Table.Columns;
+            this.ID = cl.Contains("ID") && dr["ID"] != DBNull.Value ? Convert.ToInt32(dr["ID"]) : 0;
+            this.UserID = cl.Contains("UserID") && dr["UserID"] != DBNull.Value ? dr["UserID"].ToString() : "";
+            this.CourseID = cl.Contains("CourseID") && dr["CourseID"] != DBNull.Value ? dr["CourseID"].ToString() : "";
+            this.Type = cl.Contains("Type") && dr["Type"] != DBNull.Value ? Convert.ToInt32(dr["Type"]) : 0;
+            this.CreateDate = cl.Contains("CreateDate") && dr["CreateDate"] != DBNull.Value ? Convert.ToDateTime(dr["CreateDate"]) : DateTime.MinValue;
+        }
 		#endregion Model
 
 	}

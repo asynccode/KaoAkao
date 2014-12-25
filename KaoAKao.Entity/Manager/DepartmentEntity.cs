@@ -15,6 +15,8 @@
 *└──────────────────────────────────┘
 */
 using System;
+using System.Data;
+
 namespace KaoAKao.Entity
 {
 	/// <summary>
@@ -27,9 +29,9 @@ namespace KaoAKao.Entity
 		{}
 		#region Model
 		private int _id;
-		private Guid _departid;
+		private string _departid;
 		private string _departname;
-		private Guid _pid;
+		private string _pid;
 		private string _description="";
 		/// <summary>
 		/// 
@@ -42,7 +44,7 @@ namespace KaoAKao.Entity
 		/// <summary>
 		/// 
 		/// </summary>
-		public Guid DepartID
+		public string DepartID
 		{
 			set{ _departid=value;}
 			get{return _departid;}
@@ -58,7 +60,7 @@ namespace KaoAKao.Entity
 		/// <summary>
 		/// 
 		/// </summary>
-		public Guid PID
+		public string PID
 		{
 			set{ _pid=value;}
 			get{return _pid;}
@@ -71,6 +73,16 @@ namespace KaoAKao.Entity
 			set{ _description=value;}
 			get{return _description;}
 		}
+
+        public void FillData(DataRow dr)
+        {
+            var cl = dr.Table.Columns;
+            this.ID = cl.Contains("ID") && dr["ID"] != DBNull.Value ? Convert.ToInt32(dr["ID"]) : 0;
+            this.DepartID = cl.Contains("DepartID") && dr["DepartID"] != DBNull.Value ? dr["DepartID"].ToString() : "";
+            this.DepartName = cl.Contains("DepartName") && dr["DepartName"] != DBNull.Value ? dr["DepartName"].ToString() : "";
+            this.PID = cl.Contains("PID") && dr["PID"] != DBNull.Value ? dr["PID"].ToString() : "";
+            this.Description = cl.Contains("Description") && dr["Description"] != DBNull.Value ? dr["Description"].ToString() : "";
+        }
 		#endregion Model
 
 	}
