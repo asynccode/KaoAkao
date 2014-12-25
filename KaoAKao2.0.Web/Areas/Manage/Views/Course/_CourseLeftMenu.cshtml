@@ -1,0 +1,14 @@
+﻿
+@{
+    string action = Url.RequestContext.RouteData.Values["action"].ToString();
+}
+<div class="controller select">
+    <span class="ico-img"></span>
+    <span class="bolder menu-name">课程管理</span>
+    <ul>
+        <li class="action "><a class="@(action.ToLower() == "createcategory" ? "select" : "")" href="/Manage/Course/CreateCategory" >新建课程分类</a></li>
+        <li class="action "><a class="@(action.ToLower() == "categorys" ? "select" : "")" href="/Manage/Course/Categorys" >课程分类管理</a></li>
+        <li class="action "><a class="@(action.ToLower() == "createcourse" ? "select" : "")" href="/Manage/Course/CreateCourse" >新建课程</a></li>
+        <li class="action "><a class="@(action.ToLower() == "courses" ? "select" : "")" href="/Manage/Course/Courses" >课程列表</a></li>
+    </ul>
+</div>

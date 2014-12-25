@@ -1,0 +1,11 @@
+﻿
+@{
+    string action = Url.RequestContext.RouteData.Values["action"].ToString();
+}
+<div class="controller select">
+    <span class="ico-img"></span>
+    <span class="bolder menu-name">公共模块</span>
+    <ul>
+        @*<li class="action "><a class="@(action.ToLower() == "appointment" ? "select" : "")" href="/Manage/Home/Appointment" >预约查询</a></li>*@
+    </ul>
+</div>

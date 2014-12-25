@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+@{
+    string controller =  Url.RequestContext.RouteData.Values["controller"].ToString();
+}
+<html>
+<head>
+    <title>闻格-考啊考后台管理信息</title>@*@ViewBag.Title*@
+    <link href="/modules/manage/css/layout-manage.css" rel="stylesheet" />
+    @RenderSection("css", false)
+</head>
+<body>
+    <header>
+        <div class="logo left"><img src="/modules/manage/images/logo.jpg" /></div>
+        <div class="menu left">
+            <ul>
+                <li class="left topMenu" >
+                    <a class="@(controller.ToLower() == "home" ? "select":"")" href="/Manage/Home/Index">首页</a> 
+                </li>
+                <li class="left topMenu" >
+                    <a class="@(controller.ToLower() == "customer" ? "select":"")" href="/Manage/Customer/Index">客户管理</a> 
+                </li>
+                <li class="left topMenu" >
+                    <a class="@(controller.ToLower() == "course" ? "select":"")" href="/Manage/Course/Index">课程管理</a> 
+                </li>
+            </ul>
+            
+        </div>
+    </header>
+    <div class="topLine"></div>
+    <div class="main-body">
+        <nav>
+            <div class="admin-name">
+                <span class="bolder">Admin</span> 欢迎您！
+            </div>
+            <div class="top-nav">
+                <img alt="首页" src="/modules/manage/images/ico-home.png"/>
+                <span class="bolder"><a href="javascript:void(0);" >功能菜单</a></span>
+            </div>
+            
+            <div class="nav-list">
+                @RenderSection("LeftMenu", false)
+            </div>
+            
+        </nav>
+        <div class="controlbar">
+        </div>
+        <div class="main-content">
+            @RenderBody()
+        </div>
+        <div class="ico-left-pull" data-status="open">
+        </div>
+    </div>
+    <script type="text/javascript" src="/modules/scripts/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="/modules/scripts/sea.js"></script>
+    <script type="text/javascript" src="/modules/scripts/sea-config.js"></script>
+    <script type="text/javascript">
+        seajs.use(["manage/scripts/manage-layout"], function (layout) {
+            layout.init();
+        });
+    </script>
+    @RenderSection("scripts", false)
+</body>
+    
+</html>

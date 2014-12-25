@@ -1,0 +1,33 @@
+﻿
+/*
+   课程分类样式
+*/
+
+.search-opt {width:90%; height:50px;}
+.searth-module { margin-top:20px; position:relative; z-index:500;}
+.search-ipt { width:180px;}
+.search-ico {position:absolute;background:url('/modules/manage/images/ico_search.gif') no-repeat; background-position:4px 0px; width:22px; height:18px; top:5px; right:5px; border-left:solid 1px #eee;}
+
+select{  height:25px; line-height:20px; padding:2px 5px; border:solid 1px #ccc; width:150px; border-radius:5px;}
+select option{  height:20px; line-height:20px;}
+
+.table-list { width:90%; border-top:solid 1px #ccc;border-left:solid 1px #ccc; border-collapse:collapse;border-spacing:0;}
+.table-list tr{ height:25px; line-height:25px;}
+.table-list td{ border-bottom:solid 1px #ccc;border-right:solid 1px #ccc; padding:2px 10px;}
+.table-list a{ color:#333; text-decoration:underline;}
+.table-list a:hover{ color:red;}
+.table-list .tr-header{ background-color:#eee; color:#333; text-align:center;}
+
+
+.category-add-main { border-bottom:solid 1px #7faaca; padding-bottom:20px; }
+.category-item { line-height:25px; line-height:30px; margin-top:5px;  padding: 2px 20px;}
+
+.category-item .input { height:20px; line-height:20px; padding:2px 5px; border:solid 1px #ccc; width:150px; border-radius:5px;}
+.category-item textarea { height:80px; line-height:20px; padding:1px 5px; border:solid 1px #ccc; width:350px; border-radius:5px;}
+.category-item input:hover { border:solid 1px #7faaca; }
+.category-item span { height:25px; line-height:25px; display:inline-block; color:#333; vertical-align:top;}
+.category-img { position:absolute; top:80px; right:50px; width:150px; }
+.category-img img{ width:150px;}
+.category-img .upload-btn{ margin-left:45px;}
+
+.lesson-video{ position:absolute; top:80px; right:50px; width:300px; }
