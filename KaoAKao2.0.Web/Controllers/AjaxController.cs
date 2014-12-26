@@ -77,7 +77,10 @@ namespace KaoAKao2._0.Web.Controllers
             else
                 ResultObj.Add("result", 0);
 
-            return Json(ResultObj, JsonRequestBehavior.AllowGet);
+            Dictionary<string, object> dictionry = new Dictionary<string, object>();
+            dictionry.Add("result", 0);
+            return new JsonResult() { Data = dictionry, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            //return Json(ResultObj, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
