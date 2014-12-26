@@ -203,7 +203,7 @@ function validateLogin()
 {
     AjaxRequest("/Ajax/Validate", "get", {},
         function (data) {
-            alert(data);
+            console.log(data);
             if (data.result = "1") {
                 $(".clearfix li.button-min").hide();
                 var html = "<li>" + data.userName + "    |    " + "登出" + "</li>";
