@@ -22,9 +22,9 @@
     <form  autocomplete="off">
         <div class="m-l-content">
          <dl class="m-l-c-dl">
-           <dt class="dt1">请输入邮箱地址</dt>
+           <dt class="dt1">请输入邮箱/手机号</dt>
            <dd class="dd1">
-             <input type="text" id="txt_userEmail" class="input-txt" />
+             <input type="text" id="txt_userName" class="input-txt" />
              <span class="m-l-c-ico"><img src="/Content/Images/login_02.png" alt=""></span>
            </dd>
            <dt class="dt1">密码</dt>
@@ -44,8 +44,9 @@
              <span class="code-ico l"><img src="/Content/Images/register_02.jpg" alt=""></span>
            </dd>
          </dl>
+         <div style="color:red; padding-top:10px;font-size:14px;" class="hidden" id="registerError"></div>
          <div class="mt20">
-          <input type="button" id="btn_register" onclick="location.href = '/home/Register'" class="button blue" value="注册" />
+          <input type="button" id="btn_register" class="button blue" value="注册" />
          </div>
          <div class="mt20">
            <a href="/home/login" class="button">返回登录</a>

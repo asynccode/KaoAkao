@@ -70,7 +70,6 @@ $(function () {
         $("#btn_userLogin").val("登录中...");
         $("#btn_userLogin").attr("disabled",true);
         if (login.validate()) {
-            alert(login.options.userName);
             AjaxRequest(login.options.ajaxUrl, "post",
                 {
                     userName: login.options.userName,
