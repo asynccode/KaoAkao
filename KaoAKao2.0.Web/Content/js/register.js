@@ -62,16 +62,26 @@
                 {
                     UserName: register.options.userName,
                     UserPwd: register.options.userPwd,
-                    IsEmail:register.options.isEmail
+                    IsEmail: register.options.isEmail,
+                    Code: register.options.code
                 },
                 function (data) {
-                    if (data.result == "1") {
+                    $("#btn_register").val("注册");
+                    $("#btn_register").removeAttr("disabled");
+
+                    if (data.result == 2) {
+                        $("#registerError").html("验证码有误！").show();
+                        $("#btn_chkCode").click();
+                    }
+                    else if (data.result == 1) {
                         alert("注册成功");
                         location.href = "/home/index";
                     }
-                    else {
-                        alert("注册成功");
+                    else if (data.result == 0) {
+                        alert("注册失败");
+                        
                     }
+
                 }
             );
         }
@@ -123,6 +133,11 @@
             return false;
         }
 
+        register.options.code = $("#txt_code").val();
+        if (register.options.code == "") {
+            $("#registerError").html("验证码不能为空！").show();
+            return false;
+        }
         return true;
     }
 

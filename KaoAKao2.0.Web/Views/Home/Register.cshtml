@@ -41,7 +41,7 @@
            <dt class="dt1">验证码</dt>
            <dd class="dd1 clearfix">
              <input type="text" id="txt_code" class="input-txt code l" />
-             <span class="code-ico l"><img src="/Content/Images/register_02.jpg" alt=""></span>
+             <span class="code-ico l"><img style="height:31px;cursor:pointer;" id="btn_chkCode"  onclick="this.src='/ajax/code?'+ Math.random();" alt="点击刷新" title="点击刷新" src="/ajax/code"></span>
            </dd>
          </dl>
          <div style="color:red; padding-top:10px;font-size:14px;" class="hidden" id="registerError"></div>
@@ -51,7 +51,7 @@
          <div class="mt20">
            <a href="/home/login" class="button">返回登录</a>
          </div>
-         <div class="share clearfix">
+         @*<div class="share clearfix">
            <div class="share-left">使用其他帐号登录</div>
            <ul class="share-right clearfix">
              <li><a href="#" class="sina"  title="微博账号">微博</a></li>
@@ -59,7 +59,7 @@
              <li><a href="#" class="douban" title="豆瓣账号">豆瓣</a></li>
              <li><a href="#" class="renren" title="人人账号">人人</a></li>
            </ul>
-         </div>
+         </div>*@
         </div>
     </form>
   </div>

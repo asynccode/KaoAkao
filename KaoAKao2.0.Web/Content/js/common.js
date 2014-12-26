@@ -201,13 +201,12 @@ function isMoblieTerminal() {
 //验证用户是否登录
 function validateLogin()
 {
-    AjaxRequest("/Ajax/Validate", "get", {},
+    AjaxRequest("/Ajax/Validate", "get", null,
         function (data) {
-            alert(data);
-            if (data.result = "1") {
-                $(".clearfix li.button-min").hide();
-                var html = "<li>" + data.userName + "    |    " + "登出" + "</li>";
-
+            if (data.result == 1) {
+                $("#ul_nav a.button-min").hide();
+                var html = "<li>" + data.userName + "       |       " + "<a style='color:#333' href='/ajax/logout'>登出<a/>" + "</li>";
+                $("#ul_nav").prepend(html);
             }
         }
     );
