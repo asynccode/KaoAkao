@@ -10,14 +10,14 @@ using KaoAKao.Business;
 
 using Newtonsoft.Json.Linq;
 using KaoAKao2._0.Web.Models;
+using System.Drawing;
 
 namespace KaoAKao2._0.Web.Controllers
 {
 
     public class AjaxController : Controller
     {
-        JObject ResultObj = new JObject();
-
+        Dictionary<string, object> ResultObj = new Dictionary<string, object>();
         #region 注册/登录
         /// <summary>
         /// 注册用户
@@ -27,25 +27,32 @@ namespace KaoAKao2._0.Web.Controllers
             string name = paras["UserName"];
             string pwd = paras["UserPwd"];
             string isEmail = paras["IsEmail"];
+            string code = paras["code"];
 
-            string email=string.Empty;
-            string mobile=string.Empty;
-            if(isEmail=="0")
-                mobile=name;
-            else
-                email=name;
-            string userID = UserBusiness.AddUsers(mobile, email, pwd, UserType.User,string.Empty,string.Empty);
-            if (!string.IsNullOrEmpty(userID))
+            if (Session["code"].ToString() == code)
             {
-                UserEntity user = UserBusiness.GetUserByUserID(userID);
-                if (user != null)
+                string email = string.Empty;
+                string mobile = string.Empty;
+                if (isEmail == "0")
+                    mobile = name;
+                else
+                    email = name;
+                string userID = UserBusiness.AddUsers(mobile, email, pwd, UserType.User, string.Empty, string.Empty);
+                if (!string.IsNullOrEmpty(userID))
                 {
-                    ResultObj.Add("result", 1);
-                    Session["User"] = user;
+                    UserEntity user = UserBusiness.GetUserByUserID(userID);
+                    if (user != null)
+                    {
+                        ResultObj.Add("result", 1);
+                        Session["User"] = user;
+                    }
                 }
+                else
+                    ResultObj.Add("result", 0);
             }
             else
-                ResultObj.Add("result",0);
+                ResultObj.Add("result", 2);
+
             return Json(ResultObj, JsonRequestBehavior.AllowGet);
         }
 
@@ -54,11 +61,8 @@ namespace KaoAKao2._0.Web.Controllers
         /// </summary>
         public ActionResult Validate()
         {
-            ResultObj = new JObject();
             UserEntity user = Session["User"] as UserEntity;
-            if (user == null)
-                ResultObj.Add("result", 0);
-            else
+            if (user != null)
             {
                 ResultObj.Add("result", 1);
                 string userName = string.Empty;
@@ -70,11 +74,10 @@ namespace KaoAKao2._0.Web.Controllers
                     userName = user.Name;
                 ResultObj.Add("userName", userName);
             }
+            else
+                ResultObj.Add("result", 0);
 
-            Dictionary<string, object> dictionry = new Dictionary<string, object>();
-            dictionry.Add("result", 0);
-            return new JsonResult() { Data = dictionry, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-            //return Json(ResultObj, JsonRequestBehavior.AllowGet);
+            return Json(ResultObj, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -82,13 +85,114 @@ namespace KaoAKao2._0.Web.Controllers
         /// </summary>
         public ActionResult Login(FormCollection paras)
         {
-            string name=paras[""];
-            string pwd = paras[""];
+            string name = paras["Name"];
+            string pwd = paras["Pwd"];
 
+            UserEntity user = UserBusiness.UserLogin(name,pwd);
+            if (user != null)
+            {
+                Session["User"] = user;
+                ResultObj.Add("result", 1);
+            }
+            else
+            {
+                ResultObj.Add("result", 0);
+            }
             return Json(ResultObj, JsonRequestBehavior.AllowGet);
         }
 
-        
+
+        /// <summary>
+        /// 用户登出
+        /// </summary>
+        public ActionResult Logout()
+        {
+            Session.Remove("User");
+            return RedirectToAction("index", "home");
+        }
+
+        /// <summary>
+        /// 获取验证码
+        /// </summary>
+        public void Code()
+        {
+            CreateCkeckCodeImage(GenerateCheckCode());
+        }
+
+        /// <summary>
+        /// 创建验证码图片
+        /// </summary>
+        /// <param name="checkCode"></param>
+        private void CreateCkeckCodeImage(string checkCode)
+        {
+            if (checkCode == null || checkCode.Trim() == String.Empty)
+            {
+                return;
+            }
+
+            System.Drawing.Bitmap image = new System.Drawing.Bitmap((int)Math.Ceiling((checkCode.Length * 13.5)), 27);
+            System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(image);
+            try
+            {
+                Random random = new Random();
+                g.Clear(System.Drawing.Color.White);
+                for (int i = 0; i < 2; i++)
+                {
+                    int x1 = random.Next(image.Width);
+                    int x2 = random.Next(image.Width);
+                    int y1 = random.Next(image.Height);
+                    int y2 = random.Next(image.Height);
+                    g.DrawLine(new Pen(Color.Black), x1, y1, x2, y2);
+                }
+
+                Font font = new Font("Arial", 14, FontStyle.Bold);
+                System.Drawing.Drawing2D.LinearGradientBrush brush = new System.Drawing.Drawing2D.LinearGradientBrush(new Rectangle(0, 0, image.Width, image.Height), Color.Blue, Color.DarkRed, 1.2f, true);
+                g.DrawString(checkCode, font, brush, 2, 2);
+
+                for (int i = 0; i < 100; i++)
+                {
+                    int x = random.Next(image.Width);
+                    int y = random.Next(image.Height);
+                    image.SetPixel(x, y, Color.FromArgb(random.Next()));
+                }
+
+                g.DrawRectangle(new Pen(Color.Silver), 0, 0, image.Width - 1, image.Height - 1);
+
+                System.IO.MemoryStream ms = new System.IO.MemoryStream();
+                image.Save(ms, System.Drawing.Imaging.ImageFormat.Gif);
+                Response.ClearContent();
+                Response.ContentType = "image/Gif";
+                Response.BinaryWrite(ms.ToArray());
+
+            }
+            finally
+            {
+                g.Dispose();
+                image.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// 生成随机的验证码数字
+        /// </summary>
+        /// <returns></returns>
+        private string GenerateCheckCode()
+        {
+            int number;
+            char code;
+            string checkCode = String.Empty;
+            Random random = new Random();
+            for (int i = 0; i < 4; i++)
+            {
+                number = random.Next();
+                code = (char)('0' + (char)(number % 10));
+                checkCode += code.ToString();
+            }
+
+            Session["code"] = checkCode;
+            return checkCode;
+        }
+
         #endregion
 
     }
