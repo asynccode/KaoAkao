@@ -299,6 +299,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Manage\Models\" />
+    <Folder Include="modules\css\" />
     <Folder Include="modules\plug\uploadify\tempFiles\" />
   </ItemGroup>
   <ItemGroup>
@@ -357,7 +358,6 @@
   <ItemGroup>
     <Content Include="modules\plug\area_city\vssver2.scc" />
     <Content Include="modules\plug\uploadify\UploadHandlers.ashx" />
-    <Content Include="modules\plug\uploadify\vssver2.scc" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Manage\Views\Course\Categorys.cshtml" />
