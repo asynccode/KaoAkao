@@ -37,6 +37,12 @@ namespace KaoAKao2._0.Web.Areas.Manage.Controllers
             ViewBag.ID = id;
             return View();
         }
+
+        public ActionResult CreateCourse()
+        {
+            ViewBag.PList = CourseBusiniss.GetCourseCategorysByPID("");
+            return View();
+        }
         #region Ajax
 
         /// <summary>

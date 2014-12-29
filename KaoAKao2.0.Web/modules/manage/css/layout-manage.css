@@ -60,6 +60,7 @@ input:focus { border:solid 1px #06C; }
 .width120 { width:120px !important; }
 .width150 { width:150px !important; }
 .width200 { width:200px !important; }
+.width300 { width:300px !important; }
 
 /*header样式*/
 header { height:55px; width:100%; padding-top:25px; background:url(../images/header.jpg) no-repeat 150px top; }
@@ -122,7 +123,7 @@ nav .action .select{background:url(../images/submenu.gif) no-repeat left top;fon
 
 
 /*表格样式*/
-.table-list { width:90%; border-top:solid 1px #ccc;border-left:solid 1px #ccc; border-collapse:collapse;border-spacing:0;}
+.table-list { width:95%; border-top:solid 1px #ccc;border-left:solid 1px #ccc; border-collapse:collapse;border-spacing:0;}
 .table-list tr{ height:25px; line-height:25px;}
 .table-list td{ border-bottom:solid 1px #ccc;border-right:solid 1px #ccc; padding:2px 10px;}
 .table-list a{ color:#333; text-decoration:underline;}

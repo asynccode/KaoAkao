@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Teachers";
+}
+
+@section LeftMenu{
+    @Html.Partial("_CustomerLeftMenu")
+}
+@section css{
+    <link href="/modules/manage/css/users.css" rel="stylesheet" />
+}
+@section scripts{
+     <script type="text/javascript">
+         seajs.use(["manage/scripts/users.js"], function (user) {
+             user.init('@ViewBag.Type');
+        });
+    </script>
+}
+<div class="header-box">
+    <span class="header-title left">@(ViewBag.Type=="1"?"教师":"会员")列表</span>
+</div>
+<div class="search-opt mLeft20">
+    <div class="left mTop20 mLeft20">
+        
+    </div>
+    <div class="right searth-module mRight20">
+        <input type="text" class="search-ipt" id="keywords" placeholder="搜索..." />
+        <span class="search-ico hand"></span>
+    </div>
+</div>
+<table class="table-list mLeft20 mTop20">
+    <tr class="tr-header">
+        <td>操作</td>
+        <td>姓名</td>
+        <td>手机号码</td>
+        <td>Email</td>
+        <td>注册日期</td>
+    </tr>
+
+</table>
+<div style="width:95%;">
+    <div id="pager" class="mTop20"></div>
+</div>

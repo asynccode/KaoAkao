@@ -324,7 +324,7 @@ namespace KaoAKao.Entity
 		/// <summary>
 		/// 
 		/// </summary>
-		public string Keywords
+		public string KeyWords
 		{
 			set{ _keywords=value;}
 			get{return _keywords;}
@@ -398,7 +398,7 @@ namespace KaoAKao.Entity
             this.PwdErrorTimes = cl.Contains("PwdErrorTimes") && dr["PwdErrorTimes"] != DBNull.Value ? Convert.ToInt32(dr["PwdErrorTimes"]) : 0;
             this.LoginTimes = cl.Contains("LoginTimes") && dr["LoginTimes"] != DBNull.Value ? Convert.ToInt32(dr["LoginTimes"]) : 0;
             this.LastOperateDate = cl.Contains("LastOperateDate") && dr["LastOperateDate"] != DBNull.Value ? Convert.ToDateTime(dr["LastOperateDate"]) : DateTime.MinValue;
-            this.Keywords = cl.Contains("Keywords") && dr["Keywords"] != DBNull.Value ? dr["Keywords"].ToString() : "";
+            this.KeyWords = cl.Contains("Keywords") && dr["Keywords"] != DBNull.Value ? dr["Keywords"].ToString() : "";
             this.Description = cl.Contains("Description") && dr["Description"] != DBNull.Value ? dr["Description"].ToString() : "";
             this.OperateIP = cl.Contains("OperateIP") && dr["OperateIP"] != DBNull.Value ? dr["OperateIP"].ToString() : "";
             this.OperateID = cl.Contains("OperateID") && dr["OperateID"] != DBNull.Value ? dr["OperateID"].ToString() : "";
