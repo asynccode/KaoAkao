@@ -159,14 +159,9 @@ namespace KaoAKao.Business
         }
 
         //添加会员等级
-        public static string AddUserLevel(int level, string name, UserType type, int minexp, double discount, string imgpath, string description, string operateIP, string operateID)
+        public static int AddUserLevel(int level, string name, UserType type, int minexp, double discount, string imgpath, string description, string operateIP, string operateID,out int result)
         {
-            object obj = new UserDAL().AddUserLevel(level, name, (int)type, minexp, discount, imgpath,description,operateIP,operateID);
-            if (obj != null && obj != DBNull.Value)
-            {
-                return obj.ToString();
-            }
-            return string.Empty;
+            return new UserDAL().AddUserLevel(level, name, (int)type, minexp, discount, imgpath, description, operateIP, operateID, out result);
         }
         #endregion
 

@@ -48,6 +48,7 @@ namespace KaoAKao.DAL
             return Convert.ToInt32(ExecuteScalar("select count(0) from Users where UserID<>@UserID and (UserName=@UserName or MobileTele=@UserName or Email=@UserName)", paras, CommandType.Text)) > 0;
         }
 
+
         #endregion
 
         #region 添加
@@ -92,13 +93,12 @@ namespace KaoAKao.DAL
             return ExecuteScalar(sql, paras, CommandType.Text);
         }
         //添加会员等级
-        public object AddUserLevel(int level, string name, int type, int minexp, double discount, string imgpath, string description, string operateIP, string operateID)
+        public int AddUserLevel(int level, string name, int type, int minexp, double discount, string imgpath, string description, string operateIP, string operateID,out int result)
         {
-            string sql = @" INSERT INTO UserLevel(Level,Name,Type,MinExp,Discount,ImgPath,Description,LastOperateDate,OperateIP,OperateID)
-                            values(@Level,@Name,@Type,@MinExp,@Discount,@ImgPath,@Description,GetDate(),@OperateIP,@OperateID)
-                            select @UserID";
-
+            int id=0;
             SqlParameter[] paras = { 
+                                       new SqlParameter("@ID",SqlDbType.Int),
+                                       new SqlParameter("@result",SqlDbType.Int),
                                        new SqlParameter("@Level",level),
                                        new SqlParameter("@Name",name),
                                        new SqlParameter("@Type",type),
@@ -108,10 +108,17 @@ namespace KaoAKao.DAL
                                        new SqlParameter("@Description",description),
                                        new SqlParameter("@OperateIP",operateIP),
                                        new SqlParameter("@OperateID",operateID)
+                                       
                                    };
-            return ExecuteScalar(sql, paras, CommandType.Text);
-        }
+            paras[0].Direction=ParameterDirection.Output;
+            paras[1].Direction=ParameterDirection.Output;
 
+            ExecuteScalar("P_AddUserLevel", paras, CommandType.StoredProcedure);
+            id = Convert.ToInt32(paras[0].Value);
+            result = Convert.ToInt32(paras[1].Value);
+            return id;
+        }
+        
         #endregion
 
         #region 编辑
