@@ -5,9 +5,10 @@ $(function () {
 
     //基本参数
     login.options = {
-        ajaxUrl:"",
+        ajaxUrl: "/Ajax/Login",
         userName: "",
-        userPwd:""
+        userPwd: "",
+        code:""
     };
 
     //初始化
@@ -20,12 +21,13 @@ $(function () {
         $("#txt_userName").bind("focus", function () {
             var userName=$("#txt_userName").val();
             if(userName!="")
-                {
-                    if ( (!RegExp.isEmail(userName)) && (!RegExp.isMobile(userName)) )
-                        $(this).parent().find(".hint").show();
-                    else
-                        $(this).parent().find(".hint").hide();
-                }
+            {
+                if ( (!RegExp.isEmail(userName)) && (!RegExp.isMobile(userName)) )
+                    $(this).parent().find(".hint").show();
+                else
+                    $(this).parent().find(".hint").hide();
+            }
+
         });
 
         $("#txt_userPwd").bind("focus", function () {
@@ -68,16 +70,23 @@ $(function () {
     //用户登录
     login.userLogin = function () {
         $("#btn_userLogin").val("登录中...");
-        $("#btn_userLogin").attr("disabled",true);
+        $("#btn_userLogin").attr("disabled", true);
+
         if (login.validate()) {
-            alert(login.options.userName);
             AjaxRequest(login.options.ajaxUrl, "post",
                 {
-                    userName: login.options.userName,
-                    userPwd: login.options.userPwd
+                    Name: login.options.userName,
+                    Pwd: login.options.userPwd
                 },
                 function (data) {
-
+                    if (data.result == 0) {
+                        $("#btn_userLogin").val("登录");
+                        $("#btn_userLogin").removeAttr("disabled");
+                        $("#loginError").html("输入的用户名或密码有误！").show();
+                    }
+                    else {
+                        location.href = "/home/index"
+                    }
                 }
                 );
         }
@@ -90,12 +99,23 @@ $(function () {
     //数据验证
     login.validate = function () {
         login.options.userName = $("#txt_userName").val();
-        login.options.userPwd = $("#txt_userPwd").val();
+        
+        if (login.options.userName != "") {
+            if ((!RegExp.isEmail(login.options.userName)) && (!RegExp.isMobile(login.options.userName))) {
+                $("#loginError").html("输入的用户名有误！").show();
+                return false;
+            }
+        }
+        else {
+            $("#loginError").html("输入的用户名不能为空！").show();
+            return false;
+        }
 
-        if ((!RegExp.isEmail(login.options.userName)) && (!RegExp.isMobile(login.options.userName)))
+        login.options.userPwd = $("#txt_userPwd").val();
+        if (login.options.userPwd == "") {
+            $("#loginError").html("输入密码不能为空！").show();
             return false;
-        if (login.options.userPwd)
-            return false;
+        }
 
         return true;
     }

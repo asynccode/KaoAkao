@@ -59,7 +59,7 @@ namespace KaoAKao.Business
         /// <summary>
         /// 注册会员
         /// </summary>
-        public string AddUsers(string mobile, string email, string loginpwd, UserType usertype,  string operateIP, string operateID)
+        public static string AddUsers(string mobile, string email, string loginpwd, UserType usertype,  string operateIP, string operateID)
         {
             loginpwd = DESEncrypt.GetEncryptionPwd(loginpwd);
             object obj = new UserDAL().AddUsers(mobile, email, loginpwd, (int)usertype, operateIP, operateID);

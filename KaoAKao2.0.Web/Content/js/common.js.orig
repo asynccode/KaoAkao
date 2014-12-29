@@ -203,10 +203,18 @@ function validateLogin()
 {
     AjaxRequest("/Ajax/Validate", "get", null,
         function (data) {
+<<<<<<< HEAD
             if (data.result == 1) {
                 $("#ul_nav a.button-min").hide();
                 var html = "<li>" + data.userName + "       |       " + "<a style='color:#333' href='/ajax/logout'>登出<a/>" + "</li>";
                 $("#ul_nav").prepend(html);
+=======
+            console.log(data);
+            if (data.result = "1") {
+                $(".clearfix li.button-min").hide();
+                var html = "<li>" + data.userName + "    |    " + "登出" + "</li>";
+
+>>>>>>> 75caa17b02c89dfc7f849dfab4f37d319bbb1ada
             }
         }
     );
