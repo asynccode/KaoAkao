@@ -373,10 +373,11 @@
     <Content Include="Areas\Manage\Views\Customer\_CustomerLeftMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Content Include="Areas\Manage\Views\Course\CreateCourse.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
+=======
     <Content Include="Areas\Manage\Views\Customer\UserLevel.cshtml" />
+>>>>>>> 76b5c9ffc15b461148821939b9e18798f2925fd1
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

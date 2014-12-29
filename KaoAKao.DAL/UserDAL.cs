@@ -70,6 +70,26 @@ namespace KaoAKao.DAL
                                    };
             return ExecuteScalar(sql, paras, CommandType.Text);
         }
+        //添加会员等级
+        public object AddUserLevel(int level, string name, int type, int minexp, double discount, string imgpath, string description, string operateIP, string operateID)
+        {
+            string sql = @" INSERT INTO UserLevel(Level,Name,Type,MinExp,Discount,ImgPath,Description,LastOperateDate,OperateIP,OperateID)
+                            values(@Level,@Name,@Type,@MinExp,@Discount,@ImgPath,@Description,GetDate(),@OperateIP,@OperateID)
+                            select @UserID";
+
+            SqlParameter[] paras = { 
+                                       new SqlParameter("@Level",level),
+                                       new SqlParameter("@Name",name),
+                                       new SqlParameter("@Type",type),
+                                       new SqlParameter("@MinExp",minexp),
+                                       new SqlParameter("@Discount",discount),
+                                       new SqlParameter("@ImgPath",imgpath),
+                                       new SqlParameter("@Description",description),
+                                       new SqlParameter("@OperateIP",operateIP),
+                                       new SqlParameter("@OperateID",operateID)
+                                   };
+            return ExecuteScalar(sql, paras, CommandType.Text);
+        }
 
         #endregion
 
