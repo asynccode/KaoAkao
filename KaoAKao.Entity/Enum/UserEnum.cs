@@ -13,8 +13,8 @@ namespace KaoAKao.Entity.Enum
     {
         //会员
         User = 0,
-        //教室
-        teacher = 1
+        //教师
+        Teacher = 1
     }
     /// <summary>
     /// 用户-课程类型

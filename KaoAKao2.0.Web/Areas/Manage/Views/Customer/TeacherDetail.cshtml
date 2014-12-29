@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "TeacherDetail";
+}
+
+@section LeftMenu{
+    @Html.Partial("_CustomerLeftMenu")
+}
+@section css{
+    <link href="/modules/manage/css/users.css" rel="stylesheet" />
+}
+@section scripts{
+    <script src="/modules/scripts/jquery-1.11.1.js"></script>
+    <script src="/modules/plug/uploadify/jquery.uploadify-3.1.js"></script>
+    <script type="text/javascript">
+        seajs.use(["manage/scripts/users.js"], function (user) {
+            user.initDetail('@ViewBag.ID', function () {
+                initUploadify($("#imgPath").attr("src"));
+            });
+        });
+    </script>
+    
+    <script type="text/javascript">
+        var id = 0;
+        function initUploadify(oldPath) {
+            id += 1;
+            $("#uploadify").uploadify({
+                'swf': '/modules/plug/uploadify/uploadify.swf',
+                'uploader': '/modules/plug/uploadify/UploadHandlers.ashx',
+                'buttonText': '更换图片',
+                'height': 25,
+                'width': 65,
+                //上传文件的类型  默认为所有文件    'All Files'  ;  '*.*'
+                //在浏览窗口底部的文件类型下拉菜单中显示的文本
+                'fileTypeDesc': 'Image Files',
+                //允许上传的文件后缀
+                'fileTypeExts': '*.gif; *.jpg; *.png',
+                //发送给后台的其他参数通过formData指定
+                'formData': { 'folder': '/Content/upload_images/', 'action': 'edit', 'old': oldPath },
+                'queueID': 'fileQueue',
+                'auto': true,
+                'multi': false,
+                onUploadSuccess: function (file, data, response) {
+                    var tempPath = data;
+                    $("#imgPath").attr("src", tempPath + "?id=" + id);
+                    initUploadify(tempPath);
+                }
+            });
+        }
+    </script>
+}
+
+<link rel="stylesheet" href="/modules/plug/uploadify/uploadify.css" />
+<div class="header-box">
+    <span class="header-title left">编辑教师</span>
+    <span class="ico-gonext right" onclick="history.go(1)" title="前进"></span>
+    <span class="ico-goback right" onclick="history.go(-1)" title="后退"></span>
+</div>
+<ul class="user-add-main">
+    <li class="user-item">
+        <span class="width80">姓名：</span><input type="text" id="name" data-empty="* 必填" class="input verify" />
+    </li>
+    <li class="user-item">
+        <span class="width80">手机：</span><input type="text" id="mobile" data-empty="* 必填" maxlength="11" data-type="mobile" data-text="格式不正确！" class="input verify" />
+    </li>
+    <li class="user-item">
+        <span class="width80">邮箱：</span><input type="text" id="email" data-type="email" data-text="格式不正确！" class="input verify" />
+    </li>
+
+    <li class="user-item">
+        <span class="width80">图片：</span><span><input type="file" name="uploadify" id="uploadify" /></span>
+    </li>
+    <li class="user-item">
+        <span class="width80">职称：</span><input type="text" id="keywords" class="input width300" />
+    </li>
+    <li class="user-item">
+        <span class="width80">描述：</span><textarea id="description"></textarea>
+    </li>
+</ul>
+<img class="user-img" id="imgPath" alt="" src="" />
+<div class="mTop20 mLeft20">
+    <input type="button" class="btn" id="btnSaveUser" value="保存" />
+</div>

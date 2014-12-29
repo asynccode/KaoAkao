@@ -1,0 +1,21 @@
+﻿
+/*
+   会员样式
+*/
+
+.search-opt {width:95%; height:50px;}
+.searth-module { margin-top:20px; position:relative; z-index:500;}
+.search-ipt { width:180px;}
+.search-ico {position:absolute;background:url('/modules/manage/images/ico_search.gif') no-repeat; background-position:4px 0px; width:22px; height:18px; top:5px; right:5px; border-left:solid 1px #eee;}
+
+.user-add-main { border-bottom:solid 1px #7faaca; padding-bottom:20px; }
+.user-item { line-height:25px; line-height:30px; margin-top:5px;  padding: 2px 20px;}
+
+.user-item .input { height:20px; line-height:20px; padding:2px 5px; border:solid 1px #ccc; width:150px; border-radius:5px;}
+.user-item textarea { height:80px; line-height:20px; padding:1px 5px; border:solid 1px #ccc; width:300px; border-radius:5px;}
+.user-item input:hover { border:solid 1px #7faaca; }
+.user-item span { height:25px; line-height:25px; display:inline-block; color:#333; vertical-align:top;}
+.user-img { position:absolute; top:80px; right:50px; width:150px; }
+.user-img img{ width:150px;}
+.user-img .upload-btn{ margin-left:45px;}
+

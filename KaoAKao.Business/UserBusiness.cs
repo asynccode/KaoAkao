@@ -8,12 +8,48 @@ using System.Threading.Tasks;
 using KaoAKao.DAL;
 using KaoAKao.Entity;
 using KaoAKao.Entity.Enum;
+using System.IO;
+using System.Web;
 
 namespace KaoAKao.Business
 {
     public class UserBusiness
     {
         #region 查询
+
+        /// <summary>
+        /// 获取会员列表(分页)
+        /// </summary>
+        /// <param name="keywords"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="index"></param>
+        /// <param name="total"></param>
+        /// <param name="pages"></param>
+        /// <returns></returns>
+        public static List<Entity.UserEntity> GetUsers(string keywords, int pageSize, int index, UserType type, out int total, out int pages)
+        {
+            List<Entity.UserEntity> list = new List<Entity.UserEntity>();
+            string table = "Users ";
+            string columns = " * ";
+            StringBuilder build = new StringBuilder();
+            build.Append(" Status != 9 and UserType=" + (int)type);
+
+            if (keywords != "")
+            {
+                build.Append(" and (Name like '%" + keywords + "%' or UserName like '%" + keywords + "%')");
+            }
+
+            DataTable dt = CommonBusiness.GetPagerData(table, columns, build.ToString(), "ID", pageSize, index, out total, out pages);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                UserEntity model = new UserEntity();
+                model.FillData(dr);
+                list.Add(model);
+            }
+
+            return list;
+        }
 
         /// <summary>
         /// 获取会员信息
@@ -52,6 +88,33 @@ namespace KaoAKao.Business
             return model;
         }
 
+        /// <summary>
+        /// 判断是否存在用户名、手机号码、邮箱
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public static bool IsExistUserName(string userName)
+        {
+            if (string.IsNullOrEmpty(userName))
+            {
+                return false;
+            }
+            return new UserDAL().IsExistUserName(userName);
+        }
+        /// <summary>
+        /// 判断是否存在用户名、手机号码、邮箱
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public static bool IsExistUserName(string userID, string userName)
+        {
+            if (string.IsNullOrEmpty(userName))
+            {
+                return false;
+            }
+            return new UserDAL().IsExistUserName(userID, userName);
+        }
+
         #endregion
 
         #region 添加
@@ -63,6 +126,31 @@ namespace KaoAKao.Business
         {
             loginpwd = DESEncrypt.GetEncryptionPwd(loginpwd);
             object obj = new UserDAL().AddUsers(mobile, email, loginpwd, (int)usertype, operateIP, operateID);
+            if (obj != null && obj != DBNull.Value)
+            {
+                return obj.ToString();
+            }
+            return string.Empty;
+        }
+        /// <summary>
+        /// 注册会员
+        /// </summary>
+        public static string AddUsers(string name, string mobile, string email, string loginpwd, string photoPath, UserType usertype, string keyWords, string desc, string operateIP, string operateID)
+        {
+            loginpwd = DESEncrypt.GetEncryptionPwd(loginpwd);
+
+            if (!string.IsNullOrEmpty(photoPath) && photoPath != "/modules/images/default.png")
+            {
+                if (photoPath.IndexOf("?") > 0)
+                {
+                    photoPath = photoPath.Substring(0, photoPath.IndexOf("?"));
+                }
+                FileInfo file = new FileInfo(HttpContext.Current.Server.MapPath(photoPath));
+                photoPath = "/Content/upload_images/" + file.Name;
+                file.MoveTo(HttpContext.Current.Server.MapPath(photoPath));
+            }
+
+            object obj = new UserDAL().AddUsers(name, mobile, email, loginpwd, photoPath, (int)usertype, keyWords, desc, operateIP, operateID);
             if (obj != null && obj != DBNull.Value)
             {
                 return obj.ToString();
@@ -83,9 +171,39 @@ namespace KaoAKao.Business
         #endregion
 
         #region 编辑
+
+        /// <summary>
+        /// 编辑教师信息
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="userName"></param>
+        /// <param name="name"></param>
+        /// <param name="mobile"></param>
+        /// <param name="email"></param>
+        /// <param name="photopath"></param>
+        /// <param name="keyWords"></param>
+        /// <param name="desc"></param>
+        /// <param name="operateIP"></param>
+        /// <param name="operateID"></param>
+        /// <returns></returns>
+        public bool EditTeacher(string userid, string userName, string name, string mobile, string email, string photopath, string keyWords, string desc, string operateIP, string operateID)
+        {
+            if (photopath.IndexOf("?") > 0)
+            {
+                photopath = photopath.Substring(0, photopath.IndexOf("?"));
+            }
+            return new UserDAL().EditTeacher(userid, userName, name, mobile, email, photopath, keyWords, desc, operateIP, operateID);
+        }
+
         #endregion
 
         #region 删除
+
+        public bool DeleteUser(string userid, string operateIP, string operateID)
+        {
+            return new UserDAL().DeleteUser(userid, operateIP, operateID);
+        }
+
         #endregion
     }
 }
