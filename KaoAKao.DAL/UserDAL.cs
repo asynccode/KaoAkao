@@ -122,7 +122,7 @@ namespace KaoAKao.DAL
             paras[0].Direction=ParameterDirection.Output;
             paras[1].Direction=ParameterDirection.Output;
 
-            ExecuteScalar("P_AddUserLevel", paras, CommandType.StoredProcedure);
+            ExecuteScalar("P_UserLevelAdd", paras, CommandType.StoredProcedure);
             id = Convert.ToInt32(paras[0].Value);
             result = Convert.ToInt32(paras[1].Value);
             return id;
