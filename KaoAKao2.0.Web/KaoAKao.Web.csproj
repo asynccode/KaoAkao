@@ -253,6 +253,7 @@
     <Content Include="modules\manage\images\topLine.gif" />
     <Content Include="modules\manage\images\topmenu.gif" />
     <Content Include="modules\manage\scripts\course-category.js" />
+    <Content Include="modules\manage\scripts\courses.js" />
     <Content Include="modules\manage\scripts\manage-layout.js" />
     <Content Include="modules\manage\template\course-category-list.html" />
     <Content Include="modules\manage\template\course-list.html" />
@@ -370,6 +371,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Manage\Views\Customer\_CustomerLeftMenu.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Course\CreateCourse.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -60,6 +60,7 @@ input:focus { border:solid 1px #06C; }
 .width120 { width:120px !important; }
 .width150 { width:150px !important; }
 .width200 { width:200px !important; }
+.width300 { width:300px !important; }
 
 /*header样式*/
 header { height:55px; width:100%; padding-top:25px; background:url(../images/header.jpg) no-repeat 150px top; }
