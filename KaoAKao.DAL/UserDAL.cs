@@ -108,7 +108,6 @@ namespace KaoAKao.DAL
                                        new SqlParameter("@Description",description),
                                        new SqlParameter("@OperateIP",operateIP),
                                        new SqlParameter("@OperateID",operateID)
-                                       
                                    };
             paras[0].Direction=ParameterDirection.Output;
             paras[1].Direction=ParameterDirection.Output;
