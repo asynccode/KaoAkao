@@ -70,6 +70,16 @@ namespace KaoAKao.Business
             return string.Empty;
         }
 
+        //添加会员等级
+        public static string AddUserLevel(int level, string name, UserType type, int minexp, double discount, string imgpath, string description, string operateIP, string operateID)
+        {
+            object obj = new UserDAL().AddUserLevel(level, name, (int)type, minexp, discount, imgpath,description,operateIP,operateID);
+            if (obj != null && obj != DBNull.Value)
+            {
+                return obj.ToString();
+            }
+            return string.Empty;
+        }
         #endregion
 
         #region 编辑

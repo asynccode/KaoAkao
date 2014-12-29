@@ -16,5 +16,10 @@ namespace KaoAKao2._0.Web.Areas.Manage.Controllers
             return View();
         }
 
+        public ActionResult UserLevel()
+        {
+            return View();
+        }
+
     }
 }
