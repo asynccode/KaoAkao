@@ -19,6 +19,11 @@ namespace KaoAKao2._0.Web.Areas.Manage.Controllers
             return View();
         }
 
+        public ActionResult CreateUserLevel()
+        {
+            return View();
+        }
+
         public ActionResult UserLevel()
         {
             return View();
@@ -116,7 +121,7 @@ namespace KaoAKao2._0.Web.Areas.Manage.Controllers
         }
 
         /// <summary>
-        /// 编辑会员
+        /// 编辑教师
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
