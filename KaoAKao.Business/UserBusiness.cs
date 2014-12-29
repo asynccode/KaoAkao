@@ -17,6 +17,48 @@ namespace KaoAKao.Business
     {
         #region 查询
 
+
+        /// <summary>
+        /// 获取教师列表
+        /// </summary>
+        /// <returns></returns>
+        public static List<Entity.UserEntity> GetTeachers()
+        {
+            List<Entity.UserEntity> list = new List<Entity.UserEntity>();
+
+            DataTable dt = new UserDAL().GetTeachers();
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                UserEntity model = new UserEntity();
+                model.FillData(dr);
+                list.Add(model);
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// 获取等级列表
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static List<Entity.UserLevelEntity> GetUserLevelByType(UserType type)
+        {
+            List<Entity.UserLevelEntity> list = new List<Entity.UserLevelEntity>();
+            DataTable dt = new UserDAL().GetUserLevelByType((int)type);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                UserLevelEntity model = new UserLevelEntity();
+                model.FillData(dr);
+                list.Add(model);
+            }
+
+            return list;
+
+        }
+
         /// <summary>
         /// 获取会员列表(分页)
         /// </summary>
@@ -119,6 +161,8 @@ namespace KaoAKao.Business
 
         #region 添加
 
+
+
         /// <summary>
         /// 注册会员
         /// </summary>
@@ -159,9 +203,20 @@ namespace KaoAKao.Business
         }
 
         //添加会员等级
-        public static int AddUserLevel(int level, string name, UserType type, int minexp, double discount, string imgpath, string description, string operateIP, string operateID,out int result)
+        public static int AddUserLevel(int level, string name, UserType type, int minexp, double discount, string photoPath, string description, string operateIP, string operateID, out int result)
         {
-            return new UserDAL().AddUserLevel(level, name, (int)type, minexp, discount, imgpath, description, operateIP, operateID, out result);
+            if (!string.IsNullOrEmpty(photoPath) && photoPath != "/modules/images/default.png")
+            {
+                if (photoPath.IndexOf("?") > 0)
+                {
+                    photoPath = photoPath.Substring(0, photoPath.IndexOf("?"));
+                }
+                FileInfo file = new FileInfo(HttpContext.Current.Server.MapPath(photoPath));
+                photoPath = "/Content/upload_images/" + file.Name;
+                file.MoveTo(HttpContext.Current.Server.MapPath(photoPath));
+            }
+
+            return new UserDAL().AddUserLevel(level, name, (int)type, minexp, discount, photoPath, description, operateIP, operateID, out result);
         }
         #endregion
 

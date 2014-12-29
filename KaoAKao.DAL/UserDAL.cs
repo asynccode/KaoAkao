@@ -21,6 +21,16 @@ namespace KaoAKao.DAL
         }
 
 
+        public DataTable GetTeachers()
+        {
+            return GetDataTable("select * from Users where UserType=1 and Status!=9");
+        }
+
+        public DataTable GetUserLevelByType(int type)
+        {
+            return GetDataTable("select * from UserLevel where Type=" + type + " order by Level");
+        }
+
         public DataTable UserLogin(string userName, string loginpwd)
         {
 

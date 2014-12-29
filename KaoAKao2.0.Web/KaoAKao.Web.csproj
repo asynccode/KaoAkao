@@ -257,6 +257,7 @@
     <Content Include="modules\manage\scripts\courses.js" />
     <Content Include="modules\manage\scripts\manage-layout.js" />
     <Content Include="modules\manage\scripts\users.js" />
+    <Content Include="modules\manage\scripts\userlevel.js" />
     <Content Include="modules\manage\template\course-category-list.html" />
     <Content Include="modules\manage\template\course-list.html" />
     <Content Include="modules\manage\template\users-list.html" />

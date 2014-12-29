@@ -75,20 +75,20 @@
     <li class="category-item">
         <span class="width80">任课教师：</span>
         <select id="teacher" data-empty="* 必选" class="verify">
-            @*@foreach (var item in (List<KaoAKao.Entity.UserEntity>)ViewBag.TList)
+            @foreach (var item in (List<KaoAKao.Entity.UserEntity>)ViewBag.TList)
             {
                 <option value="@item.UserID">@item.Name</option>
-            }*@
+            }
         </select>
     </li>
      <li class="category-item">
         <span class="width80">等级限制：</span>
         <select id="limitLevel">
             <option value="0">无限制</option>
-            @*@foreach (var item in (List<KaoAKao.Entity.UserEntity>)ViewBag.TList)
+           @foreach (var item in (List<KaoAKao.Entity.UserLevelEntity>)ViewBag.LList)
             {
-                <option value="@item.UserID">@item.Name</option>
-            }*@
+                <option value="@item.Level">@item.Name</option>
+            }
         </select>
     </li>
     <li class="category-item">

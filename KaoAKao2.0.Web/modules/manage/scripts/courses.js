@@ -135,7 +135,7 @@ define(function (require, exports, module) {
         //获取下级分类
         getChildCategry: function (pid, callback) {
             $("#pcategory").empty();
-            Global.post("/Manage/Courses/GetCourseCategorysByPID", { pid: pid }, function (data) {
+            Global.post("/Manage/Course/GetCourseCategorysByPID", { pid: pid }, function (data) {
                 for (var i = 0, j = data.Items.length; i < j; i++) {
                     $("#pcategory").append("<option value='" + data.Items[i].CategoryID + "'>" + data.Items[i].CategoryName + "</option>");
                 }

@@ -8,8 +8,7 @@
 .search-ipt { width:180px;}
 .search-ico {position:absolute;background:url('/modules/manage/images/ico_search.gif') no-repeat; background-position:4px 0px; width:22px; height:18px; top:5px; right:5px; border-left:solid 1px #eee;}
 
-select{  height:25px; line-height:20px; padding:2px 5px; border:solid 1px #ccc; width:150px; border-radius:5px;}
-select option{  height:20px; line-height:20px;}
+
 
 .category-add-main { border-bottom:solid 1px #7faaca; padding-bottom:20px; }
 .category-item { line-height:25px; line-height:30px; margin-top:5px;  padding: 2px 20px;}
