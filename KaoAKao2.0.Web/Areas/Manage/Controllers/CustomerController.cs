@@ -47,7 +47,7 @@ namespace KaoAKao2._0.Web.Areas.Manage.Controllers
         }
 
 
-        #region AJAX
+        #region 教师 AJAX
 
 
         /// <summary>
@@ -160,6 +160,28 @@ namespace KaoAKao2._0.Web.Areas.Manage.Controllers
             bool bl = new KaoAKao.Business.UserBusiness().DeleteUser(userid, OperateIP, CurrentManager.Number);
 
             JsonDictionary.Add("Status", bl);
+
+            return new JsonResult() { Data = JsonDictionary, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
+        #endregion
+
+        #region 会员等级 AJAX
+
+        /// <summary>
+        /// 添加教师
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public JsonResult SaveUserLevel(string userLevel)
+        {
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            KaoAKao.Entity.UserLevelEntity model = serializer.Deserialize<KaoAKao.Entity.UserLevelEntity>(userLevel);
+
+            int result = 0;
+            int id = KaoAKao.Business.UserBusiness.AddUserLevel(model.Level.Value, model.Name, model.Type, model.MinExp.Value, model.Discount.Value, model.ImgPath, model.Description, OperateIP, CurrentManager.Number, out result);
+
+            JsonDictionary.Add("ID", result);
 
             return new JsonResult() { Data = JsonDictionary, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }

@@ -1,4 +1,5 @@
 ﻿using KaoAKao.Business;
+using KaoAKao.Entity.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,10 +41,28 @@ namespace KaoAKao2._0.Web.Areas.Manage.Controllers
 
         public ActionResult CreateCourse()
         {
+            ViewBag.LList = UserBusiness.GetUserLevelByType(UserType.User);
+            ViewBag.TList = UserBusiness.GetTeachers();
             ViewBag.PList = CourseBusiniss.GetCourseCategorysByPID("");
             return View();
         }
         #region Ajax
+
+        /// <summary>
+        /// 获取课程分类实体
+        /// </summary>
+        /// <param name="cid"></param>
+        /// <returns></returns>
+        public JsonResult GetCourseCategorysByPID(string pid)
+        {
+            var list = CourseBusiniss.GetCourseCategorysByPID(pid);
+            JsonDictionary.Add("Items", list);
+            return new JsonResult
+            {
+                Data = JsonDictionary,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
 
         /// <summary>
         /// 获取课程分类列表

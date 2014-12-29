@@ -6,6 +6,9 @@ a { text-decoration:none; }
 input { border:solid 1px #ccc; border-radius:5px;height:25px; line-height:25px; padding:0 5px; }
 input:focus { border:solid 1px #06C; }
 
+select{  height:25px; line-height:20px; padding:2px 5px; border:solid 1px #ccc; width:150px; border-radius:5px;}
+select option{  height:20px; line-height:20px;}
+
 .left { float:left !important; }
 .right { float:right !important; }
 .hand { cursor:pointer; }

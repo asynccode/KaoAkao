@@ -1,4 +1,5 @@
-﻿/**  版本信息模板在安装目录下，可自行修改。
+﻿using KaoAKao.Entity.Enum;
+/**  版本信息模板在安装目录下，可自行修改。
 * UserLevel.cs
 *
 * 功 能： N/A
@@ -31,9 +32,9 @@ namespace KaoAKao.Entity
 		private int _id;
 		private int? _level;
 		private string _name="";
-		private int? _type=1;
+		private UserType _type;
 		private int? _minexp=0;
-		private decimal? _discount=1M;
+        private double? _discount = 1;
 		private string _imgpath="";
 		private string _description="";
 		private DateTime? _lastoperatedate= DateTime.Now;
@@ -66,7 +67,7 @@ namespace KaoAKao.Entity
 		/// <summary>
 		/// 
 		/// </summary>
-		public int? Type
+        public UserType Type
 		{
 			set{ _type=value;}
 			get{return _type;}
@@ -82,7 +83,7 @@ namespace KaoAKao.Entity
 		/// <summary>
 		/// 
 		/// </summary>
-		public decimal? Discount
+        public double? Discount
 		{
 			set{ _discount=value;}
 			get{return _discount;}
@@ -134,9 +135,9 @@ namespace KaoAKao.Entity
             this.ID = cl.Contains("ID") && dr["ID"] != DBNull.Value ? Convert.ToInt32(dr["ID"]) : 0;
             this.Level = cl.Contains("Level") && dr["Level"] != DBNull.Value ? Convert.ToInt32(dr["Level"]) : 0;
             this.Name = cl.Contains("Name") && dr["Name"] != DBNull.Value ? dr["Name"].ToString() : "";
-            this.Type = cl.Contains("Type") && dr["Type"] != DBNull.Value ? Convert.ToInt32(dr["Type"]) : 0;
+            this.Type = cl.Contains("Type") && dr["Type"] != DBNull.Value ? (UserType)(dr["Type"]) : UserType.User;
             this.MinExp = cl.Contains("MinExp") && dr["MinExp"] != DBNull.Value ? Convert.ToInt32(dr["MinExp"]) : 0;
-            this.Discount = cl.Contains("Discount") && dr["Discount"] != DBNull.Value ? Convert.ToDecimal(dr["Discount"]) : 0;
+            this.Discount = cl.Contains("Discount") && dr["Discount"] != DBNull.Value ? Convert.ToDouble(dr["Discount"]) : 0;
             this.ImgPath = cl.Contains("ImgPath") && dr["ImgPath"] != DBNull.Value ? dr["ImgPath"].ToString() : "";
             this.Description = cl.Contains("Description") && dr["Description"] != DBNull.Value ? dr["Description"].ToString() : "";
             this.LastOperateDate = cl.Contains("CreateDate") && dr["CreateDate"] != DBNull.Value ? Convert.ToDateTime(dr["CreateDate"]) : DateTime.MinValue;
