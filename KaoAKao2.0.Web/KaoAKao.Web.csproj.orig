@@ -230,7 +230,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="modules\manage\css\course-category.css" />
     <Content Include="modules\manage\css\layout-manage.css" />
-    <Content Include="modules\manage\css\users.css" />
     <Content Include="modules\manage\images\header.jpg" />
     <Content Include="modules\manage\images\ico-add.png" />
     <Content Include="modules\manage\images\ico-goback.png" />
@@ -256,8 +255,6 @@
     <Content Include="modules\manage\scripts\course-category.js" />
     <Content Include="modules\manage\scripts\courses.js" />
     <Content Include="modules\manage\scripts\manage-layout.js" />
-    <Content Include="modules\manage\scripts\users.js" />
-    <Content Include="modules\manage\scripts\userlevel.js" />
     <Content Include="modules\manage\template\course-category-list.html" />
     <Content Include="modules\manage\template\course-list.html" />
     <Content Include="modules\manage\template\users-list.html" />
@@ -303,7 +300,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Manage\Models\" />
-    <Folder Include="Content\upload_images\" />
     <Folder Include="modules\css\" />
     <Folder Include="modules\plug\uploadify\tempFiles\" />
   </ItemGroup>
@@ -377,22 +373,11 @@
     <Content Include="Areas\Manage\Views\Customer\_CustomerLeftMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Content Include="Areas\Manage\Views\Course\CreateCourse.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
+=======
     <Content Include="Areas\Manage\Views\Customer\UserLevel.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Manage\Views\Customer\CreateTeacher.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Manage\Views\Customer\Teachers.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Manage\Views\Customer\TeacherDetail.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Manage\Views\Customer\CreateUserLevel.cshtml" />
+>>>>>>> 76b5c9ffc15b461148821939b9e18798f2925fd1
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

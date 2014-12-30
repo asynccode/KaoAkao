@@ -1,0 +1,116 @@
+﻿@{
+    ViewBag.Title = "CreateCourse";
+}
+
+@section LeftMenu{
+    @Html.Partial("_CourseLeftMenu");
+}
+
+@section css{
+    <link rel="stylesheet" href="/modules/manage/css/course-category.css" />
+}
+<link rel="stylesheet" href="/modules/plug/uploadify/uploadify.css" />
+@section scripts{
+    <script type="text/javascript">
+        seajs.use(["manage/scripts/courses.js"], function (courses) {
+            courses.initCreate();
+        });
+    </script>
+    <script src="/modules/scripts/jquery-1.11.1.js"></script>
+    <script src="/modules/plug/uploadify/jquery.uploadify-3.1.js"></script>
+    <script type="text/javascript">
+        var id = 0;
+        $(document).ready(function () {
+            initUploadify("");
+        });
+        function initUploadify(oldPath) {
+            id += 1;
+            $("#uploadify").uploadify({
+                'swf': '/modules/plug/uploadify/uploadify.swf',
+                'uploader': '/modules/plug/uploadify/UploadHandlers.ashx',
+                'buttonText': '上传图片',
+                'height': 25,
+                'width': 65,
+                //上传文件的类型  默认为所有文件    'All Files'  ;  '*.*'
+                //在浏览窗口底部的文件类型下拉菜单中显示的文本
+                'fileTypeDesc': 'Image Files',
+                //允许上传的文件后缀
+                'fileTypeExts': '*.gif; *.jpg; *.png',
+                //发送给后台的其他参数通过formData指定
+                'formData': { 'folder': '/modules/plug/uploadify/tempFiles/', 'action': 'add', 'old': oldPath },
+                'queueID': 'fileQueue',
+                'auto': true,
+                'multi': false,
+                onUploadSuccess: function (file, data, response) {
+                    var tempPath = data;
+                    $("#imageURL").val(tempPath);
+                    $("#courseImage").attr("src", tempPath + "?id=" + id);
+                    initUploadify(tempPath);
+                }
+            });
+        }
+    </script>
+}
+
+<div class="header-box">
+    <span class="header-title left">新建课程</span>
+</div>
+<ul class="category-add-main">
+    <li class="category-item">
+        <span class="width80">名称：</span><input type="text" id="courseName" data-empty="* 必填" class="input verify width150" />
+    </li>
+    <li class="category-item">
+        <span class="width80">选择分类：</span>
+        <select id="category">
+            @foreach (var item in (List<KaoAKao.Entity.CourseCategoryEntity>)ViewBag.PList)
+            {
+                <option value="@item.CategoryID">@item.CategoryName</option>
+            }
+        </select>
+        <select id="pcategory" data-empty="* 必选" class="verify">
+           
+        </select>
+    </li>
+    
+    <li class="category-item">
+        <span class="width80">任课教师：</span>
+        <select id="teacher" data-empty="* 必选" class="verify">
+            @foreach (var item in (List<KaoAKao.Entity.UserEntity>)ViewBag.TList)
+            {
+                <option value="@item.UserID">@item.Name</option>
+            }
+        </select>
+    </li>
+     <li class="category-item">
+        <span class="width80">等级限制：</span>
+        <select id="limitLevel">
+            <option value="0">无限制</option>
+           @foreach (var item in (List<KaoAKao.Entity.UserLevelEntity>)ViewBag.LList)
+            {
+                <option value="@item.Level">@item.Name</option>
+            }
+        </select>
+    </li>
+    <li class="category-item">
+        <span class="width80">是否推荐：</span>
+        <select id="isHot">
+            <option value="0">不推荐</option>
+            <option value="1" selected="selected">推荐</option>
+        </select>
+    </li>
+    <li class="category-item">
+        <span class="width80">图片：</span><span><input type="file" name="uploadify" id="uploadify" /></span>
+    </li>
+    <li class="category-item">
+        <span class="width80">标签：</span><input type="text" id="courseKeyWords" class="input width300" />
+    </li>
+    <li class="category-item">
+        <span class="width80">描述：</span><textarea id="description"></textarea>
+    </li>
+</ul>
+<img class="category-img" id="courseImage" alt="" src="/modules/images/default.png" />
+<input id="imageURL" type="hidden" value="" />
+<div class="mTop20 mLeft20">
+    <input type="button" class="btn" id="btnSaveCourse" value="保存" />
+</div>
+

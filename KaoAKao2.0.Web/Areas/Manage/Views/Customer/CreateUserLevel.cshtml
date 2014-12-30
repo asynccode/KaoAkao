@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "新建等级";
+}
+
+@section LeftMenu{
+    @Html.Partial("_CustomerLeftMenu")
+}
+@section css{
+    <link href="/modules/manage/css/users.css" rel="stylesheet" />
+}
+
+<link rel="stylesheet" href="/modules/plug/uploadify/uploadify.css" />
+@section scripts{
+    <script type="text/javascript">
+        seajs.use(["manage/scripts/userlevel.js"], function (userlevel) {
+            userlevel.initCreate();
+        });
+    </script>
+    <script src="/modules/scripts/jquery-1.11.1.js"></script>
+    <script src="/modules/plug/uploadify/jquery.uploadify-3.1.js"></script>
+    <script type="text/javascript">
+        var id = 0;
+        $(document).ready(function () {
+            initUploadify("");
+        });
+        function initUploadify(oldPath) {
+            id += 1;
+            $("#uploadify").uploadify({
+                'swf': '/modules/plug/uploadify/uploadify.swf',
+                'uploader': '/modules/plug/uploadify/UploadHandlers.ashx',
+                'buttonText': '上传图片',
+                'height': 25,
+                'width': 65,
+                //上传文件的类型  默认为所有文件    'All Files'  ;  '*.*'
+                //在浏览窗口底部的文件类型下拉菜单中显示的文本
+                'fileTypeDesc': 'Image Files',
+                //允许上传的文件后缀
+                'fileTypeExts': '*.gif; *.jpg; *.png',
+                //发送给后台的其他参数通过formData指定
+                'formData': { 'folder': '/modules/plug/uploadify/tempFiles/', 'action': 'add', 'old': oldPath },
+                'queueID': 'fileQueue',
+                'auto': true,
+                'multi': false,
+                onUploadSuccess: function (file, data, response) {
+                    var tempPath = data;
+                    $("#imgPath").attr("src", tempPath + "?id=" + id);
+                    initUploadify(tempPath);
+                }
+            });
+        }
+    </script>
+}
+
+<div class="header-box">
+    <span class="header-title left">新建会员等级</span>
+</div>
+<ul class="user-add-main">
+    <li class="user-item">
+        <span class="width80">等级：</span><input type="text" id="level" data-empty="* 必填" class="input verify" />
+    </li>
+    <li class="user-item">
+        <span class="width80">名称：</span><input type="text" id="name" data-empty="* 必填" class="input verify" />
+    </li>
+     <li class="user-item">
+        <span class="width80">经验值：</span><input type="text" id="minExp" data-empty="* 必填" class="input verify" />
+    </li>
+    <li class="user-item">
+        <span class="width80">类型：</span>
+        <select id="type">
+            <option value="0">会员</option>
+            <option value="1">教师</option>
+        </select>
+    </li>
+    <li class="user-item">
+        <span class="width80">等级图标：</span><span><input type="file" name="uploadify" id="uploadify" /></span>
+    </li>
+    <li class="user-item">
+        <span class="width80">描述：</span><textarea id="description"></textarea>
+    </li>
+</ul>
+<img class="user-img" id="imgPath" alt="" src="" />
+<div class="mTop20 mLeft20">
+    <input type="button" class="btn" id="btnSaveUserLevel" value="保存" />
+</div>
