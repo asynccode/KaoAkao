@@ -31,6 +31,11 @@ namespace KaoAKao.DAL
             return GetDataTable("select * from UserLevel where Type=" + type + " order by Level");
         }
 
+        public DataTable GetUserLevelByID(int id)
+        {
+            return GetDataTable("select * from UserLevel where ID=" + id);
+        }
+
         public DataTable UserLogin(string userName, string loginpwd)
         {
 
@@ -135,7 +140,7 @@ namespace KaoAKao.DAL
 
         public bool EditTeacher(string userid, string userName, string name, string mobile, string email, string photopath, string keyWords, string desc, string operateIP, string operateID)
         {
-            string sql = @" Update Users set UserName=@UserName,Name=@Name,MobileTele=@MobileTele,Email=@Email,PhotoPath=@PhotoPath,KeyWords=@KeyWords,
+            string sql = @" Update Users set UserName=@UserName,Name=@Name,MobileTele=@MobileTele,Email=@Email,PhotoPath=@PhotoPath,KeyWords=@KeyWords,LastOperateDate=getdate(),
                             Description=@Description,OperateIP=@OperateIP,OperateID=@OperateID where UserID=@UserID";
 
             SqlParameter[] paras = { 
@@ -149,6 +154,23 @@ namespace KaoAKao.DAL
                                        new SqlParameter("@OperateIP",operateIP),
                                        new SqlParameter("@OperateID",operateID),
                                        new SqlParameter("@UserID",userid)
+                                   };
+            return ExecuteNonQuery(sql, paras, CommandType.Text) > 0;
+        }
+
+        public bool EditUserLevel(int id, string name, string imgPath, double Discount, string desc, string operateIP, string operateID)
+        {
+            string sql = @" Update UserLevel set Name=@Name,ImgPath=@ImgPath,Discount=@Discount,Description=@Description,OperateIP=@OperateIP,OperateID=@OperateID,LastOperateDate=getdate() 
+                            where ID=@ID";
+
+            SqlParameter[] paras = { 
+                                       new SqlParameter("@Name",name),
+                                       new SqlParameter("@ImgPath",imgPath),
+                                       new SqlParameter("@Discount",Discount),
+                                       new SqlParameter("@Description",desc),
+                                       new SqlParameter("@OperateIP",operateIP),
+                                       new SqlParameter("@OperateID",operateID),
+                                       new SqlParameter("@ID",id)
                                    };
             return ExecuteNonQuery(sql, paras, CommandType.Text) > 0;
         }
