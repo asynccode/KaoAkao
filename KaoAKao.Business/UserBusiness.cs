@@ -179,7 +179,7 @@ namespace KaoAKao.Business
         /// <summary>
         /// 注册会员
         /// </summary>
-        public static string AddUsers(string name, string mobile, string email, string loginpwd, string photoPath, UserType usertype, string keyWords, string desc, string operateIP, string operateID)
+        public static string AddUsers(string name, string mobile, string email, string loginpwd, string photoPath, UserType usertype, string keyWords, string desc, string operateIP, string operateID,out int result,out string resultdes)
         {
             loginpwd = DESEncrypt.GetEncryptionPwd(loginpwd);
 

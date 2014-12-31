@@ -80,27 +80,72 @@ namespace KaoAKao.DAL
                                    };
             return ExecuteScalar(sql, paras, CommandType.Text);
         }
-
-        public object AddUsers(string name, string mobile, string email, string loginpwd, string photoPath, int usertype, string keyWords, string desc, string operateIP, string operateID)
+        /// <summary>
+        /// 添加会员
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="mobile"></param>
+        /// <param name="email"></param>
+        /// <param name="loginpwd"></param>
+        /// <param name="photoPath"></param>
+        /// <param name="usertype"></param>
+        /// <param name="keyWords"></param>
+        /// <param name="desc"></param>
+        /// <param name="operateIP"></param>
+        /// <param name="operateID"></param>
+        /// <param name="result">返回结果状态</param>
+        /// <param name="resultdes">返回结果信息</param>
+        /// <returns></returns>
+        public string AddUsers(string name, string mobile, string email, string loginpwd, string photoPath, int usertype, string keyWords, string desc, string operateIP, string operateID,out int result,out string resultdes)
         {
-            string sql = @" declare @UserID nvarchar(64) set @UserID=NEWID() 
-                            INSERT INTO Users(UserID,Name,MobileTele,Email,PhotoPath,LoginPwd,UserType,RegisterDate,KeyWords,Description,OperateIP,OperateID)
-                            values(@UserID,@Name,@MobileTele,@Email,@PhotoPath,@LoginPwd,@UserType,GetDate(),@KeyWords,@Description,@OperateIP,@OperateID)
-                            select @UserID";
-
-            SqlParameter[] paras = { 
+            string id = string.Empty;
+            SqlParameter[] paras = {
+                                       new SqlParameter("@ID",SqlDbType.NVarChar),
+                                       new SqlParameter("@Result",SqlDbType.Int),
+                                       new SqlParameter("@ResultDes",SqlDbType.NVarChar),
+                                       new SqlParameter("@UserName",""),
                                        new SqlParameter("@Name",name),
+                                       new SqlParameter("@PetName",""),
+                                       new SqlParameter("@LoginPwd",""),
+                                       new SqlParameter("@SecurityPwd",""),
+                                       new SqlParameter("@LevelID",0),
+                                       new SqlParameter("@UserType",0),
+                                       new SqlParameter("@Degree",0),
+                                       new SqlParameter("@HomeTele",""),
                                        new SqlParameter("@MobileTele",mobile),
                                        new SqlParameter("@Email",email),
-                                       new SqlParameter("@LoginPwd",loginpwd),
+                                       new SqlParameter("@Sex",0),
+                                       new SqlParameter("@Birthday","1900-01-01"),
+                                       new SqlParameter("@AreaCode",""),
+                                       new SqlParameter("@Address",""),
                                        new SqlParameter("@PhotoPath",photoPath),
-                                       new SqlParameter("@UserType",usertype),
+                                       new SqlParameter("@State",0),
+                                       new SqlParameter("@Question",""),
+                                       new SqlParameter("@Answer",""),
+                                       new SqlParameter("@PostCode",""),
+                                       new SqlParameter("@PaperTypeCode",""),
+                                       new SqlParameter("@PaperNumber",""),
+                                       new SqlParameter("@IntegralIn",0),
+                                       new SqlParameter("@IntegralOut",0),
+                                       new SqlParameter("@GrowValue",0),
+                                       new SqlParameter("@ExpValue",0),
+                                       new SqlParameter("@PwdErrorTimes",0),
+                                       new SqlParameter("@LoginTimes",0),
                                        new SqlParameter("@KeyWords",keyWords),
                                        new SqlParameter("@Description",desc),
                                        new SqlParameter("@OperateIP",operateIP),
                                        new SqlParameter("@OperateID",operateID)
                                    };
-            return ExecuteScalar(sql, paras, CommandType.Text);
+            paras[0].Direction = ParameterDirection.Output;
+            paras[1].Direction = ParameterDirection.Output;
+            paras[2].Direction = ParameterDirection.Output;
+
+            ExecuteScalar("P_CoursesAdd", paras, CommandType.StoredProcedure);
+            id = paras[0].Value.ToString();
+            result = Convert.ToInt32(paras[1].Value);
+            resultdes = paras[2].Value.ToString();
+            return id;
+
         }
         //添加会员等级
         public int AddUserLevel(int level, string name, int type, int minexp, double discount, string imgpath, string description, string operateIP, string operateID,out int result)
@@ -137,7 +182,7 @@ namespace KaoAKao.DAL
             string sql = @" Update Users set UserName=@UserName,Name=@Name,MobileTele=@MobileTele,Email=@Email,PhotoPath=@PhotoPath,KeyWords=@KeyWords,
                             Description=@Description,OperateIP=@OperateIP,OperateID=@OperateID where UserID=@UserID";
 
-            SqlParameter[] paras = { 
+            SqlParameter[] paras = {
                                        new SqlParameter("@UserName",userName),
                                        new SqlParameter("@Name",name),
                                        new SqlParameter("@MobileTele",mobile),
