@@ -10,7 +10,7 @@ define(function (require, exports, module) {
     var Params={
         index: 1,
         keywords: "",
-        type:0
+        type: 0
     }
     var UserLevel = {
 
@@ -23,66 +23,40 @@ define(function (require, exports, module) {
         //绑定事件
         bindEvent: function () {
             var _self = this;
-            $(".search-ico").click(function () {
-                Params.keywords = $("#keywords").val();
-                _self.getUsersList(1);
-            });
-            $("#keywords").keypress(function (event) {
-                if (event.keyCode == 13) {
-                    Params.keywords = $("#keywords").val();
-                    _self.getUsersList(1);
-                }
-            })
+
         },
         //获取列表
         getUsersList: function () {
             var _self = this;
             $(".tr-header").nextAll().remove();
-            Global.post("/Manage/Customer/GetUsers", Params, function (data) {
-                doT.exec("/modules/manage/template/users-list.html?1", function (templateFun) {
+            Global.post("/Manage/Customer/GetUserLevels", Params, function (data) {
+                doT.exec("/modules/manage/template/userlevel.html", function (templateFun) {
                     var innerText = templateFun(data.Items);
                     innerText = $(innerText);
                     $(".tr-header").after(innerText);
                     //绑定事件
-                    innerText.find(".delete").click(function () {
-                        var uid = $(this).data("id");
-                        if (confirm("确认删除吗？")) {
-                            Global.post("/Manage/Customer/DeleteUser", {
-                                userid: uid
-                            }, function (data) {
-                                if (data.Status) {
-                                    _self.getUsersList(1);
-                                }
-                            })
-                        }
-                    });
                 });
-                $("#pager").paginate({
-                    total_count: data.Total,
-                    count: data.Pages,
-                    start: Params.index,
-                    display: 10,
-                    border: true,
-                    border_color: '#fff',
-                    text_color: '#333',
-                    background_color: '#fff',
-                    border_hover_color: '#ccc',
-                    text_hover_color: '#333',
-                    background_hover_color: '#ee',
-                    rotate: true,
-                    images: false,
-                    mouse: 'slide',
-                    onChange: function (page) {
-                        Params.index = page;
-                        _self.getUsersList();
-                    }
-                });
+                //$("#pager").paginate({
+                //    total_count: data.Total,
+                //    count: data.Pages,
+                //    start: Params.index,
+                //    display: 10,
+                //    border: true,
+                //    border_color: '#fff',
+                //    text_color: '#333',
+                //    background_color: '#fff',
+                //    border_hover_color: '#ccc',
+                //    text_hover_color: '#333',
+                //    background_hover_color: '#ee',
+                //    rotate: true,
+                //    images: false,
+                //    mouse: 'slide',
+                //    onChange: function (page) {
+                //        Params.index = page;
+                //        _self.getUsersList();
+                //    }
+                //});
             });
-        },
-
-        //新建页JS
-        initCreate: function () {
-            this.bindCreateEvent();
         },
         //绑定事件
         bindCreateEvent: function () {
@@ -105,39 +79,36 @@ define(function (require, exports, module) {
             var _self = this;
             var UserLevel = {
                 ID: _self.ID,
-                Level: $("#level").val().trim(),
                 Name: $("#name").val().trim(),
-                Type: $("#type").val(),
-                MinExp: $("#minExp").val(),
                 Discount:1,
                 ImgPath: $("#imgPath").attr("src"),
                 Description: $("#description").val()
             };
             Global.post("/Manage/Customer/SaveUserLevel", { userLevel: JSON.stringify(UserLevel) }, function (data) {
-                if (data.ID == "1") {
+                if (data.Status) {
                     location.href = "/Manage/Customer/UserLevel";
                 } else {
-                    alert(data.ID);
+                    alert("保存失败！");
                 }
             });
         },
         //详情页JS
         initDetail: function (id, callBack) {
-            this.UserID = id;
+            this.ID = id;
             this.bindCreateEvent();
             this.bindUser(id, callBack);
         },
         //绑定页面信息
         bindUser: function (id, callBack) {
             var _self = this;
-            Global.post("/Manage/Customer/GetUserByUserID", { userid: id }, function (data) {
+            Global.post("/Manage/Customer/GetUserLevelByID", { id: id }, function (data) {
                 var model = data.Item;
 
+                $("#level").text(model.Level);
                 $("#name").val(model.Name);
-                $("#mobile").val(model.MobileTele);
-                $("#imgPath").attr("src", model.PhotoPath);
-                $("#email").val(model.Email);
-                $("#keywords").val(model.KeyWords);
+                //$("#imgPath").attr("src", model.PhotoPath);
+                $("#minExp").text(model.MinExp);
+                $("#type").text(model.Type == 1 ? "教师" : "会员");
                 $("#description").val(model.Description);
                 !!callBack && callBack();
             });

@@ -19,14 +19,22 @@ namespace KaoAKao2._0.Web.Areas.Manage.Controllers
             return View();
         }
 
-        public ActionResult CreateUserLevel()
+        public ActionResult LevelDetail(string id)
         {
+            ViewBag.ID = id;
             return View();
         }
 
         public ActionResult UserLevel()
         {
+            ViewBag.Type = (int)UserType.User;
             return View();
+        }
+
+        public ActionResult TeacherLevel()
+        {
+            ViewBag.Type = (int)UserType.Teacher;
+            return View("UserLevel");
         }
 
         public ActionResult CreateTeacher()
@@ -34,6 +42,11 @@ namespace KaoAKao2._0.Web.Areas.Manage.Controllers
             return View();
         }
 
+        public ActionResult Users()
+        {
+            ViewBag.Type = "0";
+            return View("Teachers");
+        }
         public ActionResult Teachers()
         {
             ViewBag.Type = "1";
@@ -169,7 +182,7 @@ namespace KaoAKao2._0.Web.Areas.Manage.Controllers
         #region 会员等级 AJAX
 
         /// <summary>
-        /// 添加教师
+        /// 保存等级
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
@@ -178,14 +191,39 @@ namespace KaoAKao2._0.Web.Areas.Manage.Controllers
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             KaoAKao.Entity.UserLevelEntity model = serializer.Deserialize<KaoAKao.Entity.UserLevelEntity>(userLevel);
 
-            int result = 0;
-            int id = KaoAKao.Business.UserBusiness.AddUserLevel(model.Level.Value, model.Name, model.Type, model.MinExp.Value, model.Discount.Value, model.ImgPath, model.Description, OperateIP, CurrentManager.Number, out result);
+            bool bl = new KaoAKao.Business.UserBusiness().EditUserLevel(model.ID, model.Name, model.ImgPath, model.Discount.Value, model.Description, OperateIP, CurrentManager.Number);
 
-            JsonDictionary.Add("ID", result);
+            JsonDictionary.Add("Status", bl);
 
             return new JsonResult() { Data = JsonDictionary, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
+        /// <summary>
+        /// 获取等级列表
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public JsonResult GetUserLevels(int type)
+        {
+            var list = KaoAKao.Business.UserBusiness.GetUserLevelByType((UserType)type);
+
+            JsonDictionary.Add("Items", list);
+
+            return new JsonResult() { Data = JsonDictionary, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        /// <summary>
+        /// 获取等级详情
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public JsonResult GetUserLevelByID(int id)
+        {
+            var model = KaoAKao.Business.UserBusiness.GetUserLevelByID(id);
+
+            JsonDictionary.Add("Item", model);
+
+            return new JsonResult() { Data = JsonDictionary, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         #endregion
 
     }

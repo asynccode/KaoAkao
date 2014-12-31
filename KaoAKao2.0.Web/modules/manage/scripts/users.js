@@ -39,7 +39,7 @@ define(function (require, exports, module) {
             var _self = this;
             $(".tr-header").nextAll().remove();
             Global.post("/Manage/Customer/GetUsers", Params, function (data) {
-                doT.exec("/modules/manage/template/users-list.html?1", function (templateFun) {
+                doT.exec("/modules/manage/template/users-list.html", function (templateFun) {
                     var innerText = templateFun(data.Items);
                     innerText = $(innerText);
                     $(".tr-header").after(innerText);

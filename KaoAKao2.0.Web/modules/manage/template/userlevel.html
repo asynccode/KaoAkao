@@ -1,0 +1,15 @@
+﻿{%
+	for(var i=0, j=$data.length; i < j; i++){
+	var item = $data[i];
+%}
+<tr>
+    <td class="center">
+        <a href="/Manage/Customer/LevelDetail/{%=item.ID%}">编辑</a>
+    </td>
+    <td>{%=item.Level%}</td>
+    <td>{%=item.Name%}</td>
+    <td>{%=item.MinExp%}</td>
+    <td>{%=item.Discount%}</td>
+    <td>{%=item.Description %}</td>
+</tr>
+{% } %}
