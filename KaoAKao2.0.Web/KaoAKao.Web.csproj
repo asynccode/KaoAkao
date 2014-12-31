@@ -259,6 +259,7 @@
     <Content Include="modules\manage\template\course-category-list.html" />
     <Content Include="modules\manage\template\course-list.html" />
     <Content Include="modules\manage\template\users-list.html" />
+    <Content Include="modules\manage\template\userlevel.html" />
     <Content Include="modules\plug\area_city\area-city-noseajs.js" />
     <Content Include="modules\plug\area_city\area-city.css" />
     <Content Include="modules\plug\area_city\area-city.js" />
@@ -390,7 +391,7 @@
     <Content Include="Areas\Manage\Views\Customer\TeacherDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Manage\Views\Customer\CreateUserLevel.cshtml" />
+    <Content Include="Areas\Manage\Views\Customer\LevelDetail.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

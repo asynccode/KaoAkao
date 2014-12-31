@@ -21,8 +21,6 @@
 
 <div class="header-box">
     <span class="header-title left">课程分类详细信息</span>
-    <span class="ico-gonext right" onclick="history.go(1)" title="前进"></span>
-    <span class="ico-goback right" onclick="history.go(-1)" title="后退"></span>
 </div>
 <ul class="category-add-main">
     <li class="category-item">
@@ -47,6 +45,6 @@
 </ul>
 <div class="mTop20 mLeft20">
     <input type="button" class="btn" id="btnSavecategory" value="保存" />
-    <input type="button" class="btn" onclick="location.href='/Manage/Course/Categorys'" value="返回" />
+    <input type="button" class="btn" onclick="history.go(-1)" value="返回" />
 </div>
 

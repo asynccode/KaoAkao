@@ -13,12 +13,12 @@
 @section scripts{
     <script type="text/javascript">
         seajs.use(["manage/scripts/userlevel.js"], function (userlevel) {
-            userlevel.initCreate();
+            userlevel.initDetail('@ViewBag.ID');
         });
     </script>
     <script src="/modules/scripts/jquery-1.11.1.js"></script>
     <script src="/modules/plug/uploadify/jquery.uploadify-3.1.js"></script>
-    <script type="text/javascript">
+@*    <script type="text/javascript">
         var id = 0;
         $(document).ready(function () {
             initUploadify("");
@@ -48,37 +48,34 @@
                 }
             });
         }
-    </script>
+    </script>*@
 }
 
 <div class="header-box">
-    <span class="header-title left">新建会员等级</span>
+    <span class="header-title left">等级编辑</span>
 </div>
 <ul class="user-add-main">
     <li class="user-item">
-        <span class="width80">等级：</span><input type="text" id="level" data-empty="* 必填" class="input verify" />
+        <span class="width80">等级：</span> <label id="level" ></label>
     </li>
     <li class="user-item">
         <span class="width80">名称：</span><input type="text" id="name" data-empty="* 必填" class="input verify" />
     </li>
      <li class="user-item">
-        <span class="width80">经验值：</span><input type="text" id="minExp" data-empty="* 必填" class="input verify" />
+        <span class="width80">经验值：</span> <label id="minExp" ></label>
     </li>
     <li class="user-item">
-        <span class="width80">类型：</span>
-        <select id="type">
-            <option value="0">会员</option>
-            <option value="1">教师</option>
-        </select>
+        <span class="width80">类型：</span> <label id="type" ></label>
     </li>
-    <li class="user-item">
+@*    <li class="user-item">
         <span class="width80">等级图标：</span><span><input type="file" name="uploadify" id="uploadify" /></span>
-    </li>
+    </li>*@
     <li class="user-item">
         <span class="width80">描述：</span><textarea id="description"></textarea>
     </li>
 </ul>
-<img class="user-img" id="imgPath" alt="" src="" />
+@*<img class="user-img" id="imgPath" alt="" src="" />*@
 <div class="mTop20 mLeft20">
     <input type="button" class="btn" id="btnSaveUserLevel" value="保存" />
+    <input type="button" class="btn" onclick="history.go(-1)" value="返回" />
 </div>

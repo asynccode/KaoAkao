@@ -7,9 +7,10 @@
     <span class="bolder menu-name">会员管理</span>
     <ul>
         <li class="action "><a class="@(action.ToLower() == "users" ? "select" : "")" href="/Manage/Customer/Users" >会员列表</a></li>
-        <li class="action "><a class="@(action.ToLower() == "createteacher" ? "select" : "")" href="/Manage/Customer/CreateTeacher" >新建教师</a></li>
+        <li class="action "><a class="@(action.ToLower() == "createteacher" ? "select" : "")" href="/Manage/Customer/CreateTeacher" >添加教师</a></li>
         <li class="action "><a class="@(action.ToLower() == "teachers" ? "select" : "")" href="/Manage/Customer/Teachers" >教师列表</a></li>
-        <li class="action "><a class="@(action.ToLower() == "createuserlevel" ? "select" : "")" href="/Manage/Customer/CreateUserLevel" >新建会员等级</a></li>
-        <li class="action "><a class="@(action.ToLower() == "userlevel" ? "select" : "")" href="/Manage/Customer/UserLevel" >会员等级列表</a></li>
+  @*      <li class="action "><a class="@(action.ToLower() == "createuserlevel" ? "select" : "")" href="/Manage/Customer/CreateUserLevel" >新建会员等级</a></li>*@
+        <li class="action "><a class="@(action.ToLower() == "userlevel" ? "select" : "")" href="/Manage/Customer/UserLevel" >会员等级设置</a></li>
+        <li class="action "><a class="@(action.ToLower() == "teacherlevel" ? "select" : "")" href="/Manage/Customer/TeacherLevel" >教师等级设置</a></li>
     </ul>
 </div>

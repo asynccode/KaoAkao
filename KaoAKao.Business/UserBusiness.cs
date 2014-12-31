@@ -60,6 +60,21 @@ namespace KaoAKao.Business
         }
 
         /// <summary>
+        /// 获取等级
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static Entity.UserLevelEntity GetUserLevelByID(int id)
+        {
+            DataTable dt = new UserDAL().GetUserLevelByID(id);
+
+            UserLevelEntity model = new UserLevelEntity();
+            model.FillData(dt.Rows[0]);
+            return model;
+
+        }
+
+        /// <summary>
         /// 获取会员列表(分页)
         /// </summary>
         /// <param name="keywords"></param>
@@ -179,7 +194,7 @@ namespace KaoAKao.Business
         /// <summary>
         /// 注册会员
         /// </summary>
-        public static string AddUsers(string name, string mobile, string email, string loginpwd, string photoPath, UserType usertype, string keyWords, string desc, string operateIP, string operateID)
+        public static string AddUsers(string name, string mobile, string email, string loginpwd, string photoPath, UserType usertype, string keyWords, string desc, string operateIP, string operateID,out int result,out string resultdes)
         {
             loginpwd = DESEncrypt.GetEncryptionPwd(loginpwd);
 
@@ -194,7 +209,7 @@ namespace KaoAKao.Business
                 file.MoveTo(HttpContext.Current.Server.MapPath(photoPath));
             }
 
-            object obj = new UserDAL().AddUsers(name, mobile, email, loginpwd, photoPath, (int)usertype, keyWords, desc, operateIP, operateID);
+            object obj = new UserDAL().AddUsers(name, mobile, email, loginpwd, photoPath, (int)usertype, keyWords, desc, operateIP, operateID,out result,out resultdes);
             if (obj != null && obj != DBNull.Value)
             {
                 return obj.ToString();
@@ -243,6 +258,21 @@ namespace KaoAKao.Business
                 photopath = photopath.Substring(0, photopath.IndexOf("?"));
             }
             return new UserDAL().EditTeacher(userid, userName, name, mobile, email, photopath, keyWords, desc, operateIP, operateID);
+        }
+
+        /// <summary>
+        /// 编辑等级信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="imgPath"></param>
+        /// <param name="desc"></param>
+        /// <param name="operateIP"></param>
+        /// <param name="operateID"></param>
+        /// <returns></returns>
+        public bool EditUserLevel(int id, string name, string imgPath, double Discount, string desc, string operateIP, string operateID)
+        {
+            return new UserDAL().EditUserLevel(id, name, imgPath, Discount, desc, operateIP, operateID);
         }
 
         #endregion
