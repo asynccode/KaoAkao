@@ -1,23 +1,24 @@
 ﻿
-$(function () {
+define(function (require, exports, module) {
+    
 
-    var login = {};
+    var Login = {};
 
     //基本参数
-    login.options = {
-        ajaxUrl: "/Ajax/Login",
+    Login.options = {
+        ajaxUrl: "/Home/UserLogin",
         userName: "",
         userPwd: "",
         code:""
     };
 
     //初始化
-    login.init = function () {
-        login.bindEvent();
+    Login.init = function () {
+        Login.bindEvent();
     };
 
     //绑定事件
-    login.bindEvent = function () {
+    Login.bindEvent = function () {
         $("#txt_userName").bind("focus", function () {
             var userName=$("#txt_userName").val();
             if(userName!="")
@@ -63,20 +64,20 @@ $(function () {
         });
 
         $("#btn_userLogin").bind("click", function () {
-            login.userLogin();
+            Login.userLogin();
         });
     };
 
     //用户登录
-    login.userLogin = function () {
+    Login.userLogin = function () {
         $("#btn_userLogin").val("登录中...");
         $("#btn_userLogin").attr("disabled", true);
 
-        if (login.validate()) {
+        if (Login.validate()) {
             AjaxRequest(login.options.ajaxUrl, "post",
                 {
-                    Name: login.options.userName,
-                    Pwd: login.options.userPwd
+                    Name: Login.options.userName,
+                    Pwd: Login.options.userPwd
                 },
                 function (data) {
                     if (data.result == 0) {
@@ -97,11 +98,11 @@ $(function () {
     };
 
     //数据验证
-    login.validate = function () {
-        login.options.userName = $("#txt_userName").val();
+    Login.validate = function () {
+        Login.options.userName = $("#txt_userName").val();
         
-        if (login.options.userName != "") {
-            if ((!RegExp.isEmail(login.options.userName)) && (!RegExp.isMobile(login.options.userName))) {
+        if (Login.options.userName != "") {
+            if ((!RegExp.isEmail(Login.options.userName)) && (!RegExp.isMobile(Login.options.userName))) {
                 $("#loginError").html("输入的用户名有误！").show();
                 return false;
             }
@@ -111,8 +112,8 @@ $(function () {
             return false;
         }
 
-        login.options.userPwd = $("#txt_userPwd").val();
-        if (login.options.userPwd == "") {
+        Login.options.userPwd = $("#txt_userPwd").val();
+        if (Login.options.userPwd == "") {
             $("#loginError").html("输入密码不能为空！").show();
             return false;
         }
@@ -120,5 +121,5 @@ $(function () {
         return true;
     }
 
-    login.init();
+    module.exports = Login;
 });

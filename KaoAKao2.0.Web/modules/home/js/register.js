@@ -1,9 +1,11 @@
-﻿$(function () {
-    var register = {};
+﻿define(function (require, exports, module) {
+    require("global")
+
+    var Register = {};
 
     //基本参数
-    register.options = {
-        ajaxUrl: "/Ajax/Register",
+    Register.options = {
+        ajaxUrl: "/Home/UserRegister",
         userName: "",
         userPwd: "",
         userConfirmPwd: "",
@@ -11,12 +13,12 @@
     };
 
     //初始化
-    register.init = function () {
-        register.bindEvent();
+    Register.init = function () {
+        Register.bindEvent();
     };
 
     //绑定事件
-    register.bindEvent = function () {
+    Register.bindEvent = function () {
         $("#txt_userName").bind("blur", function () {
             var userName = $("#txt_userName").val();
             if (userName != "") {
@@ -48,22 +50,22 @@
         });
 
         $("#btn_register").bind("click", function () {
-            register.userRegister();
+            Register.userRegister();
         });
     };
 
     //用户注册
-    register.userRegister = function () {
+    Register.userRegister = function () {
         $("#btn_register").val("注册中...");
         $("#btn_register").attr("disabled", true);
 
-        if (register.validate()) {
-            AjaxRequest(register.options.ajaxUrl, "post",
+        if (Register.validate()) {
+            AjaxRequest(Register.options.ajaxUrl, "post",
                 {
-                    UserName: register.options.userName,
-                    UserPwd: register.options.userPwd,
-                    IsEmail: register.options.isEmail,
-                    Code: register.options.code
+                    UserName: Register.options.userName,
+                    UserPwd: Register.options.userPwd,
+                    IsEmail: Register.options.isEmail,
+                    Code: Register.options.code
                 },
                 function (data) {
                     $("#btn_register").val("注册");
@@ -92,18 +94,18 @@
     };
 
     //数据验证
-    register.validate = function () {
-        register.options.userName = $("#txt_userName").val();
-        if (register.options.userName) {
-            if ((!RegExp.isEmail(register.options.userName)) && (!RegExp.isMobile(register.options.userName))) {
+    Register.validate = function () {
+        Register.options.userName = $("#txt_userName").val();
+        if (Register.options.userName) {
+            if ((!RegExp.isEmail(Register.options.userName)) && (!RegExp.isMobile(Register.options.userName))) {
                 $("#registerError").show();
                 $("#registerError").html("用户名输入错误！");
                 return false;
             }
             else {
-                if (RegExp.isMobile(register.options.userName))
+                if (RegExp.isMobile(Register.options.userName))
                 {
-                    register.options.isEmail = 0;
+                    Register.options.isEmail = 0;
                 }
             }
         } else {
@@ -112,16 +114,16 @@
             return false;
         }
 
-        register.options.userPwd = $("#txt_userPwd").val();
-        if (register.options.userPwd == "") {
+        Register.options.userPwd = $("#txt_userPwd").val();
+        if (Register.options.userPwd == "") {
             $("#registerError").show();
             $("#registerError").html("密码不能为空！");
             return false;
         }
 
-        register.options.userConfirmPwd = $("#txt_userConfirmPwd").val();
-        if (register.options.userConfirmPwd) {
-            if (register.options.userPwd != register.options.userConfirmPwd) {
+        Register.options.userConfirmPwd = $("#txt_userConfirmPwd").val();
+        if (Register.options.userConfirmPwd) {
+            if (Register.options.userPwd != Register.options.userConfirmPwd) {
                 $("#registerError").show();
                 $("#registerError").html("确认密码错误！");
                 return false;
@@ -133,13 +135,13 @@
             return false;
         }
 
-        register.options.code = $("#txt_code").val();
-        if (register.options.code == "") {
+        Register.options.code = $("#txt_code").val();
+        if (Register.options.code == "") {
             $("#registerError").html("验证码不能为空！").show();
             return false;
         }
         return true;
     }
 
-    register.init();
+    module.exports = Register;
 });

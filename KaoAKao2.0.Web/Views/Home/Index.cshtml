@@ -2,10 +2,17 @@
     ViewBag.Title = "考啊考-首页";
 }
 
-<script src="../../Content/jqueryLB/jquery.color-RGBa-patch.js"></script>
-<script src="../../Content/js/example.js"></script>
-<script src="../../Content/js/focus.js"></script>
-<script src="../../Content/js/index.js"></script>
+<script src="@Url.Content("~/modules/scripts/jquery.color-RGBa-patch.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/modules/home/js/cycle.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/modules/home/js/example.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/modules/home/js/focus.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    seajs.use(["home/js/index.js"], function (Index) {
+        Index.init();
+});
+</script>
+
 <body>
 <div class="content0"></div>
 <div class="content1">
@@ -38,13 +45,13 @@
 <div class="content4">
   <div class="main subnav">
     <ul class="clearfix">
-      <li><a href="#"><i><img src="/Content/Images/index_03.png" alt=""/></i>考啊考提供各门类考试相关考试题库及资料免费下载</a></li>
-      <li><a href="#"><i><img src="/Content/Images/index_04.png" alt=""/></i>我们特设专家答疑版块，让你自由选择喜爱的老师为您一对一答疑</a></li>
-      <li><a href="#"><i><img src="/Content/Images/index_02.png" alt=""/></i>我们不仅为您提供学习帮助，还和数家优秀企业合作，为客户提供职业规划及就业推荐服务</a></li>
+      <li><a href="#"><i><img src="/modules/home/Images/index_03.png" alt=""/></i>考啊考提供各门类考试相关考试题库及资料免费下载</a></li>
+      <li><a href="#"><i><img src="/modules/home/Images/index_04.png" alt=""/></i>我们特设专家答疑版块，让你自由选择喜爱的老师为您一对一答疑</a></li>
+      <li><a href="#"><i><img src="/modules/home/Images/index_02.png" alt=""/></i>我们不仅为您提供学习帮助，还和数家优秀企业合作，为客户提供职业规划及就业推荐服务</a></li>
     </ul>
   </div>
 </div>
-<div class="content5"><div class="main tip"><img src="/Content/Images/index_21.png" alt=""/></div></div>
+<div class="content5"><div class="main tip"><img src="/modules/home/Images/index_21.png" alt=""/></div></div>
 <div class="content6">
 <div class="main2">
   <div class="banner" id="imgPlay">
@@ -55,7 +62,7 @@
           <h3>分享计划</h3>
         </div>
         <div class="actor-down clearfix">
-          <div class="l"><img src="/Content/Images/index_06.png" alt=""/></div>
+          <div class="l"><img src="/modules/home/Images/index_06.png" alt=""/></div>
           <div class="r">广告分成，粉丝赞助等多种收入方式，帮您赚取更多的收益；我们将与更多优质课程提供者分享利润。通过分享计划个人将有更多机会获得收益。</div>
         </div>
       </li>
@@ -64,7 +71,7 @@
           <h3>分享计划</h3>
         </div>
         <div class="actor-down clearfix">
-          <div class="l"><img src="/Content/Images/index_06.png" alt=""/></div>
+          <div class="l"><img src="/modules/home/Images/index_06.png" alt=""/></div>
           <div class="r">广告分成，粉丝赞助等多种收入方式，帮您赚取更多的收益；我们将与更多优质课程提供者分享利润。通过分享计划个人将有更多机会获得收益。</div>
         </div>
       </li>
@@ -73,7 +80,7 @@
           <h3>分享计划</h3>
         </div>
         <div class="actor-down clearfix">
-          <div class="l"><img src="/Content/Images/index_06.png" alt=""/></div>
+          <div class="l"><img src="/modules/home/Images/index_06.png" alt=""/></div>
           <div class="r">广告分成，粉丝赞助等多种收入方式，帮您赚取更多的收益；我们将与更多优质课程提供者分享利润。通过分享计划个人将有更多机会获得收益。</div>
         </div>
       </li>
@@ -82,7 +89,7 @@
           <h3>分享计划</h3>
         </div>
         <div class="actor-down clearfix">
-          <div class="l"><img src="/Content/Images/index_06.png" alt=""/></div>
+          <div class="l"><img src="/modules/home/Images/index_06.png" alt=""/></div>
           <div class="r">广告分成，粉丝赞助等多种收入方式，帮您赚取更多的收益；我们将与更多优质课程提供者分享利润。通过分享计划个人将有更多机会获得收益。</div>
         </div>
       </li>
@@ -99,7 +106,7 @@
     <h3 class="hbt">课程</h3>
     <ul class="clearfix">
       <li>
-        <a href="#"><img src="/Content/Images/index_07.png" alt=""/></a>
+        <a href="#"><img src="/modules/home/Images/index_07.png" alt=""/></a>
         <div class="v-bt">公务员</div>
         <div class="v-js">
           <p>行测—言语理解与表达</p>
@@ -112,7 +119,7 @@
         </div>
       </li>
       <li>
-        <a href="#"><img src="/Content/Images/index_08.png" alt=""/></a>
+        <a href="#"><img src="/modules/home/Images/index_08.png" alt=""/></a>
         <div class="v-bt">司法</div>
         <div class="v-js">
           <p>刑法先修</p>
@@ -125,7 +132,7 @@
         </div>
       </li>
       <li>
-       <a href="#"><img src="/Content/Images/index_09.png" alt=""/></a>
+       <a href="#"><img src="/modules/home/Images/index_09.png" alt=""/></a>
         <div class="v-bt">医药师</div>
         <div class="v-js">
           <p>药事管理与法规</p>
@@ -138,7 +145,7 @@
         </div>
       </li>
       <li>
-        <a href="#"><img src="/Content/Images/index_10.png" alt=""/></a>
+        <a href="#"><img src="/modules/home/Images/index_10.png" alt=""/></a>
         <div class="v-bt">财会</div>
         <div class="v-js">
           <p>CMA-P1</p>
@@ -167,7 +174,7 @@
         <li><a href="#" class="mobile-code">二维码</a></li>
       </ul>
       </div>
-      <div class="mobile-right"><img src="/Content/Images/index_15.png" alt=""/></div>
+      <div class="mobile-right"><img src="/modules/home/Images/index_15.png" alt=""/></div>
     </div>
   </div>
 </div>
@@ -187,7 +194,7 @@
                       <div class="team-background"></div>
                     </div>
                     <div class="team-down clearfix">
-                      <span><img src="/Content/Images/index_16.jpg" alt=""/></span>
+                      <span><img src="/modules/home/Images/index_16.jpg" alt=""/></span>
                       <dl>
                         <dt>江宏涛</dt>
                         <dd>CEO</dd>
@@ -201,7 +208,7 @@
                       <div class="team-background"></div>
                     </div>
                     <div class="team-down clearfix">
-                      <span><img src="/Content/Images/index_16.jpg" alt=""/></span>
+                      <span><img src="/modules/home/Images/index_16.jpg" alt=""/></span>
                       <dl>
                         <dt>江宏涛</dt>
                         <dd>CEO</dd>
@@ -215,7 +222,7 @@
                       <div class="team-background"></div>
                     </div>
                     <div class="team-down clearfix">
-                      <span><img src="/Content/Images/index_16.jpg" alt=""/></span>
+                      <span><img src="/modules/home/Images/index_16.jpg" alt=""/></span>
                       <dl>
                         <dt>江宏涛</dt>
                         <dd>CEO</dd>
@@ -229,7 +236,7 @@
                       <div class="team-background"></div>
                     </div>
                     <div class="team-down clearfix">
-                      <span><img src="/content/images/index_16.jpg" alt=""/></span>
+                      <span><img src="/modules/home/Images/index_16.jpg" alt=""/></span>
                       <dl>
                         <dt>江宏涛</dt>
                         <dd>CEO</dd>
@@ -239,7 +246,6 @@
         </ul>
     </div>
 </div>
-<script type='text/javascript' src='/content/Js/cycle.js'></script>
 </div>
 </div>
 </div>
@@ -250,8 +256,4 @@
   </div>
 </div>
 </body>
-<script type="text/javascript">
-        $(function () {
-            validateLogin();
-        });
-    </script>
+
