@@ -209,7 +209,7 @@ namespace KaoAKao.Business
                 file.MoveTo(HttpContext.Current.Server.MapPath(photoPath));
             }
 
-            object obj = new UserDAL().AddUsers(name, mobile, email, loginpwd, photoPath, (int)usertype, keyWords, desc, operateIP, operateID);
+            object obj = new UserDAL().AddUsers(name, mobile, email, loginpwd, photoPath, (int)usertype, keyWords, desc, operateIP, operateID,out result,out resultdes);
             if (obj != null && obj != DBNull.Value)
             {
                 return obj.ToString();
