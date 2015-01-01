@@ -10,16 +10,27 @@
     Index.bindEvent = function () {
         //搜索事件
         $("#btn_search").bind("click", function () {
-            if (Global.isMoblieTerminal())
-            {
-                $('.h-m-right,.m-s-cont').show();
-                $('.h-m-right a').addClass("play");
-            }
-            else
-            {
                 $('.search-input').show();
-            }
         });
+
+        $("#btn_mobileGenreSearch").bind("click", function () {
+            $(".content0").show();
+            $("#btn_mobileSearch").next().hide();
+            $("#btn_mobileSearch").removeClass("play");
+
+            $(this).addClass("play");
+            $(this).next().show();
+        });
+
+        $("#btn_mobileSearch").bind("click", function () {
+            $(".content0").show();
+            $("#btn_mobileGenreSearch").next().hide();
+            $("#btn_mobileGenreSearch").removeClass("play");
+
+            $(this).addClass("play");
+            $(this).next().show();
+        });
+
     };
 
     module.exports = Index;

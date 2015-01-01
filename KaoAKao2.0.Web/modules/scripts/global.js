@@ -177,7 +177,7 @@
 
     //验证用户是否登录
     Global.validateLogin= function () {
-        AjaxRequest("/Home/Validate", "get", null,
+        Global.AjaxRequest("/Home/Validate", "get", null,
             function (data) {
                 if (data.result == 1) {
                     $("#ul_nav a.button-min").hide();
