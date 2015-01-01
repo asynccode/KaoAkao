@@ -1,5 +1,5 @@
 ﻿define(function (require, exports, module) {
-    require("global")
+    var Global = require("global");
 
     var Register = {};
 
@@ -24,8 +24,7 @@
             if (userName != "") {
                 if ((!RegExp.isEmail(userName)) && (!RegExp.isMobile(userName)))
                 {
-                    $("#registerError").show();
-                    $("#registerError").html("用户名输入错误！");
+                    Global.showIptMsg($("#txt_userName"), "用户名输入错误");
                 }
                 else
                 {
@@ -34,7 +33,7 @@
             }
             else
             {
-                $("#registerError").hide();
+                Global.showIptMsg($("#txt_userName"), "用户名不能为空");
             }
         });
 
@@ -43,8 +42,27 @@
             if (userPwd != "") {
                 $(this).parent().find(".hint").hide();
             }
-            else {
-                $(this).parent().find(".hint").show();
+            else
+            {
+                Global.showIptMsg($("#txt_userPwd"), "密码不能为空");
+            }
+
+        });
+
+        $("#txt_userConfirmPwd").bind("blur", function () {
+            var userConfirmPwd = $("#txt_userConfirmPwd").val();
+            if (userConfirmPwd != "") {
+                if ( $("#txt_userPwd").val() != $("#txt_userConfirmPwd").val() ) {
+                        Global.showIptMsg($("#txt_userConfirmPwd"), "确认密码错误");
+                    }
+                    else
+                    {
+                        $(this).parent().find(".hint").hide();
+                    }
+            }
+            else
+            {
+                Global.showIptMsg($("#txt_userConfirmPwd"), "确认密码不能为空");
             }
 
         });
@@ -72,16 +90,16 @@
                     $("#btn_register").removeAttr("disabled");
 
                     if (data.result == 2) {
-                        $("#registerError").html("验证码有误！").show();
+                        Global.showIptMsg($("#txt_code"), "验证码有误");
                         $("#btn_chkCode").click();
                     }
                     else if (data.result == 1) {
                         alert("注册成功");
                         location.href = "/home/index";
                     }
-                    else if (data.result == 0) {
+                    else if (data.result == 0)
+                    {
                         alert("注册失败");
-                        
                     }
 
                 }
@@ -98,8 +116,7 @@
         Register.options.userName = $("#txt_userName").val();
         if (Register.options.userName) {
             if ((!RegExp.isEmail(Register.options.userName)) && (!RegExp.isMobile(Register.options.userName))) {
-                $("#registerError").show();
-                $("#registerError").html("用户名输入错误！");
+                Global.showIptMsg($("#txt_userName"), "用户名有误");
                 return false;
             }
             else {
@@ -108,36 +125,34 @@
                     Register.options.isEmail = 0;
                 }
             }
-        } else {
-            $("#registerError").show();
-            $("#registerError").html("用户名不能为空！");
+        }
+        else
+        {
+            Global.showIptMsg($("#txt_userName"), "用户名不能为空");
             return false;
         }
 
         Register.options.userPwd = $("#txt_userPwd").val();
         if (Register.options.userPwd == "") {
-            $("#registerError").show();
-            $("#registerError").html("密码不能为空！");
+            Global.showIptMsg($("#txt_userPwd"), "密码不能为空");
             return false;
         }
 
         Register.options.userConfirmPwd = $("#txt_userConfirmPwd").val();
         if (Register.options.userConfirmPwd) {
             if (Register.options.userPwd != Register.options.userConfirmPwd) {
-                $("#registerError").show();
-                $("#registerError").html("确认密码错误！");
+                Global.showIptMsg($("#txt_userConfirmPwd"), "确认密码错误");
                 return false;
             }
         }
         else {
-            $("#registerError").show();
-            $("#registerError").html("确认密码不能为空！");
+            Global.showIptMsg($("#txt_userConfirmPwd"), "确认密码不能为空");
             return false;
         }
 
         Register.options.code = $("#txt_code").val();
         if (Register.options.code == "") {
-            $("#registerError").html("验证码不能为空！").show();
+            Global.showIptMsg($("#txt_code"), "验证码不能为空");
             return false;
         }
         return true;

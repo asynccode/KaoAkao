@@ -19,6 +19,7 @@
             }
         });
     }
+
     //格式化日期
     Date.prototype.toString = function (format) {
         var o = {
@@ -42,6 +43,7 @@
         }
         return format;
     };
+
     //日期字符串转换日期格式
     String.prototype.toDate = function (format) {
         var d = new Date();
@@ -63,7 +65,7 @@
     //requestData 请求传递数据，如：name=mytest&psd=meihua
     //callbackFunction 返回处理函数，如：function SelectedItem(data){}
     //loadingElementId 请求时呈现图片元素ID，如：#city 可以不填充
-    function AjaxRequest(requestUrl, requestType, requestData, callbackFunction, loadingElementId) {
+    Global.AjaxRequest=function (requestUrl, requestType, requestData, callbackFunction, loadingElementId) {
         if (loadingElementId != null && loadingElementId != '')
             $(loadingElementId).html("<div class=\"TxtCenter\"><img src=\"images/ajax-loader.gif\"></div>");
         if (requestType != null && requestType != '' && requestType.toUpperCase() != 'JSON') {
@@ -91,45 +93,6 @@
         }
     }
 
-    ////获取URL里的参数，返回一个参数数组
-    ////调用方法如下
-    //var Request = GetRequest();
-    //var 参数1,参数2,参数N;
-    //参数1 = Request['参数1'];
-    //参数2 = Request['参数2'];
-    //参数N = Request['参数N'];  
-    function GetRequest() {
-        var url = location.href;  //获取url中"?"符后的字串  
-        var theRequest = new Object();
-        if (url.indexOf("?") != -1) {
-            var str = url.substring(url.indexOf("?") + 1);
-            str = str.replace(/#/g, "");
-            if (url.indexOf("&") == -1) {
-                theRequest[str.substring(0, str.indexOf("="))] = str.substring(str.indexOf("=") + 1);
-            }
-            else {
-                var strs = str.split("&");
-                for (var i = 0; i < strs.length; i++) {
-                    theRequest[strs[i].substring(0, strs[i].indexOf("="))] = strs[i].substring(strs[i].indexOf("=") + 1);
-                }
-            }
-
-        } else if (url.indexOf("&") != -1) {
-            var str = url.substring(url.indexOf("&") + 1);
-            str = str.replace(/#/g, "");
-            if (url.indexOf("&") == -1) {
-                theRequest[str.substring(0, str.indexOf("="))] = str.substring(str.indexOf("=") + 1);
-            }
-            else {
-                var strs = str.split("&");
-                for (var i = 0; i < strs.length; i++) {
-                    theRequest[strs[i].substring(0, strs[i].indexOf("="))] = strs[i].substring(strs[i].indexOf("=") + 1);
-                }
-            }
-        }
-        return theRequest;
-    }
-
     //验证一个字符串是否包含特殊字符
     RegExp.isContainSpecial = function (str) {
         var containSpecial = RegExp(/[(\,)(\\)(\/)(\:)(\*)(\')(\?)(\\\)(\<)(\>)(\|)]+/);
@@ -144,25 +107,6 @@
     RegExp.isUrl = function (str) {
         var patrn = /^http(s)?:\/\/[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+[\/=\?%\-&_~`@[\]\:+!]*([^<>])*$/;
         return patrn.exec(str);
-    }
-
-    function IsURL(str_url) {
-        var strRegex = '^((https|http|ftp|rtsp|mms)?://)'
-        //+ '?(([0-9a-z_!~*\'().&=+$%-]+: )?[0-9a-z_!~*\'().&=+$%-]+@)?' //ftp的user@ 
-        //+ '(([0-9]{1,3}.){3}[0-9]{1,3}' // IP形式的URL- 199.194.52.184 
-        //+ '|' // 允许IP和DOMAIN（域名） 
-        //+ '([0-9a-z_!~*\'()-]+.)*' // 域名- www. 
-        //+ '([0-9a-z][0-9a-z-]{0,61})?[0-9a-z].' // 二级域名 
-        //+ '[a-z]{2,6})' // first level domain- .com or .museum 
-        //+ '(:[0-9]{1,4})?' // 端口- :80 
-        //+ '((/?)|' // a slash isn't required if there is no file name 
-        //+ '(/[0-9a-z_!~*\'().;?:@&=+$,%#-]+)+/?)$';
-        var re = new RegExp(strRegex);
-        if (re.test(str_url)) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     //验证一个字符串是否是电话或传真
@@ -204,7 +148,7 @@
     }
 
     //是否为移动端
-    function isMoblieTerminal() {
+    Global.isMoblieTerminal=function () {
         var browser = {
             versions: function () {
                 var u = navigator.userAgent, app = navigator.appVersion;
@@ -231,10 +175,6 @@
             return false;
     }
 
-    function test()
-    {
-        alert("test");
-    }
     //验证用户是否登录
     Global.validateLogin= function () {
         AjaxRequest("/Home/Validate", "get", null,
@@ -246,6 +186,27 @@
                 }
             }
         );
+    }
+
+    //显示文本框验证内容
+    Global.showIptMsg = function (obj, msg) {
+        if ($(obj).parent().find(".hint").html())
+        {
+            $(obj).parent().find(".hint").show();
+            $(obj).parent().find(".hint .h-t-nr").html(msg);
+        }
+        else
+        {
+            var html = '<div class="hint">';
+            html += ' <div class="hint-tool">';
+            html += '         <div class="h-t-nr">'+msg+'</div>';
+            html += '         <span></span>';
+            html += '       </div>';
+            html += '     </div>';
+            $(obj).parent().append(html);
+            $(obj).parent().find(".hint").show();
+        }
+
     }
 
     module.exports = Global;
