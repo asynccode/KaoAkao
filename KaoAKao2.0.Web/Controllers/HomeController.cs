@@ -54,18 +54,24 @@ namespace KaoAKao2._0.Web.Controllers
                     mobile = name;
                 else
                     email = name;
-                string userID = UserBusiness.AddUsers(mobile, email, pwd, UserType.User, string.Empty, string.Empty);
-                if (!string.IsNullOrEmpty(userID))
+
+                if (!UserBusiness.IsExistUserName(name))
                 {
-                    UserEntity user = UserBusiness.GetUserByUserID(userID);
-                    if (user != null)
+                    string userID = UserBusiness.AddUsers(mobile, email, pwd, UserType.User, string.Empty, string.Empty);
+                    if (!string.IsNullOrEmpty(userID))
                     {
-                        ResultObj.Add("result", 1);
-                        Session["User"] = user;
+                        UserEntity user = UserBusiness.GetUserByUserID(userID);
+                        if (user != null)
+                        {
+                            ResultObj.Add("result", 1);
+                            Session["User"] = user;
+                        }
                     }
+                    else
+                        ResultObj.Add("result", 0);
                 }
                 else
-                    ResultObj.Add("result", 0);
+                    ResultObj.Add("result", 3);
             }
             else
                 ResultObj.Add("result", 2);
@@ -125,6 +131,11 @@ namespace KaoAKao2._0.Web.Controllers
         public ActionResult Logout()
         {
             Session.Remove("User");
+            if (Request.Cookies["passportInfo"] != null)
+            {
+                Response.Cookies["passportInfo"].Values.Clear();
+                Response.Cookies["passportInfo"].Expires = DateTime.Now.AddDays(-1);
+            }
             return RedirectToAction("index", "home");
         }
 

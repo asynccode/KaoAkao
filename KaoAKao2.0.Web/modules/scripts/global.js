@@ -147,6 +147,44 @@
         return p.exec(str);
     }
 
+    //Cookies 操作
+    //写入
+    Global.setCookie= function (name, value) {
+        var nextyear = new Date();
+        nextyear.setFullYear(nextyear.getFullYear() + 10);
+        var expireDate = nextyear.toGMTString();
+        if (document.domain.indexOf('.mingdao.com') == -1) {
+            document.cookie = name + "=" + escape(value) + ";expires=" + expireDate + ";path=/";
+        } else {
+            document.cookie = name + "=" + escape(value) + ";expires=" + expireDate + ";path=/;domain=.mingdao.com";
+        }
+    }
+    //读取
+    Global.getCookie = function getCookie(name) {
+        var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+        if (arr != null) {
+            return unescape(arr[2]);
+        }
+        return null;
+    }
+    //删除
+    Global.delCookie = function (name) {
+        var exp = new Date();
+        exp.setTime(exp.getTime() - 10000);
+        if (getCookie(name) == null) {
+            return;
+        }
+        var cval = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"))[2];
+        if (cval != null) {
+            if (document.domain.indexOf('.mingdao.com') == -1) {
+                document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString() + ";path=/";
+            } else {
+                document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString() + ";path=/;domain=.mingdao.com";
+            }
+
+        }
+    }
+
     //是否为移动端
     Global.isMoblieTerminal=function () {
         var browser = {
@@ -181,8 +219,18 @@
             function (data) {
                 if (data.result == 1) {
                     $("#ul_nav a.button-min").hide();
-                    var html = "<li>" + data.userName + "       |       " + "<a style='color:#333' href='/ajax/logout'>登出<a/>" + "</li>";
-                    $("#ul_nav").prepend(html);
+
+                    $("#ul_nav .user").show();
+                    $("#ul_nav .user .effigy").append("<i><img src='/modules/home/Images/index_16.jpg' /></i>" + data.userName);
+
+                    $("#ul_nav .user").hover(function () {
+                        $("#ul_nav .user .user-center").show();
+                    },
+                    function () {
+                        $("#ul_nav .user .user-center").hide();
+                    }
+
+                    );
                 }
             }
         );

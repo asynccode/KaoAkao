@@ -9,12 +9,21 @@ define(function (require, exports, module) {
         ajaxUrl: "/Home/UserLogin",
         userName: "",
         userPwd: "",
-        code:""
+        code: "",
+        autoLogin:0
     };
 
     //初始化
     Login.init = function () {
-        Login.bindEvent();
+        var passportInfo = Global.getCookie("passportInfo");
+        if (passportInfo!=null)
+        {
+            $("#txt_userName").val( passportInfo.split('|')[0] );
+            $("#txt_userPwd").val(passportInfo.split('|')[1] );
+            Login.userLogin();
+        }
+        else
+            Login.bindEvent();
     };
 
     //绑定事件
@@ -62,12 +71,23 @@ define(function (require, exports, module) {
         $("#btn_userLogin").bind("click", function () {
             Login.userLogin();
         });
+
+        $("#btn_autoLogin").bind("click", function () {
+            if ($(this).hasClass("checked")) {
+                $(this).removeClass("checked");
+            }
+            else {
+                $(this).addClass("checked");
+            }
+        });
     };
 
     //用户登录
     Login.userLogin = function () {
         $("#btn_userLogin").val("登录中...");
         $("#btn_userLogin").attr("disabled", true);
+        if ($("#btn_autoLogin").hasClass("checked"))
+            Login.options.autoLogin = 1;
 
         if (Login.validate()) {
             Global.AjaxRequest(Login.options.ajaxUrl, "post",
@@ -82,7 +102,12 @@ define(function (require, exports, module) {
                     if (data.result == 0) {
                         $("#loginError").html("用户名或密码有误!").show();
                     }
-                    else {
+                    else
+                    {
+                        if (Login.options.autoLogin == 1)
+                        {
+                            Global.setCookie("passportInfo", Login.options.userName + "|" + Login.options.userPwd);
+                        }
                         location.href = "/home/index"
                     }
 

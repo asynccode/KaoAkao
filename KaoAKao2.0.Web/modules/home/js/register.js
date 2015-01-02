@@ -78,7 +78,7 @@
         $("#btn_register").attr("disabled", true);
 
         if (Register.validate()) {
-            AjaxRequest(Register.options.ajaxUrl, "post",
+            Global.AjaxRequest(Register.options.ajaxUrl, "post",
                 {
                     UserName: Register.options.userName,
                     UserPwd: Register.options.userPwd,
@@ -89,7 +89,10 @@
                     $("#btn_register").val("注册");
                     $("#btn_register").removeAttr("disabled");
 
-                    if (data.result == 2) {
+                    if (data.result == 3) {
+                        Global.showIptMsg($("#txt_userName"), "用户名已存在");
+                    }
+                    else if (data.result == 2) {
                         Global.showIptMsg($("#txt_code"), "验证码有误");
                         $("#btn_chkCode").click();
                     }
