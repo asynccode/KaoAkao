@@ -55,6 +55,7 @@ html{position:relative;}
 .footer-top{font-size:18px;border-bottom:1px solid #c4c4c4;}
 .footer-top li{float:left;height:36px;padding-right:28px;line-height:36px;}
 .footer-top a{color:#333;}
+.footer-top a:hover{text-decoration:underline;}
 .footer-bottom{font-size:12px;color:#666;line-height:32px;}
 .f-b-left{float:left;}
 .f-b-left li{float:left;padding-right:28px;}
