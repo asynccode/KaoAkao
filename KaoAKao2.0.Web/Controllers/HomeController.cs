@@ -23,6 +23,11 @@ namespace KaoAKao2._0.Web.Controllers
             return View();
         }
 
+        public ActionResult Course()
+        {
+            return View();
+        }
+
         public ActionResult Register()
         {
             return View();

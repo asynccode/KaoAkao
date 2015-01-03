@@ -119,13 +119,29 @@
     <Content Include="modules\home\css\common.css" />
     <Content Include="modules\home\css\global.css" />
     <Content Include="modules\home\css\layout.css" />
+    <Content Include="modules\home\css\style.css" />
     <Content Include="modules\home\images\1.jpg" />
     <Content Include="modules\home\images\2.jpg" />
     <Content Include="modules\home\images\3.jpg" />
     <Content Include="modules\home\images\4.jpg" />
     <Content Include="modules\home\images\combine.png" />
+    <Content Include="modules\home\images\course_01.jpg" />
+    <Content Include="modules\home\images\course_02.png" />
+    <Content Include="modules\home\images\course_03.png" />
+    <Content Include="modules\home\images\course_04.png" />
+    <Content Include="modules\home\images\course_05.png" />
+    <Content Include="modules\home\images\course_06.png" />
+    <Content Include="modules\home\images\course_07.png" />
+    <Content Include="modules\home\images\course_08.png" />
+    <Content Include="modules\home\images\course_09.png" />
+    <Content Include="modules\home\images\course_10.png" />
+    <Content Include="modules\home\images\course_11.png" />
+    <Content Include="modules\home\images\course_12.jpg" />
+    <Content Include="modules\home\images\course_13.jpg" />
     <Content Include="modules\home\images\hint_01.png" />
     <Content Include="modules\home\images\hint_02.png" />
+    <Content Include="modules\home\images\hover_left.png" />
+    <Content Include="modules\home\images\hover_right.png" />
     <Content Include="modules\home\images\icon_01.png" />
     <Content Include="modules\home\images\icon_02.png" />
     <Content Include="modules\home\images\icon_03.png" />
@@ -392,6 +408,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Manage\Views\Customer\LevelDetail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Course.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,10 @@
+﻿
+.input-txt{display:block;width:275px;height:auto; padding:5px 5px 5px 35px;line-height:20px;font-size:12px;color:#444;background:#fff;border:1px solid #b3b3b3;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;}
+ 
+.user{position:relative;display:none;padding-bottom:15px;}
+.user-center{position:relative;display:none;}
+.user-pers{position:absolute;left:-105px;top:0px; margin-top:7px;display:block;}
+
+  .code {width: 110px;padding: 5px;display:inline-block;}
+
+.hint{position:absolute;top:-20px;left:247px;display:none;}

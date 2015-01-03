@@ -40,7 +40,11 @@
         $("#txt_userPwd").bind("blur", function () {
             var userPwd = $("#txt_userPwd").val();
             if (userPwd != "") {
-                $(this).parent().find(".hint").hide();
+                if (userPwd.length < 6 || userPwd.length > 16) {
+                    Global.showIptMsg($("#txt_userPwd"), "请输入6-16位密码");
+                }
+                else
+                    $(this).parent().find(".hint").hide();
             }
             else
             {
@@ -139,6 +143,12 @@
         if (Register.options.userPwd == "") {
             Global.showIptMsg($("#txt_userPwd"), "密码不能为空");
             return false;
+        }
+        else {
+            if (Register.options.userPwd.length < 6 || Register.options.userPwd.length >16)
+            {
+                Global.showIptMsg($("#txt_userPwd"), "请输入6-16位密码");
+            }
         }
 
         Register.options.userConfirmPwd = $("#txt_userConfirmPwd").val();
