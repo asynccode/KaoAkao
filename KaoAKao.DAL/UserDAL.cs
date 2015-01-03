@@ -103,18 +103,18 @@ namespace KaoAKao.DAL
         /// <returns></returns>
         public string AddUsers(string name, string mobile, string email, string loginpwd, string photoPath, int usertype, string keyWords, string desc, string operateIP, string operateID,out int result,out string resultdes)
         {
-            string id = string.Empty;
+            string id = "";
             SqlParameter[] paras = {
-                                       new SqlParameter("@ID",SqlDbType.NVarChar),
+                                       new SqlParameter("@ID",SqlDbType.NVarChar,50),
                                        new SqlParameter("@Result",SqlDbType.Int),
-                                       new SqlParameter("@ResultDes",SqlDbType.NVarChar),
+                                       new SqlParameter("@ResultDes",SqlDbType.NVarChar,4000),
                                        new SqlParameter("@UserName",""),
                                        new SqlParameter("@Name",name),
                                        new SqlParameter("@PetName",""),
                                        new SqlParameter("@LoginPwd",""),
                                        new SqlParameter("@SecurityPwd",""),
                                        new SqlParameter("@LevelID",0),
-                                       new SqlParameter("@UserType",0),
+                                       new SqlParameter("@UserType",usertype),
                                        new SqlParameter("@Degree",0),
                                        new SqlParameter("@HomeTele",""),
                                        new SqlParameter("@MobileTele",mobile),
@@ -145,7 +145,7 @@ namespace KaoAKao.DAL
             paras[1].Direction = ParameterDirection.Output;
             paras[2].Direction = ParameterDirection.Output;
 
-            ExecuteScalar("P_CoursesAdd", paras, CommandType.StoredProcedure);
+            ExecuteScalar("P_UsersAdd", paras, CommandType.StoredProcedure);
             id = paras[0].Value.ToString();
             result = Convert.ToInt32(paras[1].Value);
             resultdes = paras[2].Value.ToString();
