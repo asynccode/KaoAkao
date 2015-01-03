@@ -12,7 +12,7 @@ define(function (require, exports, module) {
         index: 1,
         keywords: "",
     }
-    var CourseCategory = {
+    var Course = {
 
         //列表页JS
         init : function () {
@@ -41,7 +41,7 @@ define(function (require, exports, module) {
         getCourseList: function () {
             var _self = this;
             $(".tr-header").nextAll().remove();
-            Global.post("/Manage/Courses/GetCourses", Params, function (data) {
+            Global.post("/Manage/Course/GetCourses", Params, function (data) {
                 doT.exec("/modules/manage/template/course-list.html", function (templateFun) {
                     var innerText = templateFun(data.Items);
                     innerText = $(innerText);
@@ -50,7 +50,7 @@ define(function (require, exports, module) {
                     innerText.find(".delete").click(function () {
                         var cid = $(this).data("id");
                         if (confirm("确认删除课程吗？")) {
-                            Global.post("/Manage/Courses/DeleteCourse", {
+                            Global.post("/Manage/Course/DeleteCourse", {
                                 courseid: cid
                             }, function (data) {
                                 if (data.Status) {
@@ -113,24 +113,18 @@ define(function (require, exports, module) {
                 CourseID: _self.CourseID,
                 CourseName: $("#courseName").val().trim(),
                 CategoryID: $("#pcategory").val(),
-                CourseImg: $("#imageURL").val(),
+                ImgURL: $("#imageURL").val(),
+                IsHot: $("#isHot").val(),
+                LimitLevel: $("#limitLevel").val(),
                 KeyWords: $("#courseKeyWords").val(),
                 Description: $("#description").val(),
                 TeacherID: $("#teacher").val()
             };
-            if (!Course.CourseID) {
-                Global.post("/Manage/Courses/AddCourse", { course: JSON.stringify(Course) }, function (data) {
-                    if (data.ID.length > 0) {
-                        location.href = "/Manage/Courses/Courses"
-                    }
-                });
-            } else {
-                Global.post("/Manage/Courses/EditCourse", { course: JSON.stringify(Course) }, function (data) {
-                    if (data.Status) {
-                        location.href = "/Manage/Courses/Courses"
-                    }
-                });
-            }
+            Global.post("/Manage/Course/SaveCourse", { course: JSON.stringify(Course) }, function (data) {
+                if (data.ID.length > 0) {
+                    location.href = "/Manage/Course/Courses"
+                }
+            });
         },
         //获取下级分类
         getChildCategry: function (pid, callback) {
@@ -170,5 +164,5 @@ define(function (require, exports, module) {
     };
 
 
-    module.exports = CourseCategory;
+    module.exports = Course;
 })

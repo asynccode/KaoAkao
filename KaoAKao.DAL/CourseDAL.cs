@@ -53,14 +53,14 @@ namespace KaoAKao.DAL
         public object AddCourse(string courseName, string cid, string courseImg, double price, string teacherid, int isHot, int limitLevel, string keyWords, string desc, string operateIP, string operateID)
         {
             string sql = @" declare @CourseID nvarchar(64) set @CourseID=NEWID() 
-                            INSERT INTO Courses(CourseID,CourseName,CategoryID,CIDList,CourseImg,Price,CourseLevel,TeacherID,IsHot ,LimitLevel,KeyWords,Description,CreateDate,LastOperateDate,OperateIP,OperateID)
-                            values(@CourseID,@CourseName,@CategoryID,'',@CourseImg,@Price,0,@TeacherID ,@IsHot,@LimitLevel,@KeyWords,@Description,GETDATE(),GETDATE(),@OperateIP,@OperateID)
+                            INSERT INTO Courses(CourseID,CourseName,CategoryID,ImgURL,Price,TeacherID,IsHot,Status ,LimitLevel,KeyWords,Description,CreateDate,LastOperateDate,OperateIP,OperateID)
+                            values(@CourseID,@CourseName,@CategoryID,@ImgURL,@Price,@TeacherID ,@IsHot,1,@LimitLevel,@KeyWords,@Description,GETDATE(),GETDATE(),@OperateIP,@OperateID)
                             select @CourseID";
 
             SqlParameter[] paras = { 
                                        new SqlParameter("@CourseName",courseName),
                                        new SqlParameter("@CategoryID",cid),
-                                       new SqlParameter("@CourseImg",courseImg),
+                                       new SqlParameter("@ImgURL",courseImg),
                                        new SqlParameter("@Price",price),
                                        new SqlParameter("@TeacherID",teacherid),
                                        new SqlParameter("@IsHot",isHot),
@@ -94,6 +94,29 @@ namespace KaoAKao.DAL
             return ExecuteNonQuery(sql, paras, CommandType.Text) > 0;
         }
 
+        public bool EditCourse(string courseid, string courseName, string cid, string courseImg, double price, string teacherid, int isHot, int limitLevel, string keyWords, string desc, string operateIP, string operateID)
+        {
+            string sql = @" update Courses set CourseName=@CourseName,CategoryID=@CategoryID,ImgURL=@ImgURL,Price=@Price,TeacherID=@TeacherID,IsHot=@IsHot ,LimitLevel=@LimitLevel,KeyWords=@KeyWords,
+                            Description=@Description,LastOperateDate=GETDATE(),OperateIP=@OperateIP,OperateID=@OperateID
+                            where CourseID=@CourseID";
+
+            SqlParameter[] paras = { 
+                                       new SqlParameter("@CourseID",courseid),
+                                       new SqlParameter("@CourseName",courseName),
+                                       new SqlParameter("@CategoryID",cid),
+                                       new SqlParameter("@ImgURL",courseImg),
+                                       new SqlParameter("@Price",price),
+                                       new SqlParameter("@TeacherID",teacherid),
+                                       new SqlParameter("@IsHot",isHot),
+                                       new SqlParameter("@LimitLevel",limitLevel),
+                                       new SqlParameter("@KeyWords",keyWords),
+                                       new SqlParameter("@Description",keyWords),
+                                       new SqlParameter("@OperateIP",operateIP),
+                                       new SqlParameter("@OperateID",operateID)
+                                   };
+            return ExecuteNonQuery(sql, paras, CommandType.Text) > 0;
+        }
+
         #endregion
 
         #region 删除
@@ -104,6 +127,18 @@ namespace KaoAKao.DAL
                            where CategoryID=@CategoryID or PID=@CategoryID ";
             SqlParameter[] paras = { 
                                        new SqlParameter("@CategoryID",categoryid),
+                                       new SqlParameter("@OperateIP",operateIP),
+                                       new SqlParameter("@OperateID",operateID)
+                                   };
+            return ExecuteNonQuery(sql, paras, CommandType.Text) > 0;
+        }
+
+        public bool DeleteCourse(string courseid, string operateIP, string operateID)
+        {
+            string sql = @"update Courses set [Status]= 9 ,LastOperateDate=GETDATE(),OperateIP=@OperateIP,OperateID=@OperateID 
+                           where CourseID=@CourseID ";
+            SqlParameter[] paras = { 
+                                       new SqlParameter("@CourseID",courseid),
                                        new SqlParameter("@OperateIP",operateIP),
                                        new SqlParameter("@OperateID",operateID)
                                    };

@@ -4,12 +4,12 @@
 %}
 <tr>
     <td class="center">
-        <a href="/Manage/Courses/CourseDetail/{%=item.CourseID%}">编辑</a>
+        <a href="/Manage/Course/CourseDetail/{%=item.CourseID%}">编辑</a>
         <a href="javascript:void(0)" class="delete" data-id="{%=item.CourseID%}">删除</a>
     </td>
     <td>{%=item.CourseName%}</td>
-    <td><a href="/Manage/Courses/Lessons/{%=item.CourseID%}">设置章节</a></td>
-    <td>{%=item.KeyWords%}</td>
+    <td><a href="/Manage/Course/Lessons/{%=item.CourseID%}">设置章节</a></td>
+    <td>{%=item.Keywords%}</td>
     <td>{%=item.CName%}</td>
     <td>{%=item.CreateDate.toDate("yyyy-MM-dd hh:mm:ss")%}</td>
 </tr>
