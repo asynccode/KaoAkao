@@ -30,11 +30,20 @@ namespace KaoAKao.Business
                 string now = DateTime.Now.ToString("yyMMdd");
                 if (!CategoryDay.Equals(now))
                 {
+                    if (string.IsNullOrEmpty(CategoryDay))
+                    {
+                        CategoryCount = Convert.ToInt32(CommonBusiness.GetColumnValue("CourseCategory", "count(0)", " and CategoryID like '" + now + "%'"));
+                    }
                     CategoryDay = now;
-                    CategoryCount = 1;
+
+                    CategoryCount++;
                 }
                 else
                 {
+                    if (CategoryCount <= 1)
+                    {
+                        CategoryCount = Convert.ToInt32(CommonBusiness.GetColumnValue("CourseCategory", "count(0)", " and CategoryID like '" + CategoryDay + "%'"));
+                    }
                     CategoryCount++;
                 }
                 code = CategoryDay + CategoryCount.ToString("0000");
