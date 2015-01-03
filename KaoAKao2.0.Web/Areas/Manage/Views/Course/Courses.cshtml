@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Courses";
+}
+@section css{
+    <link rel="stylesheet" href="/modules/manage/css/course-category.css" />
+}
+@section LeftMenu{
+    @Html.Partial("_CourseLeftMenu")
+}
+@section scripts{
+     <script type="text/javascript">
+         seajs.use(["manage/scripts/courses.js"], function (course) {
+             course.init();
+        });
+    </script>
+}
+<div class="header-box">
+    <span class="header-title left">课程列表</span>
+    <span class="ico-gonext right" onclick="history.go(1)" title="前进"></span>
+    <span class="ico-goback right" onclick="history.go(-1)" title="后退"></span>
+</div>
+<div class="search-opt mLeft20">
+    <div class="left mTop20 mLeft20">
+        <span class="width80">课程分类：</span>
+        <select id="category">
+            <option value="-1">全部</option>
+            @foreach (var item in (List<KaoAKao.Entity.CourseCategoryEntity>)ViewBag.PList)
+            {
+                <option value="@item.CategoryID">@item.CategoryName</option>
+            }
+        </select>
+    </div>
+    <div class="right searth-module mRight20">
+        <input type="text" class="search-ipt" id="keywords" placeholder="搜索..." />
+        <span class="search-ico hand"></span>
+    </div>
+</div>
+<table class="table-list mLeft20 mTop20">
+    <tr class="tr-header">
+        <td>操作</td>
+        <td>名称</td>
+        <td>章节管理</td>
+        <td>标签</td>
+        <td>分类名称</td>
+        <td>创建日期</td>
+    </tr>
+
+</table>
+<div style="width:90%;">
+    <div id="pager" class="mTop20"></div>
+</div>

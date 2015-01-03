@@ -104,7 +104,7 @@
     <Compile Include="Areas\Manage\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Manage\Controllers\HomeController.cs" />
     <Compile Include="Areas\Manage\ManageAreaRegistration.cs" />
-    <Compile Include="Controllers\AjaxController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -116,62 +116,76 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\css\common.css" />
-    <Content Include="Content\css\global.css" />
-    <Content Include="Content\css\layout.css" />
-    <Content Include="Content\images\1.jpg" />
-    <Content Include="Content\images\2.jpg" />
-    <Content Include="Content\images\3.jpg" />
-    <Content Include="Content\images\4.jpg" />
-    <Content Include="Content\images\combine.png" />
-    <Content Include="Content\images\hint_01.png" />
-    <Content Include="Content\images\hint_02.png" />
-    <Content Include="Content\images\icon_01.png" />
-    <Content Include="Content\images\icon_02.png" />
-    <Content Include="Content\images\icon_03.png" />
-    <Content Include="Content\images\icon_04.png" />
-    <Content Include="Content\images\icon_05.png" />
-    <Content Include="Content\images\icon_06.png" />
-    <Content Include="Content\images\index_01.png" />
-    <Content Include="Content\images\index_02.png" />
-    <Content Include="Content\images\index_03.png" />
-    <Content Include="Content\images\index_04.png" />
-    <Content Include="Content\images\index_05.jpg" />
-    <Content Include="Content\images\index_06.png" />
-    <Content Include="Content\images\index_07.png" />
-    <Content Include="Content\images\index_08.png" />
-    <Content Include="Content\images\index_09.png" />
-    <Content Include="Content\images\index_10.png" />
-    <Content Include="Content\images\index_11.png" />
-    <Content Include="Content\images\index_12.png" />
-    <Content Include="Content\images\index_13.png" />
-    <Content Include="Content\images\index_14.png" />
-    <Content Include="Content\images\index_15.png" />
-    <Content Include="Content\images\index_16.jpg" />
-    <Content Include="Content\images\index_17.png" />
-    <Content Include="Content\images\index_18.png" />
-    <Content Include="Content\images\index_19.png" />
-    <Content Include="Content\images\index_20.png" />
-    <Content Include="Content\images\index_21.png" />
-    <Content Include="Content\images\login_01.png" />
-    <Content Include="Content\images\login_02.png" />
-    <Content Include="Content\images\login_03.png" />
-    <Content Include="Content\images\logo.png" />
-    <Content Include="Content\images\phone-logo.png" />
-    <Content Include="Content\images\phone-search.png" />
-    <Content Include="Content\images\register_01.jpg" />
-    <Content Include="Content\images\register_02.jpg" />
-    <Content Include="Content\images\register_03.png" />
-    <Content Include="Content\images\search.png" />
-    <Content Include="Content\js\common.js" />
-    <Content Include="Content\js\cycle.js" />
-    <Content Include="Content\js\example.js" />
-    <Content Include="Content\js\focus.js" />
-    <Content Include="Content\js\index.js" />
-    <Content Include="Content\jqueryLB\jquery-1.7.2.js" />
-    <Content Include="Content\jqueryLB\jquery.color-RGBa-patch.js" />
-    <Content Include="Content\js\login.js" />
-    <Content Include="Content\js\register.js" />
+    <Content Include="modules\home\css\common.css" />
+    <Content Include="modules\home\css\global.css" />
+    <Content Include="modules\home\css\layout.css" />
+    <Content Include="modules\home\css\style.css" />
+    <Content Include="modules\home\images\1.jpg" />
+    <Content Include="modules\home\images\2.jpg" />
+    <Content Include="modules\home\images\3.jpg" />
+    <Content Include="modules\home\images\4.jpg" />
+    <Content Include="modules\home\images\combine.png" />
+    <Content Include="modules\home\images\course_01.jpg" />
+    <Content Include="modules\home\images\course_02.png" />
+    <Content Include="modules\home\images\course_03.png" />
+    <Content Include="modules\home\images\course_04.png" />
+    <Content Include="modules\home\images\course_05.png" />
+    <Content Include="modules\home\images\course_06.png" />
+    <Content Include="modules\home\images\course_07.png" />
+    <Content Include="modules\home\images\course_08.png" />
+    <Content Include="modules\home\images\course_09.png" />
+    <Content Include="modules\home\images\course_10.png" />
+    <Content Include="modules\home\images\course_11.png" />
+    <Content Include="modules\home\images\course_12.jpg" />
+    <Content Include="modules\home\images\course_13.jpg" />
+    <Content Include="modules\home\images\hint_01.png" />
+    <Content Include="modules\home\images\hint_02.png" />
+    <Content Include="modules\home\images\hover_left.png" />
+    <Content Include="modules\home\images\hover_right.png" />
+    <Content Include="modules\home\images\icon_01.png" />
+    <Content Include="modules\home\images\icon_02.png" />
+    <Content Include="modules\home\images\icon_03.png" />
+    <Content Include="modules\home\images\icon_04.png" />
+    <Content Include="modules\home\images\icon_05.png" />
+    <Content Include="modules\home\images\icon_06.png" />
+    <Content Include="modules\home\images\index_01.png" />
+    <Content Include="modules\home\images\index_02.png" />
+    <Content Include="modules\home\images\index_03.png" />
+    <Content Include="modules\home\images\index_04.png" />
+    <Content Include="modules\home\images\index_05.jpg" />
+    <Content Include="modules\home\images\index_06.png" />
+    <Content Include="modules\home\images\index_07.png" />
+    <Content Include="modules\home\images\index_08.png" />
+    <Content Include="modules\home\images\index_09.png" />
+    <Content Include="modules\home\images\index_10.png" />
+    <Content Include="modules\home\images\index_11.png" />
+    <Content Include="modules\home\images\index_12.png" />
+    <Content Include="modules\home\images\index_13.png" />
+    <Content Include="modules\home\images\index_14.png" />
+    <Content Include="modules\home\images\index_15.png" />
+    <Content Include="modules\home\images\index_16.jpg" />
+    <Content Include="modules\home\images\index_17.png" />
+    <Content Include="modules\home\images\index_18.png" />
+    <Content Include="modules\home\images\index_19.png" />
+    <Content Include="modules\home\images\index_20.png" />
+    <Content Include="modules\home\images\index_21.png" />
+    <Content Include="modules\home\images\login_01.png" />
+    <Content Include="modules\home\images\login_02.png" />
+    <Content Include="modules\home\images\login_03.png" />
+    <Content Include="modules\home\images\logo.png" />
+    <Content Include="modules\home\images\phone-logo.png" />
+    <Content Include="modules\home\images\phone-search.png" />
+    <Content Include="modules\home\images\register_01.jpg" />
+    <Content Include="modules\home\images\register_02.jpg" />
+    <Content Include="modules\home\images\register_03.png" />
+    <Content Include="modules\home\images\search.png" />
+    <Content Include="modules\home\js\cycle.js" />
+    <Content Include="modules\home\js\example.js" />
+    <Content Include="modules\home\js\focus.js" />
+    <Content Include="modules\home\js\index.js" />
+    <Content Include="modules\scripts\jquery.color-RGBa-patch.js" />
+    <Content Include="modules\home\js\login.js" />
+    <Content Include="modules\home\js\register.js" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -230,6 +244,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="modules\manage\css\course-category.css" />
     <Content Include="modules\manage\css\layout-manage.css" />
+    <Content Include="modules\manage\css\users.css" />
     <Content Include="modules\manage\images\header.jpg" />
     <Content Include="modules\manage\images\ico-add.png" />
     <Content Include="modules\manage\images\ico-goback.png" />
@@ -255,9 +270,12 @@
     <Content Include="modules\manage\scripts\course-category.js" />
     <Content Include="modules\manage\scripts\courses.js" />
     <Content Include="modules\manage\scripts\manage-layout.js" />
+    <Content Include="modules\manage\scripts\users.js" />
+    <Content Include="modules\manage\scripts\userlevel.js" />
     <Content Include="modules\manage\template\course-category-list.html" />
     <Content Include="modules\manage\template\course-list.html" />
     <Content Include="modules\manage\template\users-list.html" />
+    <Content Include="modules\manage\template\userlevel.html" />
     <Content Include="modules\plug\area_city\area-city-noseajs.js" />
     <Content Include="modules\plug\area_city\area-city.css" />
     <Content Include="modules\plug\area_city\area-city.js" />
@@ -300,7 +318,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Manage\Models\" />
-    <Folder Include="modules\css\" />
+    <Folder Include="Content\upload_images\" />
+    <Folder Include="modules\home\template\" />
     <Folder Include="modules\plug\uploadify\tempFiles\" />
   </ItemGroup>
   <ItemGroup>
@@ -347,7 +366,7 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\font\SourceHanSansCN-Regular.otf" />
+    <Content Include="modules\home\font\SourceHanSansCN-Regular.otf" />
     <Content Include="Areas\Manage\Views\Course\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -373,11 +392,29 @@
     <Content Include="Areas\Manage\Views\Customer\_CustomerLeftMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Content Include="Areas\Manage\Views\Course\CreateCourse.cshtml" />
-=======
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Areas\Manage\Views\Customer\UserLevel.cshtml" />
->>>>>>> 76b5c9ffc15b461148821939b9e18798f2925fd1
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Customer\CreateTeacher.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Customer\Teachers.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Customer\TeacherDetail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Customer\LevelDetail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+<<<<<<< HEAD
+    <Content Include="Views\Home\Course.cshtml" />
+=======
+    <Content Include="Areas\Manage\Views\Course\Courses.cshtml" />
+>>>>>>> 82ed8d5977bb163a53d59526a39c29e85ff25168
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
