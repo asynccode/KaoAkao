@@ -159,6 +159,22 @@ namespace KaoAKao.Business
             return list;
         }
 
+        /// <summary>
+        /// 根据ID获取课程实体
+        /// </summary>
+        /// <param name="courseid"></param>
+        /// <returns></returns>
+        public static Entity.CourseEntity GetCourseByID(string courseid)
+        {
+            Entity.CourseEntity model = new CourseEntity();
+            DataTable dt = new DAL.CourseDAL().GetCourseByID(courseid);
+            if (dt.Rows.Count > 0)
+            {
+                model.FillData(dt.Rows[0]);
+            }
+            return model;
+        }
+
         #endregion
 
         #region 添加
