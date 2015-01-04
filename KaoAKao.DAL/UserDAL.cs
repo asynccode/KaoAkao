@@ -68,22 +68,55 @@ namespace KaoAKao.DAL
 
         #region 添加
 
-        public object AddUsers(string mobile, string email, string loginpwd, int usertype, string operateIP, string operateID)
+        public string AddUsers(string mobile, string email, string loginpwd, int usertype, string operateIP, string operateID, out int result, out string resultdes)
         {
-            string sql = @" declare @UserID nvarchar(64) set @UserID=NEWID() 
-                            INSERT INTO Users(UserID,MobileTele,Email,LoginPwd,UserType,RegisterDate,OperateIP,OperateID)
-                            values(@UserID,@MobileTele,@Email,@LoginPwd,@UserType,GetDate(),@OperateIP,@OperateID)
-                            select @UserID";
-
-            SqlParameter[] paras = { 
+            string id = "";
+            SqlParameter[] paras = {
+                                       new SqlParameter("@ID",SqlDbType.NVarChar,50),
+                                       new SqlParameter("@Result",SqlDbType.Int),
+                                       new SqlParameter("@ResultDes",SqlDbType.NVarChar,4000),
+                                       new SqlParameter("@UserName",""),
+                                       new SqlParameter("@Name",""),
+                                       new SqlParameter("@PetName",""),
+                                       new SqlParameter("@LoginPwd",loginpwd),
+                                       new SqlParameter("@SecurityPwd",""),
+                                       new SqlParameter("@LevelID",0),
+                                       new SqlParameter("@UserType",usertype),
+                                       new SqlParameter("@Degree",0),
+                                       new SqlParameter("@HomeTele",""),
                                        new SqlParameter("@MobileTele",mobile),
                                        new SqlParameter("@Email",email),
-                                       new SqlParameter("@LoginPwd",loginpwd),
-                                       new SqlParameter("@UserType",usertype),
+                                       new SqlParameter("@Sex",0),
+                                       new SqlParameter("@Birthday","1900-01-01"),
+                                       new SqlParameter("@AreaCode",""),
+                                       new SqlParameter("@Address",""),
+                                       new SqlParameter("@PhotoPath",""),
+                                       new SqlParameter("@State",0),
+                                       new SqlParameter("@Question",""),
+                                       new SqlParameter("@Answer",""),
+                                       new SqlParameter("@PostCode",""),
+                                       new SqlParameter("@PaperTypeCode",""),
+                                       new SqlParameter("@PaperNumber",""),
+                                       new SqlParameter("@IntegralIn",0),
+                                       new SqlParameter("@IntegralOut",0),
+                                       new SqlParameter("@GrowValue",0),
+                                       new SqlParameter("@ExpValue",0),
+                                       new SqlParameter("@PwdErrorTimes",0),
+                                       new SqlParameter("@LoginTimes",0),
+                                       new SqlParameter("@KeyWords",""),
+                                       new SqlParameter("@Description",""),
                                        new SqlParameter("@OperateIP",operateIP),
                                        new SqlParameter("@OperateID",operateID)
                                    };
-            return ExecuteScalar(sql, paras, CommandType.Text);
+            paras[0].Direction = ParameterDirection.Output;
+            paras[1].Direction = ParameterDirection.Output;
+            paras[2].Direction = ParameterDirection.Output;
+
+            ExecuteScalar("P_UsersAdd", paras, CommandType.StoredProcedure);
+            id = paras[0].Value.ToString();
+            result = Convert.ToInt32(paras[1].Value);
+            resultdes = paras[2].Value.ToString();
+            return id;
         }
         /// <summary>
         /// 添加会员
@@ -103,18 +136,18 @@ namespace KaoAKao.DAL
         /// <returns></returns>
         public string AddUsers(string name, string mobile, string email, string loginpwd, string photoPath, int usertype, string keyWords, string desc, string operateIP, string operateID,out int result,out string resultdes)
         {
-            string id = string.Empty;
+            string id = "";
             SqlParameter[] paras = {
-                                       new SqlParameter("@ID",SqlDbType.NVarChar),
+                                       new SqlParameter("@ID",SqlDbType.NVarChar,50),
                                        new SqlParameter("@Result",SqlDbType.Int),
-                                       new SqlParameter("@ResultDes",SqlDbType.NVarChar),
+                                       new SqlParameter("@ResultDes",SqlDbType.NVarChar,4000),
                                        new SqlParameter("@UserName",""),
                                        new SqlParameter("@Name",name),
                                        new SqlParameter("@PetName",""),
                                        new SqlParameter("@LoginPwd",""),
                                        new SqlParameter("@SecurityPwd",""),
                                        new SqlParameter("@LevelID",0),
-                                       new SqlParameter("@UserType",0),
+                                       new SqlParameter("@UserType",usertype),
                                        new SqlParameter("@Degree",0),
                                        new SqlParameter("@HomeTele",""),
                                        new SqlParameter("@MobileTele",mobile),
@@ -145,7 +178,7 @@ namespace KaoAKao.DAL
             paras[1].Direction = ParameterDirection.Output;
             paras[2].Direction = ParameterDirection.Output;
 
-            ExecuteScalar("P_CoursesAdd", paras, CommandType.StoredProcedure);
+            ExecuteScalar("P_UsersAdd", paras, CommandType.StoredProcedure);
             id = paras[0].Value.ToString();
             result = Convert.ToInt32(paras[1].Value);
             resultdes = paras[2].Value.ToString();

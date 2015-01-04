@@ -181,10 +181,10 @@ namespace KaoAKao.Business
         /// <summary>
         /// 注册会员
         /// </summary>
-        public static string AddUsers(string mobile, string email, string loginpwd, UserType usertype,  string operateIP, string operateID)
+        public static string AddUsers(string mobile, string email, string loginpwd, UserType usertype, string operateIP, string operateID, out int result, out string resultdes)
         {
             loginpwd = DESEncrypt.GetEncryptionPwd(loginpwd);
-            object obj = new UserDAL().AddUsers(mobile, email, loginpwd, (int)usertype, operateIP, operateID);
+            object obj = new UserDAL().AddUsers(mobile, email, loginpwd, (int)usertype, operateIP, operateID, out result, out resultdes);
             if (obj != null && obj != DBNull.Value)
             {
                 return obj.ToString();

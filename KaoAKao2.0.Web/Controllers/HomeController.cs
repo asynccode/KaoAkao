@@ -62,7 +62,9 @@ namespace KaoAKao2._0.Web.Controllers
 
                 if (!UserBusiness.IsExistUserName(name))
                 {
-                    string userID = UserBusiness.AddUsers(mobile, email, pwd, UserType.User, string.Empty, string.Empty);
+                    int result = 0;
+                    string resultdes = "";
+                    string userID = UserBusiness.AddUsers(mobile, email, pwd, UserType.User, string.Empty, string.Empty, out result, out resultdes);
                     if (!string.IsNullOrEmpty(userID))
                     {
                         UserEntity user = UserBusiness.GetUserByUserID(userID);

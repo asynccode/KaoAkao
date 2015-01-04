@@ -410,11 +410,17 @@
     <Content Include="Areas\Manage\Views\Customer\LevelDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Content Include="Views\Home\Course.cshtml" />
-=======
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Areas\Manage\Views\Course\Courses.cshtml" />
->>>>>>> 82ed8d5977bb163a53d59526a39c29e85ff25168
+  </ItemGroup>
+  <ItemGroup>
+<<<<<<< HEAD
+    <None Include="Properties\PublishProfiles\kaoakao.pubxml" />
+=======
+    <Content Include="Areas\Manage\Views\Course\CourseDetail.cshtml" />
+>>>>>>> c9e825c38292dc71ea0fa847a8a261e687cae375
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
