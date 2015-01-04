@@ -86,7 +86,7 @@ define(function (require, exports, module) {
             };
             Global.post("/Manage/Customer/SaveUserLevel", { userLevel: JSON.stringify(UserLevel) }, function (data) {
                 if (data.Status) {
-                    location.href = "/Manage/Customer/UserLevel";
+                    location.href = location.href;//"/Manage/Customer/UserLevel";
                 } else {
                     alert("保存失败！");
                 }
