@@ -51,7 +51,16 @@ namespace KaoAKao2._0.Web.Areas.Manage.Controllers
         {
             ViewBag.PList = CourseBusiniss.GetCourseCategorysByPID("");
             return View();
-        } 
+        }
+
+        public ActionResult CourseDetail(string id)
+        {
+            ViewBag.LList = UserBusiness.GetUserLevelByType(UserType.User);
+            ViewBag.TList = UserBusiness.GetTeachers();
+            ViewBag.PList = CourseBusiniss.GetCourseCategorysByPID("");
+            ViewBag.ID = id;
+            return View();
+        }
         #region Ajax
 
         #region 课程分类
@@ -206,6 +215,23 @@ namespace KaoAKao2._0.Web.Areas.Manage.Controllers
 
         }
 
+
+        /// <summary>
+        /// 获取课程实体
+        /// </summary>
+        /// <param name="cid"></param>
+        /// <returns></returns>
+        public JsonResult GetCourseByID(string courseid)
+        {
+            var model = CourseBusiniss.GetCourseByID(courseid);
+            JsonDictionary.Add("Item", model);
+            return new JsonResult
+            {
+                Data = JsonDictionary,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
         /// <summary>
         /// 删除课程
         /// </summary>
@@ -222,6 +248,7 @@ namespace KaoAKao2._0.Web.Areas.Manage.Controllers
         }
 
         #endregion
+
         #endregion
     }
 }

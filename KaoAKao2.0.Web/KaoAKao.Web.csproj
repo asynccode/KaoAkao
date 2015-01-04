@@ -416,7 +416,7 @@
     <Content Include="Areas\Manage\Views\Course\Courses.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\PublishProfiles\kaoakao.pubxml" />
+    <Content Include="Areas\Manage\Views\Course\CourseDetail.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

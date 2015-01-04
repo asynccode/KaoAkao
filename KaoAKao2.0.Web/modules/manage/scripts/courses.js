@@ -145,7 +145,7 @@ define(function (require, exports, module) {
         //绑定页面信息
         bindCourse: function (id, callBack) {
             var _self = this;
-            Global.post("/Manage/Courses/GetCourseByID", { courseid: id }, function (data) {
+            Global.post("/Manage/Course/GetCourseByID", { courseid: id }, function (data) {
                 var model = data.Item;
 
                 $("#courseName").val(model.CourseName);
@@ -153,9 +153,11 @@ define(function (require, exports, module) {
                 _self.getChildCategry(model.PID, function () {
                     $("#pcategory").val(model.CategoryID);
                 });
-                $("#courseImage").attr("src", model.CourseImg);
-                $("#imageURL").val(model.CourseImg);
-                $("#courseKeyWords").val(model.KeyWords);
+                $("#limitLevel").val(model.LimitLevel);
+                $("#isHot").val(model.IsHot);
+                $("#courseImage").attr("src", model.ImgURL);
+                $("#imageURL").val(model.ImgURL);
+                $("#courseKeyWords").val(model.Keywords);
                 $("#description").val(model.Description);
                 $("#teacher").val(model.TeacherID);
                 !!callBack && callBack();

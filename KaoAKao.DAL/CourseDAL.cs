@@ -29,6 +29,14 @@ namespace KaoAKao.DAL
             return GetDataTable("select * from CourseCategory where Status!=9 and PID=@CategoryID", paras, CommandType.Text);
         }
 
+        public DataTable GetCourseByID(string courseid)
+        {
+            SqlParameter[] paras = { 
+                                       new SqlParameter("@CourseID",courseid)
+                                   };
+            return GetDataTable("select c.*,cc.PID,cc.CategoryName CName from Courses c join CourseCategory cc on c.CategoryID=cc.CategoryID where CourseID=@CourseID", paras, CommandType.Text);
+        }
+
         #endregion
 
         #region 添加
@@ -66,7 +74,7 @@ namespace KaoAKao.DAL
                                        new SqlParameter("@IsHot",isHot),
                                        new SqlParameter("@LimitLevel",limitLevel),
                                        new SqlParameter("@KeyWords",keyWords),
-                                       new SqlParameter("@Description",keyWords),
+                                       new SqlParameter("@Description",desc),
                                        new SqlParameter("@OperateIP",operateIP),
                                        new SqlParameter("@OperateID",operateID)
                                    };
@@ -110,7 +118,7 @@ namespace KaoAKao.DAL
                                        new SqlParameter("@IsHot",isHot),
                                        new SqlParameter("@LimitLevel",limitLevel),
                                        new SqlParameter("@KeyWords",keyWords),
-                                       new SqlParameter("@Description",keyWords),
+                                       new SqlParameter("@Description",desc),
                                        new SqlParameter("@OperateIP",operateIP),
                                        new SqlParameter("@OperateID",operateID)
                                    };
