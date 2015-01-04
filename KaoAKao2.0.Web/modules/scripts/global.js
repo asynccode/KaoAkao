@@ -223,11 +223,16 @@
                     $("#ul_nav .user").show();
                     $("#ul_nav .user .effigy").append("<i><img src='/modules/home/Images/index_16.jpg' /></i>" + data.userName);
 
+                    var mst=null;
                     $("#ul_nav .user").hover(function () {
-                        $("#ul_nav .user .user-center").show();
+                        mst = setTimeout(function () {//延时触发
+                            mst = null;
+                            $("#ul_nav .user .user-center").slideDown('fast');
+                        });
                     },
                     function () {
-                        $("#ul_nav .user .user-center").hide();
+                        if (mst != null) clearTimeout(mst);
+                            $("#ul_nav .user .user-center").slideUp("fast");
                     }
 
                     );

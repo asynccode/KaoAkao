@@ -15,6 +15,7 @@
 *└──────────────────────────────────┘
 */
 using System;
+using System.Collections.Generic;
 using System.Data;
 
 namespace KaoAKao.Entity
@@ -208,6 +209,8 @@ namespace KaoAKao.Entity
 			set{ _operateid=value;}
 			get{return _operateid;}
 		}
+
+        public List<LessonEntity> ChildLessons { get; set; }
 
         public void FillData(DataRow dr)
         {

@@ -30,11 +30,20 @@ namespace KaoAKao.Business
                 string now = DateTime.Now.ToString("yyMMdd");
                 if (!CategoryDay.Equals(now))
                 {
+                    if (string.IsNullOrEmpty(CategoryDay))
+                    {
+                        CategoryCount = Convert.ToInt32(CommonBusiness.GetColumnValue("CourseCategory", "count(0)", " and CategoryID like '" + now + "%'"));
+                    }
                     CategoryDay = now;
-                    CategoryCount = 1;
+
+                    CategoryCount++;
                 }
                 else
                 {
+                    if (CategoryCount <= 1)
+                    {
+                        CategoryCount = Convert.ToInt32(CommonBusiness.GetColumnValue("CourseCategory", "count(0)", " and CategoryID like '" + CategoryDay + "%'"));
+                    }
                     CategoryCount++;
                 }
                 code = CategoryDay + CategoryCount.ToString("0000");
@@ -175,6 +184,73 @@ namespace KaoAKao.Business
             return model;
         }
 
+        /// <summary>
+        /// 根据课程ID获取章节列表
+        /// </summary>
+        /// <param name="courseid"></param>
+        /// <param name="pid"></param>
+        /// <returns></returns>
+        public static List<Entity.LessonEntity> GetCourseLessons(string courseid)
+        {
+            DataTable dt = new CourseDAL().GetCourseLessons(courseid);
+
+            List<Entity.LessonEntity> list = new List<Entity.LessonEntity>();
+            foreach (DataRow dr in dt.Select("PID=''"))
+            {
+                LessonEntity model = new LessonEntity();
+                model.FillData(dr);
+                List<Entity.LessonEntity> clist = new List<Entity.LessonEntity>();
+                foreach (DataRow cdr in dt.Select("PID='" + model.LessonID + "'"))
+                {
+                    LessonEntity cmodel = new LessonEntity();
+                    cmodel.FillData(cdr);
+
+                    clist.Add(cmodel);
+                }
+                model.ChildLessons = clist;
+                list.Add(model);
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// 根据课程ID获取章节列表
+        /// </summary>
+        /// <param name="courseid"></param>
+        /// <param name="pid"></param>
+        /// <returns></returns>
+        public static List<Entity.LessonEntity> GetCourseLessons(string courseid, string pid)
+        {
+            DataTable dt = new CourseDAL().GetCourseLessons(courseid, pid);
+
+            List<Entity.LessonEntity> list = new List<Entity.LessonEntity>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                LessonEntity model = new LessonEntity();
+                model.FillData(dr);
+                list.Add(model);
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// 根据ID获取章节实体
+        /// </summary>
+        /// <param name="lessonid"></param>
+        /// <returns></returns>
+        public static Entity.LessonEntity GetCourseLessonByID(string lessonid)
+        {
+            Entity.LessonEntity model = new LessonEntity();
+            DataTable dt = new DAL.CourseDAL().GetCourseLessonByID(lessonid);
+            if (dt.Rows.Count > 0)
+            {
+                model.FillData(dt.Rows[0]);
+            }
+            return model;
+        }
+
         #endregion
 
         #region 添加
@@ -234,6 +310,31 @@ namespace KaoAKao.Business
             return string.Empty;
         }
 
+
+        /// <summary>
+        /// 添加课程章节
+        /// </summary>
+        /// <param name="lessonName">名称</param>
+        /// <param name="courseID">课程</param>
+        /// <param name="pid">上级ID</param>
+        /// <param name="lessonImg">图片</param>
+        /// <param name="keyWords">关键词</param>
+        /// <param name="description">描述</param>
+        /// <param name="videoURL">视频ID</param>
+        /// <param name="videoSize">视频大小</param>
+        /// <param name="operateIP"></param>
+        /// <param name="operateID"></param>
+        /// <returns></returns>
+        public string AddCourseLesson(string lessonName, string courseID, string pid, string keywords, string description, string radioURL, string radioSize, int sort, string operateIP, string operateID)
+        {
+            object obj = new CourseDAL().AddCourseLesson(lessonName, courseID, pid, keywords, description, radioURL.Trim(), radioSize, sort, operateIP, operateID);
+            if (obj != null && obj != DBNull.Value)
+            {
+                return obj.ToString();
+            }
+            return string.Empty;
+        }
+
         #endregion
 
         #region 编辑
@@ -283,6 +384,39 @@ namespace KaoAKao.Business
             return new CourseDAL().EditCourse(courseid, courseName, cid, imgURl, price, teacherid, isHot, limitLevel, keyWords, desc, operateIP, operateID);
         }
 
+        /// <summary>
+        /// 编辑课程章节
+        /// </summary>
+        /// <param name="lessonName">名称</param>
+        /// <param name="courseID">课程</param>
+        /// <param name="pid">上级ID</param>
+        /// <param name="lessonImg">图片</param>
+        /// <param name="keyWords">关键词</param>
+        /// <param name="description">描述</param>
+        /// <param name="videoURL">视频ID</param>
+        /// <param name="videoSize">视频大小</param>
+        /// <param name="operateIP"></param>
+        /// <param name="operateID"></param>
+        /// <returns></returns>
+        public bool EditCourseLesson(string lessonID, string lessonName, string courseID, string pid, string keyWords, string description, string videoURL, string videoSize, int sort, string operateIP, string operateID)
+        {
+            bool bl = new CourseDAL().EditCourseLesson(lessonID, lessonName, courseID, pid, keyWords, description, videoURL.Trim(), videoSize, sort, operateIP, operateID);
+            return bl;
+        }
+
+        /// <summary>
+        /// 编辑课程章节排序
+        /// </summary>
+        /// <param name="lessonid"></param>
+        /// <param name="sort"></param>
+        /// <returns></returns>
+        public bool EditLessonSort(string lessonid, int sort)
+        {
+            return CommonBusiness.updateValue("Lessons", "Sort", sort.ToString(), " LessonID='" + lessonid + "'");
+        }
+
+
+      
         #endregion
 
         #region 删除
@@ -311,6 +445,18 @@ namespace KaoAKao.Business
             return new CourseDAL().DeleteCourse(courseid, operateIP, operateID);
         }
 
+
+        /// <summary>
+        /// 删除课程章节
+        /// </summary>
+        /// <param name="lessonid">课程章节ID</param>
+        /// <param name="operateIP">操作IP</param>
+        /// <param name="operateID">操作人</param>
+        /// <returns></returns>
+        public bool DeleteCourseLessons(string lessonid, string operateIP, string operateID)
+        {
+            return new CourseDAL().DeleteCourseLessons(lessonid, operateIP, operateID);
+        }
         #endregion
     }
 }

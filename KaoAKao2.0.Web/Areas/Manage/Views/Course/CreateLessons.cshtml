@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "CreateLessons";
+}
+
+@section css{
+    <link rel="stylesheet" href="/modules/manage/css/course-category.css" />
+}
+@section LeftMenu{
+    @Html.Partial("_CourseLeftMenu")
+}
+<link rel="stylesheet" href="/modules/plug/uploadify/uploadify.css" />
+@section scripts{
+    <script type="text/javascript">
+           seajs.use(["manage/scripts/course-lesson.js"], function (lesson) {
+               lesson.initCreate('@ViewBag.ID');
+           });
+    </script>
+@*    <script src="/modules/scripts/jquery-1.11.1.js"></script>
+    <script src="/modules/plug/uploadify/jquery.uploadify-3.1.js"></script>
+    <script type="text/javascript">
+        var writetoken = 'YJIBEzx4ZRU5SC1-YPVL9XbH0W0OCANf';
+        var readtoken = 'FAqPW9EEqz-pf1Z0F1NLe-tgFCkvUVHE';
+        $(function () {
+            $("#beginUpload").click(function () {
+                $(this).hide();
+                $("#uploadify").show();
+                initUploadify();
+            })
+        });
+        
+        function initUploadify() {
+            $('#uploadify').uploadify({
+                'auto': true,
+                'formData': {
+                    'fcharset': 'ISO-8859-1',
+                    'writetoken': writetoken,
+                    'JSONRPC': '{"title": "' + $("#lessonName").val() + '", "tag": "' + $("#lessonKeyWords").val() + '", "description": "' + $("#description").val() + '"}'
+                },
+                'buttonText': '上传视频',
+                'fileSizeLimit': '500MB',//上传文件大小限制
+                'fileTypeDesc': '视频文件',
+                //'fileTypeExts': '*.avi; *.mp4; *.mov',//文件类型过滤
+                'swf': '/modules/plug/uploadify/uploadify.swf',
+                'uploader': 'http://v.polyv.net/uc/services/rest?method=uploadfile',
+
+                //下面的例子演示如何获取到vid
+                'onUploadSuccess': function (file, data, response) {
+                    var jsonobj = eval('(' + data + ')');
+                    //console.log(jsonobj.data[0]);
+                    $("#videoURL").val(jsonobj.data[0].vid);
+                    $("#video").val(jsonobj.data[0].vid);
+                    $.post("http://v.polyv.net/uc/services/rest?method=getById", {
+                        readtoken: readtoken,
+                        vid: jsonobj.data[0].vid
+                    }, function (data) {
+                        $("#videoView").html("<embed src='" + data.data[0].swf_link + "' allowFullScreen=true />");
+                    }, "json");
+                }
+            });
+        }
+    </script>*@
+}
+@*<a href="javascript:$('#fileupload').uploadify('upload')">上传</a>*@
+<div class="header-box">
+    <span class="header-title left">新建课程章节（课时）</span>
+</div>
+<ul class="category-add-main">
+    <li class="category-item">
+        <span class="width80">名称：</span><input type="text" id="lessonName" data-empty="* 必填" class="input verify" />
+    </li>
+    <li class="category-item">
+        <span class="width80">所属章节：</span>
+        <select id="pLesson">
+            <option value="">顶级章节</option>
+            @foreach (var item in (List<KaoAKao.Entity.LessonEntity>)ViewBag.PList)
+            {
+                <option value="@item.LessonID">@item.LessonName</option>
+            }
+        </select>
+    </li>
+    <li class="category-item">
+        <span class="width80">标签：</span><input type="text" id="lessonKeyWords" class="input width300" />
+    </li>
+    <li class="category-item">
+        <span class="width80">描述：</span><textarea id="description"></textarea>
+    </li>
+@*    <li class="category-item hide">
+        
+        <span class="width80">上传视频：</span>
+        <span>
+            <input type="button" class="btn" id="beginUpload" value="点击上传（顶级章节勿操作）" />
+            <input type="file" class="hide left"  name="uploadify" id="uploadify" />
+        </span>
+    </li>*@
+    <li class="category-item">
+        <span class="width80">视频ID：</span><input type="text" id="videoURL"  style="width:350px" class="input" />
+    </li>
+    <li class="category-item">
+        <span class="width80">视频大小(M)：</span><input type="text" id="videoSize" value="0" data-empty="* 必填" class="input verify width80" />
+    </li>
+    <li class="category-item">
+        <span class="width80">排序：</span><input type="text" id="sort" value="0" data-empty="* 必填" class="input verify width80" />
+    </li>
+    
+</ul>
+<span class="lesson-video" id="videoView"></span>
+<div class="mTop20 mLeft20">
+    <input type="button" class="btn" id="btnSaveLesson" value="保存" />
+</div>
