@@ -230,6 +230,48 @@ namespace KaoAKao2._0.Web.Controllers
 
         #endregion
 
+        #region 课程
+        /// <summary>
+        ///  获取课程列表
+        /// </summary>
+        public ActionResult GetCourses(FormCollection paras)
+        {
+            int pageSize=1;
+            int pageIndex = int.Parse(paras["PageIndex"] ?? "1");
+            int total=0;
+            int pages=0;
+            string keywords=paras["Keywords"]??string.Empty;
+            string pID=paras["PID"]??string.Empty;
+
+            List<CourseEntity> courses = CourseBusiniss.GetCourses(pID, keywords, pageSize, pageIndex, out total, out pages);
+            ResultObj.Add("result",1);
+            ResultObj.Add("total", total);
+            ResultObj.Add("pages", pages);
+            ResultObj.Add("courses", courses);
+
+            return Json(ResultObj, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        ///  获取教师列表
+        /// </summary>
+        public ActionResult GetTeachers(FormCollection paras)
+        {
+            int pageSize = 16;
+            int pageIndex = int.Parse(paras["PageIndex"] ?? "1");
+            int total = 0;
+            int pages = 0;
+            string keywords = paras["Keywords"] ?? string.Empty;
+
+            List<UserEntity> teachers =UserBusiness.GetUsers (keywords, pageSize, pageIndex, UserType.Teacher,out total, out pages);
+            ResultObj.Add("result", 1);
+            ResultObj.Add("total", total);
+            ResultObj.Add("pages", pages);
+            ResultObj.Add("teachers", teachers);
+
+            return Json(ResultObj, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
         #endregion
 
         #region common

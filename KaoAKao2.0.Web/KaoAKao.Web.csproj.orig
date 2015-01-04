@@ -104,6 +104,7 @@
     <Compile Include="Areas\Manage\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Manage\Controllers\HomeController.cs" />
     <Compile Include="Areas\Manage\ManageAreaRegistration.cs" />
+    <Compile Include="Common\Extendtion.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -179,10 +180,19 @@
     <Content Include="modules\home\images\register_02.jpg" />
     <Content Include="modules\home\images\register_03.png" />
     <Content Include="modules\home\images\search.png" />
+    <Content Include="modules\home\js\course.js" />
     <Content Include="modules\home\js\cycle.js" />
     <Content Include="modules\home\js\example.js" />
     <Content Include="modules\home\js\focus.js" />
     <Content Include="modules\home\js\index.js" />
+<<<<<<< HEAD
+    <Content Include="modules\manage\scripts\course-lesson.js" />
+=======
+    <Content Include="modules\home\template\course.html" />
+    <Content Include="modules\plug\touchSlider\jquery.event.drag-1.5.min.js" />
+    <Content Include="modules\plug\touchSlider\jquery.touchSlider.js" />
+    <Content Include="modules\scripts\jquery-1.7.2.js" />
+>>>>>>> 517eff299d12470b45e00218a4686d7a7a376298
     <Content Include="modules\scripts\jquery.color-RGBa-patch.js" />
     <Content Include="modules\home\js\login.js" />
     <Content Include="modules\home\js\register.js" />
@@ -319,7 +329,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Manage\Models\" />
     <Folder Include="Content\upload_images\" />
-    <Folder Include="modules\home\template\" />
     <Folder Include="modules\plug\uploadify\tempFiles\" />
   </ItemGroup>
   <ItemGroup>
@@ -416,11 +425,16 @@
     <Content Include="Areas\Manage\Views\Course\Courses.cshtml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <None Include="Properties\PublishProfiles\kaoakao.pubxml" />
-=======
     <Content Include="Areas\Manage\Views\Course\CourseDetail.cshtml" />
->>>>>>> c9e825c38292dc71ea0fa847a8a261e687cae375
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Course\Lessons.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Course\CreateLessons.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Course\LessonDetail.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

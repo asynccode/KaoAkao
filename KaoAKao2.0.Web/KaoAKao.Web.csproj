@@ -180,11 +180,16 @@
     <Content Include="modules\home\images\register_02.jpg" />
     <Content Include="modules\home\images\register_03.png" />
     <Content Include="modules\home\images\search.png" />
+    <Content Include="modules\home\js\course.js" />
     <Content Include="modules\home\js\cycle.js" />
     <Content Include="modules\home\js\example.js" />
     <Content Include="modules\home\js\focus.js" />
     <Content Include="modules\home\js\index.js" />
     <Content Include="modules\manage\scripts\course-lesson.js" />
+    <Content Include="modules\home\template\course.html" />
+    <Content Include="modules\plug\touchSlider\jquery.event.drag-1.5.min.js" />
+    <Content Include="modules\plug\touchSlider\jquery.touchSlider.js" />
+    <Content Include="modules\scripts\jquery-1.7.2.js" />
     <Content Include="modules\scripts\jquery.color-RGBa-patch.js" />
     <Content Include="modules\home\js\login.js" />
     <Content Include="modules\home\js\register.js" />
@@ -321,7 +326,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Manage\Models\" />
     <Folder Include="Content\upload_images\" />
-    <Folder Include="modules\home\template\" />
     <Folder Include="modules\plug\uploadify\tempFiles\" />
   </ItemGroup>
   <ItemGroup>
