@@ -104,6 +104,7 @@
     <Compile Include="Areas\Manage\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Manage\Controllers\HomeController.cs" />
     <Compile Include="Areas\Manage\ManageAreaRegistration.cs" />
+    <Compile Include="Common\Extendtion.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -183,6 +184,7 @@
     <Content Include="modules\home\js\example.js" />
     <Content Include="modules\home\js\focus.js" />
     <Content Include="modules\home\js\index.js" />
+    <Content Include="modules\manage\scripts\course-lesson.js" />
     <Content Include="modules\scripts\jquery.color-RGBa-patch.js" />
     <Content Include="modules\home\js\login.js" />
     <Content Include="modules\home\js\register.js" />
@@ -417,6 +419,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Manage\Views\Course\CourseDetail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Course\Lessons.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Course\CreateLessons.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Manage\Views\Course\LessonDetail.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
