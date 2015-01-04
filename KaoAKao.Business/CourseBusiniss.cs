@@ -147,7 +147,7 @@ namespace KaoAKao.Business
                 build.Append(" and (c.CourseName like '%" + keywords + "%' or p.CategoryName like '%" + keywords + "%')");
             }
 
-            DataTable dt = CommonBusiness.GetPagerData(table, columns, build.ToString(), "c.AutoID", pageSize, index, out total, out pages);
+            DataTable dt = CommonBusiness.GetPagerData(table, columns, build.ToString(), "c.ID", pageSize, index, out total, out pages);
 
             foreach (DataRow dr in dt.Rows)
             {
@@ -157,6 +157,22 @@ namespace KaoAKao.Business
             }
 
             return list;
+        }
+
+        /// <summary>
+        /// 根据ID获取课程实体
+        /// </summary>
+        /// <param name="courseid"></param>
+        /// <returns></returns>
+        public static Entity.CourseEntity GetCourseByID(string courseid)
+        {
+            Entity.CourseEntity model = new CourseEntity();
+            DataTable dt = new DAL.CourseDAL().GetCourseByID(courseid);
+            if (dt.Rows.Count > 0)
+            {
+                model.FillData(dt.Rows[0]);
+            }
+            return model;
         }
 
         #endregion
@@ -239,6 +255,34 @@ namespace KaoAKao.Business
             return new CourseDAL().EditCourseCategoy(categoryid, categoryName, pid, imgURL, keyWords, desc, operateIP, operateID);
         }
 
+        /// <summary>
+        /// 添加课程
+        /// </summary>
+        /// <param name="courseName">课程名</param>
+        /// <param name="cid">分类ID</param>
+        /// <param name="courseImg">图片</param>
+        /// <param name="price">单价</param>
+        /// <param name="teacherid">教师ID</param>
+        /// <param name="keyWords">关键词</param>
+        /// <param name="desc">描述</param>
+        /// <param name="operateIP">操作IP</param>
+        /// <param name="operateID">操作人</param>
+        /// <returns></returns>
+        public bool EditCourse(string courseid, string courseName, string cid, string imgURl, double price, string teacherid, int isHot, int limitLevel, string keyWords, string desc, string operateIP, string operateID)
+        {
+            if (!string.IsNullOrEmpty(imgURl) && imgURl != "/modules/images/default.png")
+            {
+                if (imgURl.IndexOf("?") > 0)
+                {
+                    imgURl = imgURl.Substring(0, imgURl.IndexOf("?"));
+                }
+                FileInfo file = new FileInfo(HttpContext.Current.Server.MapPath(imgURl));
+                imgURl = "/Content/upload_images/" + file.Name;
+                file.MoveTo(HttpContext.Current.Server.MapPath(imgURl));
+            }
+            return new CourseDAL().EditCourse(courseid, courseName, cid, imgURl, price, teacherid, isHot, limitLevel, keyWords, desc, operateIP, operateID);
+        }
+
         #endregion
 
         #region 删除
@@ -253,6 +297,18 @@ namespace KaoAKao.Business
         public bool DeleteCourseCategoy(string categoryid, string operateIP, string operateID)
         {
             return new CourseDAL().DeleteCourseCategoy(categoryid, operateIP, operateID);
+        }
+
+        /// <summary>
+        /// 删除课程分类
+        /// </summary>
+        /// <param name="categoryName">课程分类ID</param>
+        /// <param name="operateIP">操作IP</param>
+        /// <param name="operateID">操作人</param>
+        /// <returns></returns>
+        public bool DeleteCourse(string courseid, string operateIP, string operateID)
+        {
+            return new CourseDAL().DeleteCourse(courseid, operateIP, operateID);
         }
 
         #endregion

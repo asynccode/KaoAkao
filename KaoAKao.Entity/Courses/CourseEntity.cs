@@ -227,6 +227,16 @@ namespace KaoAKao.Entity
 			get{return _operateid;}
 		}
 
+        /// <summary>
+        /// 分类名称
+        /// </summary>
+        public string CName { get; set; }
+
+        /// <summary>
+        /// 上级分类ID
+        /// </summary>
+        public string PID { get; set; }
+
         public void FillData(DataRow dr)
         {
             var cl = dr.Table.Columns;
@@ -252,6 +262,8 @@ namespace KaoAKao.Entity
             this.Description = cl.Contains("Description") && dr["Description"] != DBNull.Value ? dr["Description"].ToString() : "";
             this.OperateIP = cl.Contains("OperateIP") && dr["OperateIP"] != DBNull.Value ? dr["OperateIP"].ToString() : "";
             this.OperateID = cl.Contains("OperateID") && dr["OperateID"] != DBNull.Value ? dr["OperateID"].ToString() : "";
+            this.CName = cl.Contains("CName") && dr["CName"] != DBNull.Value ? dr["CName"].ToString() : "";
+            this.PID = cl.Contains("PID") && dr["PID"] != DBNull.Value ? dr["PID"].ToString() : "";
         }
 		#endregion Model
 

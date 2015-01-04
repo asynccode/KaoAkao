@@ -106,9 +106,11 @@ namespace KaoAKao2._0.Web.Areas.Manage.Controllers
             }
             else
             {
-                //string id = KaoAKao.Business.UserBusiness.AddUsers(model.Name, model.MobileTele, model.Email, "", model.PhotoPath, KaoAKao.Entity.Enum.UserType.Teacher, model.KeyWords, model.Description, OperateIP, CurrentManager.Number);
+                int result = 0;
+                string resultdes = "";
+                string id = KaoAKao.Business.UserBusiness.AddUsers(model.Name, model.MobileTele, model.Email, "", model.PhotoPath, KaoAKao.Entity.Enum.UserType.Teacher, model.KeyWords, model.Description, OperateIP, CurrentManager.Number,out result,out resultdes);
 
-                //JsonDictionary.Add("ID", id);
+                JsonDictionary.Add("ID", id);
             }
 
             return new JsonResult() { Data = JsonDictionary, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
