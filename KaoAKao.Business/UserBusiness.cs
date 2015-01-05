@@ -17,7 +17,6 @@ namespace KaoAKao.Business
     {
         #region 查询
 
-
         /// <summary>
         /// 获取教师列表
         /// </summary>
@@ -41,7 +40,7 @@ namespace KaoAKao.Business
         /// <summary>
         /// 获取等级列表
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="type">类型</param>
         /// <returns></returns>
         public static List<Entity.UserLevelEntity> GetUserLevelByType(UserType type)
         {
@@ -60,9 +59,9 @@ namespace KaoAKao.Business
         }
 
         /// <summary>
-        /// 获取等级
+        /// 获取等级实体
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="id">ID</param>
         /// <returns></returns>
         public static Entity.UserLevelEntity GetUserLevelByID(int id)
         {
@@ -77,11 +76,11 @@ namespace KaoAKao.Business
         /// <summary>
         /// 获取会员列表(分页)
         /// </summary>
-        /// <param name="keywords"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="index"></param>
-        /// <param name="total"></param>
-        /// <param name="pages"></param>
+        /// <param name="keywords">关键词</param>
+        /// <param name="pageSize">页size</param>
+        /// <param name="index">页码</param>
+        /// <param name="total">返回总记录数</param>
+        /// <param name="pages">返回总页数</param>
         /// <returns></returns>
         public static List<Entity.UserEntity> GetUsers(string keywords, int pageSize, int index, UserType type, out int total, out int pages)
         {
@@ -111,7 +110,7 @@ namespace KaoAKao.Business
         /// <summary>
         /// 获取会员信息
         /// </summary>
-        /// <param name="userid"></param>
+        /// <param name="userid">会员ID</param>
         /// <returns></returns>
         public static UserEntity GetUserByUserID(string userid)
         {
@@ -128,7 +127,8 @@ namespace KaoAKao.Business
         /// <summary>
         /// 登录并获取会员信息
         /// </summary>
-        /// <param name="userid"></param>
+        /// <param name="userName">用户名、Email、手机</param>
+        /// <param name="loginpwd">密码</param>
         /// <returns></returns>
         public static UserEntity UserLogin(string userName, string loginpwd)
         {
@@ -148,7 +148,7 @@ namespace KaoAKao.Business
         /// <summary>
         /// 判断是否存在用户名、手机号码、邮箱
         /// </summary>
-        /// <param name="userName"></param>
+        /// <param name="userName">用户名、手机号码、邮箱</param>
         /// <returns></returns>
         public static bool IsExistUserName(string userName)
         {
@@ -161,7 +161,8 @@ namespace KaoAKao.Business
         /// <summary>
         /// 判断是否存在用户名、手机号码、邮箱
         /// </summary>
-        /// <param name="userName"></param>
+        /// <param name="userid">会员ID</param>
+        /// <param name="userName">用户名、手机号码、邮箱</param>
         /// <returns></returns>
         public static bool IsExistUserName(string userID, string userName)
         {
@@ -176,11 +177,18 @@ namespace KaoAKao.Business
 
         #region 添加
 
-
-
         /// <summary>
         /// 注册会员
         /// </summary>
+        /// <param name="mobile">手机</param>
+        /// <param name="email">邮箱</param>
+        /// <param name="loginpwd">登录密码</param>
+        /// <param name="usertype">类型</param>
+        /// <param name="operateIP">操作IP</param>
+        /// <param name="operateID">操作ID</param>
+        /// <param name="result">返回状态 1成功 0不成功</param>
+        /// <param name="resultdes">返回字符串</param>
+        /// <returns></returns>
         public static string AddUsers(string mobile, string email, string loginpwd, UserType usertype, string operateIP, string operateID, out int result, out string resultdes)
         {
             loginpwd = DESEncrypt.GetEncryptionPwd(loginpwd);
@@ -191,9 +199,23 @@ namespace KaoAKao.Business
             }
             return string.Empty;
         }
+        
         /// <summary>
-        /// 注册会员
+        /// 
         /// </summary>
+        /// <param name="name">姓名</param>
+        /// <param name="mobile">手机</param>
+        /// <param name="email">邮箱</param>
+        /// <param name="loginpwd">密码</param>
+        /// <param name="photoPath">照片</param>
+        /// <param name="usertype">类型</param>
+        /// <param name="keyWords">职称</param>
+        /// <param name="desc">描述</param>
+        /// <param name="operateIP">操作IP</param>
+        /// <param name="operateID">操作ID</param>
+        /// <param name="result">返回状态 1成功 0不成功</param>
+        /// <param name="resultdes">返回字符串</param>
+        /// <returns></returns>
         public static string AddUsers(string name, string mobile, string email, string loginpwd, string photoPath, UserType usertype, string keyWords, string desc, string operateIP, string operateID,out int result,out string resultdes)
         {
             loginpwd = DESEncrypt.GetEncryptionPwd(loginpwd);
@@ -217,7 +239,20 @@ namespace KaoAKao.Business
             return string.Empty;
         }
 
-        //添加会员等级
+        /// <summary>
+        /// 添加等级
+        /// </summary>
+        /// <param name="level">等级</param>
+        /// <param name="name">名称</param>
+        /// <param name="type">类型</param>
+        /// <param name="minexp">经验值</param>
+        /// <param name="discount">折扣</param>
+        /// <param name="photoPath">图片</param>
+        /// <param name="description">描述</param>
+        /// <param name="operateIP">操作IP</param>
+        /// <param name="operateID">操作ID</param>
+        /// <param name="result">返回状态 1成功 0不成功</param>
+        /// <returns></returns>
         public static int AddUserLevel(int level, string name, UserType type, int minexp, double discount, string photoPath, string description, string operateIP, string operateID, out int result)
         {
             if (!string.IsNullOrEmpty(photoPath) && photoPath != "/modules/images/default.png")
@@ -238,18 +273,17 @@ namespace KaoAKao.Business
         #region 编辑
 
         /// <summary>
-        /// 编辑教师信息
+        /// 编辑会员、教师信息
         /// </summary>
-        /// <param name="userid"></param>
-        /// <param name="userName"></param>
-        /// <param name="name"></param>
-        /// <param name="mobile"></param>
-        /// <param name="email"></param>
-        /// <param name="photopath"></param>
-        /// <param name="keyWords"></param>
-        /// <param name="desc"></param>
-        /// <param name="operateIP"></param>
-        /// <param name="operateID"></param>
+        /// <param name="userid">会员ID</param>
+        /// <param name="userName">用户名</param>
+        /// <param name="name">姓名</param>
+        /// <param name="mobile">手机</param>
+        /// <param name="email">邮箱</param>
+        /// <param name="photoPath">照片</param>
+        /// <param name="desc">描述</param>
+        /// <param name="operateIP">操作IP</param>
+        /// <param name="operateID">操作ID</param>
         /// <returns></returns>
         public bool EditTeacher(string userid, string userName, string name, string mobile, string email, string photopath, string keyWords, string desc, string operateIP, string operateID)
         {
@@ -264,11 +298,12 @@ namespace KaoAKao.Business
         /// 编辑等级信息
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="name"></param>
-        /// <param name="imgPath"></param>
-        /// <param name="desc"></param>
-        /// <param name="operateIP"></param>
-        /// <param name="operateID"></param>
+        /// <param name="name">名称</param>
+        /// <param name="imgPath">图片</param>
+        /// <param name="discount">折扣</param>
+        /// <param name="description">描述</param>
+        /// <param name="operateIP">操作IP</param>
+        /// <param name="operateID">操作ID</param>
         /// <returns></returns>
         public bool EditUserLevel(int id, string name, string imgPath, double Discount, string desc, string operateIP, string operateID)
         {
@@ -279,6 +314,13 @@ namespace KaoAKao.Business
 
         #region 删除
 
+        /// <summary>
+        /// 删除会员
+        /// </summary>
+        /// <param name="userid">会员ID</param>
+        /// <param name="operateIP">操作人IP</param>
+        /// <param name="operateID">操作人ID</param>
+        /// <returns></returns>
         public bool DeleteUser(string userid, string operateIP, string operateID)
         {
             return new UserDAL().DeleteUser(userid, operateIP, operateID);

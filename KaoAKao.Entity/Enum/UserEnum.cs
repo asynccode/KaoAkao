@@ -11,25 +11,55 @@ namespace KaoAKao.Entity.Enum
     /// </summary>
     public enum UserType
     {
-        //会员
+        /// <summary>
+        /// 会员
+        /// </summary>
         User = 0,
-        //教师
+
+        /// <summary>
+        /// 教师
+        /// </summary>
         Teacher = 1
     }
     /// <summary>
     /// 用户-课程类型
     /// </summary>
-    public enum UserCoursesType
+    public enum UserCourseType
     {
-        //浏览
-        Browse = 0,
+        
         /// <summary>
         /// 收藏
         /// </summary>
         Collect = 1,
         /// <summary>
-        /// 取消收藏
+        /// 点赞
         /// </summary>
-        CancelCollect = 2
+        Praise = 2,
+        /// <summary>
+        /// 分享
+        /// </summary>
+        Share=3,
+        /// <summary>
+        /// 浏览
+        /// </summary>
+        Browse = 4
+    }
+    /// <summary>
+    /// 账户类型
+    /// </summary>
+    public enum UserAccountType
+    {
+        /// <summary>
+        /// 积分
+        /// </summary>
+        Integral=1,
+        /// <summary>
+        /// 积分
+        /// </summary>
+        Growth = 2,
+        /// <summary>
+        /// 积分
+        /// </summary>
+        Exp = 3,
     }
 }
