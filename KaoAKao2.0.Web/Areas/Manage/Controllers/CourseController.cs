@@ -197,7 +197,7 @@ namespace KaoAKao2._0.Web.Areas.Manage.Controllers
         {
             int total = 0;
             int pages = 0;
-            var list = CourseBusiniss.GetCourses(pid, keywords, PageSize, index, out total, out pages);
+            var list = CourseBusiniss.GetCourses(pid, keywords, CourseOrderBy.CreateDate, false, PageSize, index, out total, out pages);
 
             JsonDictionary.Add("Total", total);
             JsonDictionary.Add("Pages", pages);

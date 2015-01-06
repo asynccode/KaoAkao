@@ -268,6 +268,28 @@ namespace KaoAKao.Business
 
             return new UserDAL().AddUserLevel(level, name, (int)type, minexp, discount, photoPath, description, operateIP, operateID, out result);
         }
+
+
+        /// <summary>
+        /// 添加经验值、积分
+        /// </summary>
+        /// <param name="userid">会员ID</param>
+        /// <param name="accountDate">发生日期</param>
+        /// <param name="value">发生数值</param>
+        /// <param name="type">UserAccountType 类型</param>
+        /// <param name="direction">AccountDirection 类型</param>
+        /// <param name="sourceType">SourceType 类型</param>
+        /// <param name="remark">备注</param>
+        /// <param name="operateIP">操作IP</param>
+        /// <param name="operateID">操作ID</param>
+        /// <param name="result">返回状态 1成功 0不成功</param>
+        /// <param name="resultdes">返回字符串</param>
+        /// <returns></returns>
+        public bool AddUserAccount(string userid, DateTime accountDate, double value, UserAccountType type, AccountDirection direction, SourceType sourceType, string remark, string operateIP, string operateID, out int result, out string resultdes)
+        {
+            return new UserDAL().AddUserAccount(userid, accountDate, value, (int)type, (int)direction, (int)sourceType, remark, operateIP, operateID, out result, out resultdes);
+        }
+
         #endregion
 
         #region 编辑

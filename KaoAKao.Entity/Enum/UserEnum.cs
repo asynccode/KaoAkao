@@ -62,4 +62,34 @@ namespace KaoAKao.Entity.Enum
         /// </summary>
         Exp = 3,
     }
+
+    /// <summary>
+    /// 积分来源类型
+    /// </summary>
+    public enum SourceType
+    {
+        /// <summary>
+        /// 注册
+        /// </summary>
+        Register = 1,
+        /// <summary>
+        /// 登录
+        /// </summary>
+        Login = 2
+    }
+
+    /// <summary>
+    /// 账户流向
+    /// </summary>
+    public enum AccountDirection
+    {
+        /// <summary>
+        /// 流入
+        /// </summary>
+        In = 1,
+        /// <summary>
+        /// 流出
+        /// </summary>
+        Out = 2
+    }
 }

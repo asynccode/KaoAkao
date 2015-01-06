@@ -139,12 +139,14 @@ namespace KaoAKao.Business
         /// </summary>
         /// <param name="pid">上级ID</param>
         /// <param name="keywords">关键词</param>
+        /// <param name="orderby">排序</param>
+        /// <param name="isAsc">ture 升序 false 降序</param>
         /// <param name="pageSize">页size</param>
         /// <param name="index">页码</param>
         /// <param name="total">返回总记录数</param>
-        /// <param name="pages">返回总页数</param
+        /// <param name="pages">返回总页数</param>
         /// <returns></returns>
-        public static List<Entity.CourseEntity> GetCourses(string pid, string keywords, int pageSize, int index, out int total, out int pages)
+        public static List<Entity.CourseEntity> GetCourses(string pid, string keywords, CourseOrderBy orderby, bool isAsc, int pageSize, int index, out int total, out int pages)
         {
             List<Entity.CourseEntity> list = new List<Entity.CourseEntity>();
             string table = "Courses c left join CourseCategory p on c.CategoryID=p.CategoryID";
@@ -160,7 +162,7 @@ namespace KaoAKao.Business
                 build.Append(" and (c.CourseName like '%" + keywords + "%' or p.CategoryName like '%" + keywords + "%')");
             }
 
-            DataTable dt = CommonBusiness.GetPagerData(table, columns, build.ToString(), "c.ID", pageSize, index, out total, out pages);
+            DataTable dt = CommonBusiness.GetPagerData(table, columns, build.ToString(), "c.ID", orderby.ToString(), pageSize, index, out total, out pages, isAsc);
 
             foreach (DataRow dr in dt.Rows)
             {
