@@ -57,7 +57,7 @@
                         total_count: data.total,
                         count: data.pages,
                         start: Course.options.pageIndex,
-                        display: 10,
+                        display: 2,
                         border: true,
                         border_color: '#fff',
                         text_color: '#333',
