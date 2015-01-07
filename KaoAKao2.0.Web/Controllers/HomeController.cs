@@ -243,7 +243,8 @@ namespace KaoAKao2._0.Web.Controllers
             string keywords=paras["Keywords"]??string.Empty;
             string pID=paras["PID"]??string.Empty;
 
-            List<CourseEntity> courses = CourseBusiniss.GetCourses(pID, keywords, CourseOrderBy.CreateDate, false, pageSize, pageIndex, out total, out pages);
+            List<CourseEntity> courses = CourseBusiniss.GetCourses(pID, keywords, 
+                CourseOrderBy.CreateDate, false, pageSize, pageIndex, out total, out pages);
             ResultObj.Add("result",1);
             ResultObj.Add("total", total);
             ResultObj.Add("pages", pages);
@@ -268,6 +269,28 @@ namespace KaoAKao2._0.Web.Controllers
             ResultObj.Add("total", total);
             ResultObj.Add("pages", pages);
             ResultObj.Add("teachers", teachers);
+
+            return Json(ResultObj, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        ///  获取课程分类
+        /// </summary>
+        public ActionResult GetCourseCategorys(FormCollection paras)
+        {
+            int pageSize =int.MaxValue;
+            int pageIndex = 1;
+            int total = 0;
+            int pages = 0;
+            string keywords = paras["Keywords"] ?? string.Empty;
+            string pID = paras["PID"] ?? string.Empty;
+
+            List<CourseCategoryEntity> categorys = CourseBusiniss.GetCourseCategorys(pID, keywords,
+pageSize, pageIndex, out total, out pages);
+            ResultObj.Add("result", 1);
+            ResultObj.Add("total", total);
+            ResultObj.Add("pages", pages);
+            ResultObj.Add("categorys", categorys);
 
             return Json(ResultObj, JsonRequestBehavior.AllowGet);
         }
