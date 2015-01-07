@@ -118,22 +118,7 @@ namespace KaoAKao.DAL
             resultdes = paras[2].Value.ToString();
             return id;
         }
-        /// <summary>
-        /// 添加会员
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="mobile"></param>
-        /// <param name="email"></param>
-        /// <param name="loginpwd"></param>
-        /// <param name="photoPath"></param>
-        /// <param name="usertype"></param>
-        /// <param name="keyWords"></param>
-        /// <param name="desc"></param>
-        /// <param name="operateIP"></param>
-        /// <param name="operateID"></param>
-        /// <param name="result">返回结果状态</param>
-        /// <param name="resultdes">返回结果信息</param>
-        /// <returns></returns>
+
         public string AddUsers(string name, string mobile, string email, string loginpwd, string photoPath, int usertype, string keyWords, string desc, string operateIP, string operateID,out int result,out string resultdes)
         {
             string id = "";
@@ -185,7 +170,7 @@ namespace KaoAKao.DAL
             return id;
 
         }
-        //添加会员等级
+
         public int AddUserLevel(int level, string name, int type, int minexp, double discount, string imgpath, string description, string operateIP, string operateID,out int result)
         {
             int id=0;
@@ -210,7 +195,32 @@ namespace KaoAKao.DAL
             result = Convert.ToInt32(paras[1].Value);
             return id;
         }
-        
+
+        public bool AddUserAccount(string userid, DateTime accountDate, double value, int type, int direction, int sourceType, string remark, string operateIP, string operateID, out int result, out string resultdes)
+        {
+            SqlParameter[] paras = {
+                                       new SqlParameter("@Result",SqlDbType.Int),
+                                       new SqlParameter("@ResultDes",SqlDbType.NVarChar,4000),
+                                       new SqlParameter("@UserID",userid),
+                                       new SqlParameter("@AccountDate",accountDate),
+                                       new SqlParameter("@Value",value),
+                                       new SqlParameter("@AccountType",type),
+                                       new SqlParameter("@ValueType",direction),
+                                       new SqlParameter("@AccountSourceType",sourceType),
+                                       new SqlParameter("@Description",remark),
+                                       new SqlParameter("@OperateIP",operateIP),
+                                       new SqlParameter("@OperateID",operateID)
+                                   };
+            paras[0].Direction = ParameterDirection.Output;
+            paras[1].Direction = ParameterDirection.Output;
+
+            int i = ExecuteNonQuery("P_UserAccountAdd", paras, CommandType.StoredProcedure);
+
+            result = Convert.ToInt32(paras[0].Value);
+            resultdes = paras[1].Value.ToString();
+            return i > 0;
+        }
+
         #endregion
 
         #region 编辑

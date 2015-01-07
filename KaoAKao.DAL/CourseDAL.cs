@@ -128,6 +128,28 @@ namespace KaoAKao.DAL
             return ExecuteScalar(sql, paras, CommandType.Text);
         }
 
+        public string AddUserCourse(string userid, string courseid, string lessonid, int type, string operateIP, string operateID, out int result, out string resultdes)
+        {
+            string id = "";
+            SqlParameter[] paras = {
+                                       new SqlParameter("@ID",SqlDbType.NVarChar,50),
+                                       new SqlParameter("@Result",SqlDbType.Int),
+                                       new SqlParameter("@ResultDes",SqlDbType.NVarChar,4000),
+                                       new SqlParameter("@UserID",userid),
+                                       new SqlParameter("@CourseID",courseid),
+                                       new SqlParameter("@Type",type)
+                                   };
+            paras[0].Direction = ParameterDirection.Output;
+            paras[1].Direction = ParameterDirection.Output;
+            paras[2].Direction = ParameterDirection.Output;
+
+            ExecuteScalar("P_UserCourseAdd", paras, CommandType.StoredProcedure);
+            id = paras[0].Value.ToString();
+            result = Convert.ToInt32(paras[1].Value);
+            resultdes = paras[2].Value.ToString();
+            return id;
+        }
+
         #endregion
 
         #region 编辑

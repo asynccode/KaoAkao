@@ -243,7 +243,7 @@ namespace KaoAKao2._0.Web.Controllers
             string keywords=paras["Keywords"]??string.Empty;
             string pID=paras["PID"]??string.Empty;
 
-            List<CourseEntity> courses = CourseBusiniss.GetCourses(pID, keywords, pageSize, pageIndex, out total, out pages);
+            List<CourseEntity> courses = CourseBusiniss.GetCourses(pID, keywords, CourseOrderBy.CreateDate, false, pageSize, pageIndex, out total, out pages);
             ResultObj.Add("result",1);
             ResultObj.Add("total", total);
             ResultObj.Add("pages", pages);
