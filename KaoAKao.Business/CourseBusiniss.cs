@@ -162,7 +162,7 @@ namespace KaoAKao.Business
                 build.Append(" and (c.CourseName like '%" + keywords + "%' or p.CategoryName like '%" + keywords + "%')");
             }
 
-            DataTable dt = CommonBusiness.GetPagerData(table, columns, build.ToString(), "c.ID", orderby.ToString(), pageSize, index, out total, out pages, isAsc);
+            DataTable dt = CommonBusiness.GetPagerData(table, columns, build.ToString(), "c.ID", "c." + orderby.ToString(), pageSize, index, out total, out pages, isAsc);
 
             foreach (DataRow dr in dt.Rows)
             {
