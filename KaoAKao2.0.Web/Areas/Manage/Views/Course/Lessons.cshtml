@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "Lessons";
+}
+
+@section css{
+    <link rel="stylesheet" href="/modules/manage/css/course-category.css" />
+}
+@section LeftMenu{
+    @Html.Partial("_CourseLeftMenu")
+}
+@section scripts{
+     <script src="/modules/scripts/global-noseajs.js"></script>
+     <script type="text/javascript">
+         $(function ($) {
+             $(".lesson-sort").click(function () {
+                 var _this = $(this);
+                 $(".lesson-sort").find("input").hide();
+                 $(".lesson-sort").find("span").show()
+                 _this.find("span").hide();
+                 _this.find("input").show().focus().select();
+             });
+             $(".sort-value").blur(function () {
+                 var _this = $(this);
+                 if (_this.prev().html() != _this.val()) {
+                     Global.post("/Manage/Course/EditLessonSort", {
+                         lessonid: _this.attr("data-id"),
+                         sort: _this.val()
+                     }, function (data) {
+
+                     });
+                 }
+                 _this.prev().html(_this.val()).show();
+                 _this.hide();
+             });
+             $(".delete").click(function () {
+                 var id = $(this).data("id");
+                 if (confirm("确认删除课程章节吗？")) {
+                     Global.post("/Manage/Course/DeleteLesson", {
+                         lessonid: id
+                     }, function (data) {
+                         if (data.Status) {
+                             location.href = location.href;
+                         }
+                     })
+                 }
+             });
+         })
+    </script>
+}
+<div class="header-box">
+    <span class="header-title left">课程章节列表</span>
+</div>
+<div class="search-opt mLeft20">
+    <div class="left mTop20 mLeft20">
+        <a class="ico-add" href="/Manage/Course/CreateLessons/@ViewBag.ID">新建章节（课时）</a>
+    </div>
+</div>
+<table class="table-list mLeft20 mTop20">
+    <tr class="tr-header">
+        <td>操作</td>
+        <td>章节（课时）名称</td>
+        <td>标签</td>
+        <td>收藏次数</td>
+        <td>观看次数</td>
+        <td>序列</td>
+        <td>创建日期</td>
+    </tr>
+    @foreach (KaoAKao.Entity.LessonEntity model in (List<KaoAKao.Entity.LessonEntity>)ViewBag.Items)
+    {
+         <tr class="tr-header">
+            <td>
+                 <a href="/Manage/Course/LessonDetail/@(model.LessonID)">编辑</a>
+                 <a href="javascript:void(0)" class="delete" data-id="@(model.LessonID)">删除</a>
+            </td>
+            <td>@(model.LessonName)</td>
+            <td>@(model.Keywords)</td>
+            <td></td>
+            <td></td>
+            <td class="txtRight lesson-sort"><span>@(model.Sort)</span> <input type="text" data-id="@(model.LessonID)" class="sort-value hide" value="@(model.Sort)" /></td>
+            <td>@(model.CreateDate.Value.ToString("yyyy-MM-dd HH:mm:ss"))</td>
+        </tr>
+        foreach (KaoAKao.Entity.LessonEntity cmodel in model.ChildLessons)
+        {
+             <tr>
+                <td class="center">
+                    <a href="/Manage/Course/LessonDetail/@cmodel.LessonID">编辑</a>
+                    <a href="javascript:void(0)" class="delete" data-id="@(cmodel.LessonID)">删除</a>
+                </td>
+                <td>@(cmodel.LessonName)</td>
+                <td>@(cmodel.Keywords)</td>
+                <td class="txtRight">@(cmodel.CollectCount)</td>
+                <td class="txtRight">@(cmodel.ViewCount)</td>
+                <td class="txtRight lesson-sort"><span>@(cmodel.Sort)</span> <input type="text" data-id="@(cmodel.LessonID)" class="sort-value hide" value="@(cmodel.Sort)" /></td>
+                <td class="center">@(cmodel.CreateDate.Value.ToString("yyyy-MM-dd HH:mm:ss"))</td>
+            </tr>
+        }
+    }
+</table>
+

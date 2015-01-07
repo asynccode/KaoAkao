@@ -61,6 +61,27 @@ namespace KaoAKao2._0.Web.Areas.Manage.Controllers
             ViewBag.ID = id;
             return View();
         }
+
+        public ActionResult Lessons(string id)
+        {
+            ViewBag.Items = CourseBusiniss.GetCourseLessons(id);
+            ViewBag.ID = id;
+            return View();
+        }
+        public ActionResult CreateLessons(string id)
+        {
+            ViewBag.PList = CourseBusiniss.GetCourseLessons(id, "");
+            ViewBag.ID = id;
+            return View();
+        }
+        public ActionResult LessonDetail(string id)
+        {
+            var model = CourseBusiniss.GetCourseLessonByID(id);
+            ViewBag.PList = CourseBusiniss.GetCourseLessons(model.CourseID, "");
+            ViewBag.ID = model.LessonID;
+            ViewBag.Model = model;
+            return View();
+        }
         #region Ajax
 
         #region 课程分类
@@ -176,7 +197,7 @@ namespace KaoAKao2._0.Web.Areas.Manage.Controllers
         {
             int total = 0;
             int pages = 0;
-            var list = CourseBusiniss.GetCourses(pid, keywords, PageSize, index, out total, out pages);
+            var list = CourseBusiniss.GetCourses(pid, keywords, CourseOrderBy.CreateDate, false, PageSize, index, out total, out pages);
 
             JsonDictionary.Add("Total", total);
             JsonDictionary.Add("Pages", pages);
@@ -247,6 +268,72 @@ namespace KaoAKao2._0.Web.Areas.Manage.Controllers
 
         }
 
+        #endregion
+
+        #region 课程章节
+
+        /// <summary>
+        /// 添加课程章节
+        /// </summary>
+        /// <param name="categoy"></param>
+        /// <returns></returns>
+        public JsonResult SaveCourseLesson(string lesson)
+        {
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            KaoAKao.Entity.LessonEntity model = serializer.Deserialize<KaoAKao.Entity.LessonEntity>(lesson);
+            string id = string.Empty;
+
+            if (string.IsNullOrEmpty(model.LessonID))
+            {
+                id = new KaoAKao.Business.CourseBusiniss().AddCourseLesson(model.LessonName, model.CourseID, model.PID, model.Keywords, model.Description, model.RadioURL, model.RadioSize, model.Sort.Value, OperateIP, CurrentManager.Number);
+            }
+            else
+            {
+                if (new KaoAKao.Business.CourseBusiniss().EditCourseLesson(model.LessonID, model.LessonName, model.CourseID, model.PID, model.Keywords, model.Description, model.RadioURL, model.RadioSize, model.Sort.Value, OperateIP, CurrentManager.Number))
+                {
+                    id = model.LessonID;
+                }
+            }
+
+            JsonDictionary.Add("ID", id);
+
+            return new JsonResult() { Data = JsonDictionary, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
+
+
+        /// <summary>
+        /// 编辑章节排序
+        /// </summary>
+        /// <param name="categoy"></param>
+        /// <returns></returns>
+        public JsonResult EditLessonSort(string lessonid, string sort)
+        {
+            int i = 0;
+            int.TryParse(sort, out i);
+            bool bl = new KaoAKao.Business.CourseBusiniss().EditLessonSort(lessonid, i);
+
+            JsonDictionary.Add("Status", bl);
+
+            return new JsonResult() { Data = JsonDictionary, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
+
+        /// <summary>
+        /// 删除章节排序
+        /// </summary>
+        /// <param name="categoy"></param>
+        /// <returns></returns>
+        public JsonResult DeleteLesson(string lessonid)
+        {
+
+            bool bl = new KaoAKao.Business.CourseBusiniss().DeleteCourseLessons(lessonid, OperateIP, CurrentManager.Number);
+
+            JsonDictionary.Add("Status", bl);
+
+            return new JsonResult() { Data = JsonDictionary, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
         #endregion
 
         #endregion
