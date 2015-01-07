@@ -1,7 +1,7 @@
 ﻿define(function (require, exports, module) {
     var Global = require("global");
     var DoT = require("dot");
-    var Paginate = require("paginate");
+    var Paginate = require("paginatewithhome");
     var Course = {};
 
     //基本参数

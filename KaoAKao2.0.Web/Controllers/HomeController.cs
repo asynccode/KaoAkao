@@ -238,6 +238,7 @@ namespace KaoAKao2._0.Web.Controllers
         {
             int pageSize=1;
             int pageIndex = int.Parse(paras["PageIndex"] ?? "1");
+            pageIndex = 1;
             int total=0;
             int pages=0;
             string keywords=paras["Keywords"]??string.Empty;

@@ -187,6 +187,8 @@
     <Content Include="modules\home\js\index.js" />
     <Content Include="modules\manage\scripts\course-lesson.js" />
     <Content Include="modules\home\template\course.html" />
+    <Content Include="modules\plug\datapager\css\stylewithhome.css" />
+    <Content Include="modules\plug\datapager\paginatewithhome.js" />
     <Content Include="modules\plug\touchSlider\jquery.event.drag-1.5.min.js" />
     <Content Include="modules\plug\touchSlider\jquery.touchSlider.js" />
     <Content Include="modules\scripts\jquery-1.7.2.js" />
