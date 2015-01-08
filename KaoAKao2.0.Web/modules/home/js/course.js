@@ -1,7 +1,7 @@
 ﻿define(function (require, exports, module) {
     var Global = require("global");
     var DoT = require("dot");
-    var Paginate = require("paginate");
+    var Paginate = require("paginatewithhome");
     var Course = {};
 
     //基本参数
@@ -13,6 +13,8 @@
     //初始化
     Course.init = function () {
         Course.bindEvent();
+
+        Course.getCourseCategorys();
 
         Course.getCourses();
         
@@ -57,7 +59,7 @@
                         total_count: data.total,
                         count: data.pages,
                         start: Course.options.pageIndex,
-                        display: 10,
+                        display: 2,
                         border: true,
                         border_color: '#fff',
                         text_color: '#333',
@@ -101,6 +103,32 @@
                         html += '</div>';
                         $(".content13 #teacherList").append(html);
                     }
+                }
+            });
+    };
+
+    Course.getCourseCategorys = function () {
+        Course.options.ajaxUrl = "/home/GetCourseCategorys";
+        Global.AjaxRequest(Course.options.ajaxUrl, "post",
+            null,
+            function (data) {
+                if (data.result = 1) {
+                    var len = data.categorys.length;
+                    for (var i = 0; i < len; i++) {
+                        var item = data.categorys[i];
+                        var html = '<li><a href="javascript:void(0);" class="csy-0'+(i+1)+'"><i></i>' + item.CategoryName + '</a></li>';
+                        $(".content11 .clearfix").append(html);
+
+                        html = '<li><a href="javascript:void(0);" class="csy2-0'+(i+1)+'">' + item.CategoryName + '</a></li>';
+                        $(".content15 .clearfix").append(html);
+
+                        if(i==0)
+                            html = '<li><a href="javascript:void(0);" class="active">' + item.CategoryName + '</a></li>';
+                        else
+                            html = '<li><a href="javascript:void(0);">' + item.CategoryName + '</a></li>';
+                        $(".content16 .clearfix").append(html);
+                    }
+
                 }
             });
     };

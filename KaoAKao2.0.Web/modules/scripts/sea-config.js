@@ -18,6 +18,8 @@ seajs.config({
         "verify": "plug/verify.js",
         //分页插件
         "paginate": "plug/datapager/paginate.js",
+        //分页插件2
+        "paginatewithhome": "plug/datapager/paginatewithhome.js",
         //doT
         "dot": "plug/doT.js"
     }
