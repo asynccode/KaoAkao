@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* 桌面电脑布局: 1200px 及更高 */
 .toppt{padding-top:60px;margin-bottom:80px;}
 .toppt2{padding-top:60px;margin-bottom:130px;}
@@ -224,8 +224,8 @@
 .e-p-paginal li.e-p-prev a{width:17px;background:url(../Images/course_07.png) no-repeat center center;text-indent:999px;overflow:hidden;border-radius:0;}
 .e-p-paginal li.e-p-next a{width:17px;background:url(../Images/course_08.png) no-repeat center center;text-indent:999px;overflow:hidden;border-radius:0;}
 .e-p-paginal .e-p-current{color:#fff;background:#009cdd;}
-.e-p-goto{float:left;font-size:14px;}
-.e-p-goto li{height:30px;line-height:30px;margin-left:15px;}
+.e-p-goto{float:left;font-size:14px;margin-left:10px;}
+.e-p-goto li{height:30px;line-height:30px;margin-left:15px;float:left;}
 .e-p-txt{width:22px;height:22px;line-height:22px;text-align:center;font-size:14px;background:#fff;border:1px solid #ccc;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;}
 .e-p-btn{display:block;width:40px;height:30px;line-height:30px;text-align:center;font-size:14px;color:#fff;background:#ccc;border:none;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;cursor:pointer;}.e-p-btn:hover{background:#009cdd;}
 .content13{background:#fff;}

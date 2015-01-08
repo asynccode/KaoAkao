@@ -7,7 +7,8 @@
     //基本参数
     Course.options = {
         ajaxUrl: "/Home/GetCourses",
-        pageIndex:1
+        pageIndex: 1,
+        cID:''
     };
 
     //初始化
@@ -16,7 +17,7 @@
 
         Course.getCourseCategorys();
 
-        Course.getCourses();
+        Course.getCourses('');
         
         Course.getTeachers();
     };
@@ -26,24 +27,30 @@
        
 
         // 菜单导航
-        $(".content11 .clearfix li").bind("click", function () {
-            $(".content11 .clearfix li a").removeClass("active");
-            $(this).find("a").addClass("active");
-        });
+        //$(".content11 .clearfix li").bind("click", function () {
+        //    $(".content11 .clearfix li a").removeClass("active");
+        //    $(this).find("a").addClass("active");
+        //});
 
-        $(".content16 .clearfix li[class!='whole']").bind("click", function () {
-            $(".content16 .clearfix li[class!='whole'] a").removeClass("active");
-            $(this).find("a").addClass("active");
-        });
+        //$(".content16 .clearfix li[class!='whole']").bind("click", function () {
+        //    $(".content16 .clearfix li[class!='whole'] a").removeClass("active");
+        //    $(this).find("a").addClass("active");
+        //});
 
 
     };
 
-    Course.getCourses = function () {
+    Course.getCourses = function (cID) {
         Course.options.ajaxUrl = "/Home/GetCourses";
+        if (cID)
+            Course.options.cID = cID;
+        else
+            Course.options.cID = '';
+
         Global.AjaxRequest(Course.options.ajaxUrl, "post",
             {
-                PageIndex: Course.options.pageIndex
+                PageIndex: Course.options.pageIndex,
+                CID: Course.options.cID
             },
             function (data) {
                 if (data.result = 1) {
@@ -54,27 +61,25 @@
                         innerText = $(innerText);
                         $(".e-nr .clearfix").append(innerText);
                     });
-
-                    $("#pager").paginate({
-                        total_count: data.total,
-                        count: data.pages,
-                        start: Course.options.pageIndex,
-                        display: 2,
-                        border: true,
-                        border_color: '#fff',
-                        text_color: '#333',
-                        background_color: '#fff',
-                        border_hover_color: '#ccc',
-                        text_hover_color: '#333',
-                        background_hover_color: '#ee',
-                        rotate: true,
-                        images: false,
-                        mouse: 'slide',
-                        onChange: function (page) {
-                            Course.options.pageIndex = page;
-                            Course.getCourses();
-                        }
-                    });
+                    if (data.courses.length > 0) {
+                        $("#pager").paginate({
+                            total_count: data.total,
+                            count: data.pages,
+                            start: Course.options.pageIndex,
+                            display: 2,
+                            border: true,
+                            border_color: '#fff',
+                            text_color: '#333',
+                            background_color: '#fff',
+                            rotate: true,
+                            images: true,
+                            mouse: 'slide',
+                            onChange: function (page) {
+                                Course.options.pageIndex = page;
+                                Course.getCourses();
+                            }
+                        });
+                    }
 
                 }
             });
@@ -116,18 +121,26 @@
                     var len = data.categorys.length;
                     for (var i = 0; i < len; i++) {
                         var item = data.categorys[i];
-                        var html = '<li><a href="javascript:void(0);" class="csy-0'+(i+1)+'"><i></i>' + item.CategoryName + '</a></li>';
+                        var html = '<li><a href="javascript:void(0);" class="csy-0' + (i + 1) + '" BindCID=' + item.CategoryID + '><i></i>' + item.CategoryName + '</a></li>';
                         $(".content11 .clearfix").append(html);
 
-                        html = '<li><a href="javascript:void(0);" class="csy2-0'+(i+1)+'">' + item.CategoryName + '</a></li>';
+                        html = '<li><a href="javascript:void(0);" class="csy2-0' + (i + 1) + '" BindCID=' + item.CategoryID + '>' + item.CategoryName + '</a></li>';
                         $(".content15 .clearfix").append(html);
 
                         if(i==0)
-                            html = '<li><a href="javascript:void(0);" class="active">' + item.CategoryName + '</a></li>';
+                            html = '<li><a href="javascript:void(0);" class="active" BindCID=' + item.CategoryID + '>' + item.CategoryName + '</a></li>';
                         else
-                            html = '<li><a href="javascript:void(0);">' + item.CategoryName + '</a></li>';
+                            html = '<li><a href="javascript:void(0);" BindCID=' + item.CategoryID + '>' + item.CategoryName + '</a></li>';
                         $(".content16 .clearfix").append(html);
                     }
+
+                    $(".content11 .clearfix li a,.content15 .clearfix li a,.content16 .clearfix li a").bind("click", function () {
+                        $(this).parent().parent().find("li a").removeClass("active");
+                        $(this).addClass("active");
+
+                        var cID = $(this).attr("BindCID");
+                        Course.getCourses(cID);
+                    });
 
                 }
             });
