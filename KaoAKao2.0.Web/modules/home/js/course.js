@@ -2,13 +2,17 @@
     var Global = require("global");
     var DoT = require("dot");
     var Paginate = require("paginatewithhome");
+
+
     var Course = {};
 
     //基本参数
     Course.options = {
         ajaxUrl: "/Home/GetCourses",
         pageIndex: 1,
-        cID:''
+        cID: '',
+        cOrderType: 0,
+        orderType:0
     };
 
     //初始化
@@ -24,20 +28,21 @@
 
     //绑定事件
     Course.bindEvent = function () {
-       
+        $("#ul_cOrder li").bind("click", function () {
+            $(this).parent().slideUp();
 
-        // 菜单导航
-        //$(".content11 .clearfix li").bind("click", function () {
-        //    $(".content11 .clearfix li a").removeClass("active");
-        //    $(this).find("a").addClass("active");
-        //});
+            var cOrderType = $(this).attr("cOrderType");
+            Course.options.cOrderType = parseInt(cOrderType);
+            Course.getCourses(Course.options.cID);
+        });
 
-        //$(".content16 .clearfix li[class!='whole']").bind("click", function () {
-        //    $(".content16 .clearfix li[class!='whole'] a").removeClass("active");
-        //    $(this).find("a").addClass("active");
-        //});
+        $("#ul_order li").bind("click", function () {
+            $(this).parent().slideUp();
 
-
+            var orderType = $(this).attr("orderType");
+            Course.options.orderType = parseInt(orderType);
+            Course.getCourses(Course.options.cID);
+        });
     };
 
     Course.getCourses = function (cID) {
@@ -59,7 +64,7 @@
                     DoT.exec("/modules/home/template/course.html", function (templateFun) {
                         var innerText = templateFun(data.courses);
                         innerText = $(innerText);
-                        $(".e-nr .clearfix").append(innerText);
+                        $(".e-nr .clearfix").append(innerText).fadeIn();
                     });
                     if (data.courses.length > 0) {
                         $("#pager").paginate({
