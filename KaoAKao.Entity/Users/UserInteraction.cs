@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KaoAKao.Entity.Enum;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace KaoAKao.Entity
 		private int _id;
 		private string _userid;
         private string _courseid;
-		private int? _typeid;
+        private InteractiveType _typeid;
 		private string _content="";
 		private string _isreply="0";
 		private string _isbest="0";
@@ -62,7 +63,7 @@ namespace KaoAKao.Entity
 		/// <summary>
 		/// 
 		/// </summary>
-		public int? TypeID
+        public InteractiveType TypeID
 		{
 			set{ _typeid=value;}
 			get{return _typeid;}
@@ -193,7 +194,7 @@ namespace KaoAKao.Entity
             var cl = dr.Table.Columns;
             this.ID = cl.Contains("ID") && dr["ID"] != DBNull.Value ? Convert.ToInt32(dr["ID"]) : 0;
             this.UserID = cl.Contains("UserID") && dr["UserID"] != DBNull.Value ? dr["UserID"].ToString() : "";
-            this.TypeID = cl.Contains("TypeID") && dr["TypeID"] != DBNull.Value ? Convert.ToInt32(dr["TypeID"]) : 0;
+            this.TypeID = cl.Contains("TypeID") && dr["TypeID"] != DBNull.Value ? (InteractiveType)Convert.ToInt32(dr["TypeID"]) : InteractiveType.Review;
             this.Content = cl.Contains("Content") && dr["Content"] != DBNull.Value ? dr["Content"].ToString() : "";
             this.IsReply = cl.Contains("IsReply") && dr["IsReply"] != DBNull.Value ? dr["IsReply"].ToString() : "";
             this.IsBest = cl.Contains("IsBest") && dr["IsBest"] != DBNull.Value ? dr["IsBest"].ToString() : "";
