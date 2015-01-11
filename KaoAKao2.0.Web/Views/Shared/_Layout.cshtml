@@ -25,9 +25,12 @@
     <div>@RenderBody()</div>
     <div>@{Html.RenderPartial("_Footer");}</div>
 </body>
+<input type="hidden" id="txt_pageIndex" value="@ViewBag.pageIndex" />
+    
+
 <script type="text/javascript">
-    seajs.use(["scripts/global.js"], function (Global) {
-        Global.validateLogin();
+    seajs.use(["home/js/common.js"], function (Common) {
+        Common.init();
 });
 </script>
 </html>

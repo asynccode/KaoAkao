@@ -25,7 +25,28 @@ namespace KaoAKao2._0.Web.Controllers
 
         public ActionResult Course()
         {
-            return View();
+            int pageSize = 5;
+            int pageIndex = 1;
+            int total = 0;
+            int pages = 0;
+
+            List<CourseEntity> courses = CourseBusiniss.GetCourses(string.Empty, string.Empty,
+                CourseOrderBy.CreateDate, false, pageSize, pageIndex, out total, out pages);
+            return View(courses);
+        }
+
+        public ActionResult Detail(string CourseID)
+        {
+            ViewBag.CourseID = CourseID;
+            CourseEntity  course= CourseBusiniss.GetCourseByID(CourseID);
+            //List<LessonEntity> lessons= CourseBusiniss.GetCourseLessons(CourseID);
+
+            KaoAKao2._0.Web.Models.CourseDetail courseDetail = new CourseDetail();
+            courseDetail.course = course;
+            ViewBag.TeacherID = course.TeacherID;
+            //courseDetail.lessons = lessons;
+
+            return View(courseDetail);
         }
 
         public ActionResult Register()
@@ -241,14 +262,33 @@ namespace KaoAKao2._0.Web.Controllers
             int total=0;
             int pages=0;
             string keywords=paras["Keywords"]??string.Empty;
-            string pID=paras["PID"]??string.Empty;
+            string cID = paras["CID"] ?? string.Empty;
 
-            List<CourseEntity> courses = CourseBusiniss.GetCourses(pID, keywords, CourseOrderBy.CreateDate, false, pageSize, pageIndex, out total, out pages);
+            List<CourseEntity> courses = CourseBusiniss.GetCourses(cID, keywords, 
+                CourseOrderBy.CreateDate, false, pageSize, pageIndex, out total, out pages);
             ResultObj.Add("result",1);
             ResultObj.Add("total", total);
             ResultObj.Add("pages", pages);
             ResultObj.Add("courses", courses);
 
+            return Json(ResultObj, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        ///  获取推荐课程列表
+        /// </summary>
+        public ActionResult GetGoodCourses()
+        {
+            int pageSize = 5;
+            int pageIndex = 1;
+            int total = 0;
+            int pages = 0;
+
+            List<CourseEntity> courses = CourseBusiniss.GetCourses(string.Empty, string.Empty,
+                CourseOrderBy.CreateDate, false, pageSize, pageIndex, out total, out pages);
+
+            ResultObj.Add("result", 1);
+            ResultObj.Add("courses", courses);
             return Json(ResultObj, JsonRequestBehavior.AllowGet);
         }
 
@@ -271,6 +311,68 @@ namespace KaoAKao2._0.Web.Controllers
 
             return Json(ResultObj, JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        ///  获取课程分类
+        /// </summary>
+        public ActionResult GetCourseCategorys(FormCollection paras)
+        {
+            int pageSize =int.MaxValue;
+            int pageIndex = 1;
+            int total = 0;
+            int pages = 0;
+            string keywords = paras["Keywords"] ?? string.Empty;
+            string pID = paras["PID"] ?? string.Empty;
+
+            List<CourseCategoryEntity> categorys = CourseBusiniss.GetCourseCategorys(pID, keywords,
+pageSize, pageIndex, out total, out pages);
+            ResultObj.Add("result", 1);
+            ResultObj.Add("total", total);
+            ResultObj.Add("pages", pages);
+            ResultObj.Add("categorys", categorys);
+
+            return Json(ResultObj, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region 课程章节
+        /// <summary>
+        /// 根据课程id获取课程章节列表
+        /// </summary>
+        public ActionResult GetLessonsByCid(FormCollection paras)
+        {
+            string cID = paras["CID"] ?? string.Empty;
+            string tID = paras["TID"] ?? string.Empty;
+
+            List<LessonEntity> lessons = CourseBusiniss.GetCourseLessons(cID);
+            ResultObj.Add("result", 1);
+            ResultObj.Add("lessons", lessons);
+            UserEntity teacher= UserBusiness.GetUserByUserID(tID);
+            ResultObj.Add("teacher", teacher);
+
+            return Json(ResultObj, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        ///对课程章节进行 点赞、喜欢、分享
+        /// </summary>
+        public ActionResult OperateLesson(FormCollection paras)
+        {
+            string lID = paras["LID"] ?? string.Empty;
+            string cID = paras["CID"] ?? string.Empty;
+            int type = int.Parse(paras["operateLessonType"] ?? "0");
+            int result=0;
+            string resultDes=string.Empty;
+
+            CourseBusiniss courseBusiniss = new CourseBusiniss();
+            courseBusiniss.AddUserCourse(UserDetail != null ? UserDetail.UserID : string.Empty, cID, lID,
+                (UserCourseType)type, string.Empty, UserDetail != null ? UserDetail.UserID : string.Empty,
+                out result, out resultDes);
+
+            ResultObj.Add("result",result>0?1:0);
+            return Json(ResultObj, JsonRequestBehavior.AllowGet);
+        }
+
         #endregion
         #endregion
 

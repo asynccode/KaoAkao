@@ -1,36 +1,32 @@
 ﻿define(function (require, exports, module) {
     var Global = require("global");
-     
+    var DoT = require("dot");
+
     var Index = {};
     
     Index.init = function () {
         Index.bindEvent();
+
+        Index.getGoodCourses();
     };
 
     Index.bindEvent = function () {
-        //搜索事件
-        $("#btn_search").bind("click", function () {
-                $('.search-input').show();
-        });
 
-        $("#btn_mobileGenreSearch").bind("click", function () {
-            $(".content0").show();
-            $("#btn_mobileSearch").next().hide();
-            $("#btn_mobileSearch").removeClass("play");
+    };
 
-            $(this).addClass("play");
-            $(this).next().show();
-        });
+    Index.getGoodCourses = function (cID) {
+        Global.AjaxRequest("/Home/GetGoodCourses", "post",
+        null,
+            function (data) {
+                if (data.result = 1) {
 
-        $("#btn_mobileSearch").bind("click", function () {
-            $(".content0").show();
-            $("#btn_mobileGenreSearch").next().hide();
-            $("#btn_mobileGenreSearch").removeClass("play");
-
-            $(this).addClass("play");
-            $(this).next().show();
-        });
-
+                    DoT.exec("/modules/home/template/courseOfIndex.html", function (templateFun) {
+                        var innerText = templateFun(data.courses);
+                        innerText = $(innerText);
+                        $(".content7 .clearfix").append(innerText).fadeIn();
+                    });
+                }
+            });
     };
 
     module.exports = Index;

@@ -5,6 +5,9 @@
 .user-center{position:relative;display:none;}
 .user-pers{position:absolute;left:-105px;top:0px; margin-top:7px;display:block;}
 
-  .code {width: 110px;padding: 5px;display:inline-block;}
+.code {width: 110px;padding: 5px;display:inline-block;}
 
 .hint{position:absolute;top:-20px;left:247px;display:none;}
+
+.e-p-goto{float:left;font-size:14px;margin-left:10px;}
+.e-p-goto li{height:30px;line-height:30px;margin-left:15px;float:left;}
