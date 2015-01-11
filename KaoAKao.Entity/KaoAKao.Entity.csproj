@@ -54,6 +54,7 @@
     <Compile Include="Manager\RoleEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users\UserCourseEntity.cs" />
+    <Compile Include="Users\UserInteraction.cs" />
     <Compile Include="Users\UserLevelEntity.cs" />
     <Compile Include="Users\UserEntity.cs" />
   </ItemGroup>
