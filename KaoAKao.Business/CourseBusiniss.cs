@@ -362,6 +362,25 @@ namespace KaoAKao.Business
             }
             return string.Empty;
         }
+
+        /// <summary>
+        /// 添加课程互动
+        /// </summary>
+        /// <param name="userid">会员ID</param>
+        /// <param name="courseid">课程ID</param>
+        /// <param name="replyid">回复ID（评论、提问传0）</param>
+        /// <param name="content">内容</param>
+        /// <param name="type">InteractiveType 类型</param>
+        /// <param name="integral">提问悬赏积分</param>
+        /// <param name="operateIP">操作IP</param>
+        /// <param name="operateID">操作ID</param>
+        /// <param name="result">返回状态 1成功 0不成功</param>
+        /// <returns></returns>
+        public int AddCourseInteraction(string userid, string courseid, int replyid, string content, InteractiveType type, double integral, string operateIP, string operateID,out int result)
+        {
+            return new CourseDAL().AddCourseInteraction(userid, courseid, replyid, content, (int)type, integral, operateIP, operateID, out result);
+        }
+
         #endregion
 
         #region 编辑

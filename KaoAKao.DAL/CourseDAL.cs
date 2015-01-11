@@ -150,6 +150,32 @@ namespace KaoAKao.DAL
             return id;
         }
 
+        public int AddCourseInteraction(string userid, string courseid, int replyid, string content, int type, double integral, string operateIP, string operateID,out int result)
+        {
+
+            int id = 0;
+            SqlParameter[] paras = {
+                                       new SqlParameter("@ID",SqlDbType.Int),
+                                       new SqlParameter("@Result",SqlDbType.Int),
+                                       new SqlParameter("@UserID",userid),
+                                       new SqlParameter("@CourseID",courseid),
+                                       new SqlParameter("@TypeID",type),
+                                       new SqlParameter("@Content",content),
+                                       new SqlParameter("@ReplyID",replyid),
+                                       new SqlParameter("@Integral",integral),
+                                       new SqlParameter("@OperateIP",operateIP),
+                                       new SqlParameter("@OperateID",operateID),
+                                   };
+            paras[0].Direction = ParameterDirection.Output;
+            paras[1].Direction = ParameterDirection.Output;
+            paras[2].Direction = ParameterDirection.Output;
+
+            ExecuteScalar("P_UserInteractionAdd", paras, CommandType.StoredProcedure);
+            id = Convert.ToInt32(paras[0].Value);
+            result = Convert.ToInt32(paras[1].Value);
+            return id;
+        }
+
         #endregion
 
         #region 编辑
