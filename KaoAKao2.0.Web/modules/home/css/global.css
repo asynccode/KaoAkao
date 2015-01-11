@@ -10,7 +10,7 @@ src:url('../Font/SourceHanSansCN-Regular.otf');
 html{position:relative;}
 /* 桌面电脑布局: 1200px 及更高 *
 /*页头*/
-.header{height:34px;padding:12px 0;border-bottom:1px solid #c4c4c4;}
+.header{height:34px;padding:12px 0;border-bottom:1px solid #c4c4c4;background:#fff;}
 .main{width:1200px;margin:0 auto;}
 .main2{width:980px;margin:0 auto;}
 .logo{display:inline-block;width:151px;height:34px;text-indent:-999px;background:url(../Images/logo.png) no-repeat;}
@@ -51,7 +51,7 @@ html{position:relative;}
 .bp5{background-position:0px 12px;}
 .h-m-right{display:none;}
 /*页脚*/
-.footer{position:absolute;left:0;bottom:10px;width:100%;}
+.footer{position:absolute;left:0;bottom:10px;width:100%;background:#fff;}
 .footer-top{font-size:18px;border-bottom:1px solid #c4c4c4;}
 .footer-top li{float:left;height:36px;padding-right:28px;line-height:36px;}
 .footer-top a{color:#333;}

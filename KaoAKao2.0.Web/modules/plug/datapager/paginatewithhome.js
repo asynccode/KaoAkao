@@ -41,7 +41,7 @@ define(function (require, exports, module) {
                 $this.hide();
             else
                 $this.show();
-            $this.css("width", o.display * 26 + 100 + ((o.total_count).toString().length * 8) + "px");
+            $this.css("width", o.display * 26 + 270 + ((o.total_count).toString().length * 8) + "px");
             $this.empty();
             if (o.images) {
                 var spreviousclass = 'jPag-sprevious-img';
@@ -57,15 +57,16 @@ define(function (require, exports, module) {
             }
             var _first = $(document.createElement('a')).addClass('jPag-first').html('首页');
 
+
             if (o.rotate) {
                 if (o.images) var _rotleft = $(document.createElement('span')).addClass(spreviousclass);
                 else var _rotleft = $(document.createElement('span')).addClass(spreviousclass).html('&laquo;');
             }
 
             var _divwrapleft = $(document.createElement('div')).addClass('jPag-control-back');
-            _divwrapleft.append(_first).append(_rotleft);
+            _divwrapleft.append(_rotleft);
 
-            var _ulwrapdiv = $(document.createElement('div')).css('overflow', 'hidden');
+            var _ulwrapdiv = $(document.createElement('div')).css({ 'float': 'left', 'overflow': 'hidden' });
             var _ul = $(document.createElement('ul')).addClass('jPag-pages')
             var c = (o.display - 1) / 2;
             var first = selectedpage - c;
@@ -91,35 +92,46 @@ define(function (require, exports, module) {
 
             var _last = $(document.createElement('a')).addClass('jPag-last').html('末页');
             var _divwrapright = $(document.createElement('div')).addClass('jPag-control-front');
-            _divwrapright.append(_rotright).append(_last);
+            _divwrapright.append(_rotright);
 
-            var _total_count = $(document.createElement('div')).addClass('jPag-count').html('共 ' + o.total_count + ' 条');
+            //var _total_count = $(document.createElement('div')).addClass('jPag-count').html('共 ' + o.total_count + ' 条');
 
             //append all:
-            $this.addClass('jPaginate').append(_divwrapleft).append(_ulwrapdiv).append(_divwrapright).append(_total_count);
+            $this.addClass('jPaginate').append(_divwrapleft).append(_ulwrapdiv).append(_divwrapright);
+            var _goPageHtml = '';
+            _goPageHtml += '<div class="e-p-goto">';
+            _goPageHtml += '<ul class="clearfix ">';
+            _goPageHtml += '<li>跳转到</li>';
+            _goPageHtml += '<li><input type="text" class="e-p-txt" /></li>';
+            _goPageHtml += '<li><input type="button" class="e-p-btn" value="确定" /></li>';
+            _goPageHtml += '</ul>';
+            _goPageHtml += '</div>';
+            $this.append(_goPageHtml);
 
-            if (!o.border) {
-                if (o.background_color == 'none') var a_css = { 'color': o.text_color };
-                else var a_css = { 'color': o.text_color, 'background-color': o.background_color };
-                if (o.background_hover_color == 'none') var hover_css = { 'color': o.text_hover_color };
-                else var hover_css = { 'color': o.text_hover_color, 'background-color': o.background_hover_color };
-            }
-            else {
-                if (o.background_color == 'none') var a_css = { 'color': o.text_color, 'border': '1px solid ' + o.border_color };
-                else var a_css = { 'color': o.text_color, 'background-color': o.background_color, 'border': '1px solid ' + o.border_color };
-                if (o.background_hover_color == 'none') var hover_css = { 'color': o.text_hover_color, 'border': '1px solid ' + o.border_hover_color };
-                else var hover_css = { 'color': o.text_hover_color, 'background-color': o.background_hover_color, 'border': '1px solid ' + o.border_hover_color };
-            }
+            var a_css = {};
+            var hover_css = {};
+            //if (!o.border) {
+            //    if (o.background_color == 'none') var a_css = { 'color': o.text_color };
+            //    else var a_css = { 'color': o.text_color, 'background-color': o.background_color };
+            //    if (o.background_hover_color == 'none') var hover_css = { 'color': o.text_hover_color };
+            //    else var hover_css = { 'color': o.text_hover_color, 'background-color': o.background_hover_color };
+            //}
+            //else {
+            //    if (o.background_color == 'none') var a_css = { 'color': o.text_color, 'border': '1px solid ' + o.border_color };
+            //    else var a_css = { 'color': o.text_color, 'background-color': o.background_color, 'border': '1px solid ' + o.border_color };
+            //    if (o.background_hover_color == 'none') var hover_css = { 'color': o.text_hover_color, 'border': '1px solid ' + o.border_hover_color };
+            //    else var hover_css = { 'color': o.text_hover_color, 'background-color': o.background_hover_color, 'border': '1px solid ' + o.border_hover_color };
+            //}
 
             $.fn.applystyle(o, $this, a_css, hover_css, _first, _ul, _ulwrapdiv, _divwrapright);
             //calculate width of the ones displayed:
             var outsidewidth = outsidewidth_tmp - _first.parent().width() - 3;
             if (ver == 'ie7') {
-                _ulwrapdiv.css('width', outsidewidth + 72 + 'px');
+                _ulwrapdiv.css('width', outsidewidth + 50 + 'px');
                 _divwrapright.css('left', outsidewidth_tmp + 6 + 72 + 'px');
             }
             else {
-                _ulwrapdiv.css('width', outsidewidth + 'px');
+                _ulwrapdiv.css('width', outsidewidth-22 + 'px');
                 _divwrapright.css('left', outsidewidth_tmp + 6 + 'px');
             }
 

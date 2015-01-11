@@ -213,34 +213,6 @@
             return false;
     }
 
-    //验证用户是否登录
-    Global.validateLogin= function () {
-        Global.AjaxRequest("/Home/Validate", "get", null,
-            function (data) {
-                if (data.result == 1) {
-                    $("#ul_nav a.button-min").hide();
-
-                    $("#ul_nav .user").show();
-                    $("#ul_nav .user .effigy").append("<i><img src='/modules/home/Images/index_16.jpg' /></i>" + data.userName);
-
-                    var mst=null;
-                    $("#ul_nav .user").hover(function () {
-                        mst = setTimeout(function () {//延时触发
-                            mst = null;
-                            $("#ul_nav .user .user-center").slideDown('fast');
-                        });
-                    },
-                    function () {
-                        if (mst != null) clearTimeout(mst);
-                            $("#ul_nav .user .user-center").slideUp("fast");
-                    }
-
-                    );
-                }
-            }
-        );
-    }
-
     //显示文本框验证内容
     Global.showIptMsg = function (obj, msg) {
         if ($(obj).parent().find(".hint").html())

@@ -1,26 +1,33 @@
 .jPaginate{
     height:34px;
     position:relative;
-    color:#a5a5a5;
     font-size:small;   
 	width:90%;
-    float:right;
+    margin:0px auto;
 }
-.jPaginate a{
-    line-height:15px;
-    height:18px;
+.jPaginate .jPag-pages a,.jPaginate .jPag-pages span{
+    display:inline-block;
+    width:30px;height:30px;
+    line-height:30px;
+    text-align:center;font-size:18px;color:#ccc;
+    -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;
     cursor:pointer;
-    padding:2px 5px;
-    margin:2px;
-    float:left;
 }
+.jPaginate .jPag-pages a:hover {
+color: #fff;
+background: #999;
+}
+span.jPag-current{
+color: #fff;
+background: #009cdd;
+}
+
 .jPag-control-back{
-	position:absolute;
-	left:0px;
+    float:left;
+    margin-right:5px;
 }
 .jPag-control-front{
-	position:absolute;
-	top:0px;
+    float:left;
 }
 .jPaginate span{
     cursor:pointer;
@@ -32,24 +39,10 @@ ul.jPag-pages{
     padding:0px;
 }
 ul.jPag-pages li{
-    display:inline;
-    float:left;
-    padding:0px;
-    margin:0px;
-}
-ul.jPag-pages li a{
-    float:left;
-    padding:2px 5px;
-}
-span.jPag-current{
-    cursor:default;
-    font-weight:normal;
-    line-height:15px;
-    height:18px;
-    padding:2px 5px;
-    margin:2px;
+    padding:0px 5px;
     float:left;
 }
+
 ul.jPag-pages li span.jPag-previous,
 ul.jPag-pages li span.jPag-next,
 span.jPag-sprevious,
@@ -64,7 +57,7 @@ span.jPag-snext-img{
     line-height:18px;
 }
 
-ul.jPag-pages li span.jPag-previous,
+/*ul.jPag-pages li span.jPag-previous,
 ul.jPag-pages li span.jPag-previous-img{
     margin:2px 0px 2px 2px;
     font-size:12px;
@@ -92,18 +85,26 @@ span.jPag-snext-img{
     font-size:18px;
     width:15px;
      text-align:right;
-}
+}*/
 ul.jPag-pages li span.jPag-previous-img{
-    background:transparent url(../images/previous2.png) no-repeat center right;
+    background:transparent url(../images/previous.png) no-repeat center right;
             }
 ul.jPag-pages li span.jPag-next-img{
-    background:transparent url(../images/next2.png) no-repeat center left;
+    background:transparent url(../images/next.png) no-repeat center left;
             }
 span.jPag-sprevious-img{
-    background:transparent url(../images/sprevious.png) no-repeat center right;
+    width: 17px;
+background: url(../Images/previous2.png) no-repeat center center;
+text-indent: 999px;
+overflow: hidden;
+border-radius: 0;
             }
 span.jPag-snext-img{
-    background:transparent url(../images/snext.png) no-repeat center left;
+        width: 17px;
+background: url(../Images/next2.png) no-repeat center center;
+text-indent: 999px;
+overflow: hidden;
+border-radius: 0;
             }
 .jPag-count {color:#333; height:25px; line-height:25px; display:inline-block; position:absolute; top:0; right:0; text-align:right;}
 

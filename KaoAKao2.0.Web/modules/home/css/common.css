@@ -3,7 +3,7 @@
 *{font-family:"Microsoft YaHei";padding:0;margin:0;border:0;list-style-type:none;}
 h1,h2,h3,h4,h5,h6{font-weight:normal;}
 html{min-height:100%;background:#fff;border:none;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;}
-body{word-wrap:break-word;word-break:break-all;background:#fff;}
+body{word-wrap:break-word;word-break:break-all;background:#f5f5f5;}
 ul,ol{list-style-type:none;}
 button,submit,input,select,textarea{outline:none;}
 button,submit,input,select{vertical-align:middle;}
