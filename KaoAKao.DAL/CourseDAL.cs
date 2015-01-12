@@ -61,6 +61,7 @@ namespace KaoAKao.DAL
                                    };
             return GetDataTable("select * from Lessons where LessonID=@LessonID", paras, CommandType.Text);
         }
+
         #endregion
 
         #region 添加
@@ -159,7 +160,7 @@ namespace KaoAKao.DAL
                                        new SqlParameter("@Result",SqlDbType.Int),
                                        new SqlParameter("@UserID",userid),
                                        new SqlParameter("@CourseID",courseid),
-                                       new SqlParameter("@TypeID",type),
+                                       new SqlParameter("@Type",type),
                                        new SqlParameter("@Content",content),
                                        new SqlParameter("@ReplyID",replyid),
                                        new SqlParameter("@Integral",integral),
@@ -168,12 +169,22 @@ namespace KaoAKao.DAL
                                    };
             paras[0].Direction = ParameterDirection.Output;
             paras[1].Direction = ParameterDirection.Output;
-            paras[2].Direction = ParameterDirection.Output;
 
             ExecuteScalar("P_UserInteractionAdd", paras, CommandType.StoredProcedure);
             id = Convert.ToInt32(paras[0].Value);
             result = Convert.ToInt32(paras[1].Value);
             return id;
+        }
+
+        public void AddUserInteraction(string userid, string interactionid, int type, string operateIP, string operateID)
+        {
+            SqlParameter[] paras = {
+                                       new SqlParameter("@UserID",userid),
+                                       new SqlParameter("@InteractionID",interactionid),
+                                       new SqlParameter("@Type",type)
+                                   };
+
+            ExecuteScalar("P_UserInteractionLogAdd", paras, CommandType.StoredProcedure);
         }
 
         #endregion
