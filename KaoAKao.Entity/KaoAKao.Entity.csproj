@@ -45,6 +45,7 @@
     <Compile Include="Courses\LessonEntity.cs" />
     <Compile Include="Enum\UserEnum.cs" />
     <Compile Include="Enum\CourseEnum.cs" />
+    <Compile Include="Extend.cs" />
     <Compile Include="Manager\DepartmentEntity.cs" />
     <Compile Include="Manager\ManagerEntity.cs" />
     <Compile Include="Manager\ManagerPermissionEntity.cs" />
