@@ -92,4 +92,21 @@ namespace KaoAKao.Entity.Enum
         /// </summary>
         Out = 2
     }
+
+    /// <summary>
+    /// 互动类型
+    /// </summary>
+    public enum InteractiveType
+    {
+        /// <summary>
+        /// 评论
+        /// </summary>
+        Review=1,
+
+        /// <summary>
+        /// 问答
+        /// </summary>
+        Answers=2
+    }
+
 }
