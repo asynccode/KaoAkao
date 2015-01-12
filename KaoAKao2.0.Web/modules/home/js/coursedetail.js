@@ -7,7 +7,8 @@
         ajaxUrl: "/Home/GetLessonsByCid",
         cID: '',
         lID: '',
-        operateLessonType:2,
+        operateLessonType: 2,
+        interactiveType: 1,
         lessonsData:null
     };
 
@@ -26,6 +27,16 @@
             var type = $(this).attr("BindType");
             CourseDetail.options.operateLessonType = parseInt(type);
             CourseDetail.operateLesson();
+        });
+
+        $("#btn_addComment").bind("click", function () {
+            CourseDetail.options.interactiveType = 1;
+            CourseDetail.addCourseInteraction();
+        });
+
+        $("#btn_addAnswer").bind("click", function () {
+            CourseDetail.options.interactiveType = 2;
+            CourseDetail.addCourseInteraction();
         });
     }
 
@@ -93,7 +104,7 @@
         Global.AjaxRequest("/Home/GetGoodCourses", "post",
         null,
             function (data) {
-                if (data.result = 1) {
+                if (data.result == 1) {
                     var len = data.courses.length;
                     for (var i = 0; i < len; i++)
                     {
@@ -120,6 +131,12 @@
 
         $("#s_lessonPraiseCount").html(item.PraiseCount);
         $("#txt_LessonID").val(item.LessonID);
+
+        var player = polyvObject('#lesson_playBox').videoPlayer({
+            'width': '860',
+            'height': '500',
+            'vid': item.RadioURL
+        });
     };
 
     //操作课程章节 点赞、喜欢、分享
@@ -130,14 +147,58 @@
         {
             CID: CourseDetail.options.cID,
             lID: CourseDetail.options.lID,
-            Type: CourseDetail.options.operateLessonType
+            OperateLessonType: CourseDetail.options.operateLessonType
         },
             function (data) {
-                if (data.result = 1) {
+                if (data.result == 1) {
                     alert("操作成功");
+                }
+                else if (data.result == 0)
+                {
+                    alert("操作失败");
+                }
+                else if (data.result == -1)
+                {
+                    alert("您未登录，请先登录");
+                    setTimeout(function () { location.href="/home/login"}, 1000);
                 }
             });
     };
 
+    //对课程进行评论或提出问答
+    CourseDetail.addCourseInteraction = function () {
+        CourseDetail.options.ajaxUrl = "/home/AddCourseInteraction";
+
+        var content = '';
+        if (CourseDetail.options.interactiveType == 1) {
+            content = $("#txt_commentMsg").val();
+        }
+        else {
+            content = $("#txt_answerMsg").val();
+        }
+        Global.AjaxRequest(CourseDetail.options.ajaxUrl, "post",
+        {
+            CID: CourseDetail.options.cID,
+            Content:content,
+            InteractiveType: CourseDetail.options.interactiveType
+        },
+            function (data) {
+                if (data.result == 1) {
+                    alert("操作成功");
+
+                }
+                else if (data.result == 0) {
+                    alert("操作失败");
+                }
+                else if (data.result == -1) {
+                    alert("您未登录，请先登录");
+                    setTimeout(function () { location.href = "/home/login" }, 1000);
+                }
+            });
+    };
+
+    CourseDetail.createReplyHtml = function () {
+
+    };
     module.exports = CourseDetail;
 });

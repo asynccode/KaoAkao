@@ -58,7 +58,7 @@
                 CID: Course.options.cID
             },
             function (data) {
-                if (data.result = 1) {
+                if (data.result == 1) {
                     $(".e-nr .clearfix").html('');
 
                     DoT.exec("/modules/home/template/course.html", function (templateFun) {
@@ -97,7 +97,7 @@
                 PageIndex: Course.options.pageIndex
             },
             function (data) {
-                if (data.result = 1) {
+                if (data.result == 1) {
                     var len=data.teachers.length;
                     for (var i = 0; i < len; i++)
                     {
@@ -122,7 +122,7 @@
         Global.AjaxRequest(Course.options.ajaxUrl, "post",
             null,
             function (data) {
-                if (data.result = 1) {
+                if (data.result == 1) {
                     var len = data.categorys.length;
                     for (var i = 0; i < len; i++) {
                         var item = data.categorys[i];

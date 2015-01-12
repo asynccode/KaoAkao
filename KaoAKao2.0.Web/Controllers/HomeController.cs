@@ -124,6 +124,7 @@ namespace KaoAKao2._0.Web.Controllers
                 else if (!string.IsNullOrEmpty(user.Name))
                     userName = user.Name;
                 ResultObj.Add("userName", userName);
+                ResultObj.Add("userID", user.UserID);
             }
             else
                 ResultObj.Add("result", 0);
@@ -344,9 +345,17 @@ pageSize, pageIndex, out total, out pages);
             string cID = paras["CID"] ?? string.Empty;
             string tID = paras["TID"] ?? string.Empty;
 
+            List<LessonEntity> resultLessons = new List<LessonEntity>();
             List<LessonEntity> lessons = CourseBusiniss.GetCourseLessons(cID);
+            foreach (var lesson in lessons)
+            {
+                foreach (var clesson in lesson.ChildLessons)
+                {
+                    resultLessons.Add(clesson);
+                }
+            }
             ResultObj.Add("result", 1);
-            ResultObj.Add("lessons", lessons);
+            ResultObj.Add("lessons", resultLessons);
             UserEntity teacher= UserBusiness.GetUserByUserID(tID);
             ResultObj.Add("teacher", teacher);
 
@@ -358,22 +367,53 @@ pageSize, pageIndex, out total, out pages);
         /// </summary>
         public ActionResult OperateLesson(FormCollection paras)
         {
-            string lID = paras["LID"] ?? string.Empty;
-            string cID = paras["CID"] ?? string.Empty;
-            int type = int.Parse(paras["operateLessonType"] ?? "0");
-            int result=0;
-            string resultDes=string.Empty;
+            if (UserDetail != null)
+            {
+                string lID = paras["LID"] ?? string.Empty;
+                string cID = paras["CID"] ?? string.Empty;
+                int type = int.Parse(paras["OperateLessonType"] ?? "0");
+                int result = 0;
+                string resultDes = string.Empty;
 
-            CourseBusiniss courseBusiniss = new CourseBusiniss();
-            courseBusiniss.AddUserCourse(UserDetail != null ? UserDetail.UserID : string.Empty, cID, lID,
-                (UserCourseType)type, string.Empty, UserDetail != null ? UserDetail.UserID : string.Empty,
-                out result, out resultDes);
+                CourseBusiniss courseBusiniss = new CourseBusiniss();
+                courseBusiniss.AddUserCourse(UserDetail.UserID, cID, lID,
+                    (UserCourseType)type, string.Empty,UserDetail.UserID,
+                    out result, out resultDes);
 
-            ResultObj.Add("result",result>0?1:0);
+                ResultObj.Add("result", result > 0 ? 1 : 0);
+            }
+            else
+                ResultObj.Add("result", -1);
+
             return Json(ResultObj, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        ///对课程进行评论或提出问答
+        /// </summary>
+        public ActionResult AddCourseInteraction(FormCollection paras)
+        {
+            if (UserDetail != null)
+            {
+                string cID = paras["CID"] ?? string.Empty;
+                string content = paras["Content"] ?? string.Empty;
+                int type = int.Parse(paras["InteractiveType"] ?? "1");
+                int result = 0;
+
+                CourseBusiniss courseBusiniss = new CourseBusiniss();
+                courseBusiniss.AddCourseInteraction(UserDetail.UserID, cID, 0,content,
+                    (InteractiveType)type,0, string.Empty,
+                    UserDetail.UserID, out result);
+
+                ResultObj.Add("result", result > 0 ? 1 : 0);
+            }
+            else
+                ResultObj.Add("result", -1);
+
+            return Json(ResultObj, JsonRequestBehavior.AllowGet);
+        }
         #endregion
+
         #endregion
 
         #region common

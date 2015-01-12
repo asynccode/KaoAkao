@@ -160,7 +160,7 @@ namespace KaoAKao.DAL
                                        new SqlParameter("@Result",SqlDbType.Int),
                                        new SqlParameter("@UserID",userid),
                                        new SqlParameter("@CourseID",courseid),
-                                       new SqlParameter("@TypeID",type),
+                                       new SqlParameter("@Type",type),
                                        new SqlParameter("@Content",content),
                                        new SqlParameter("@ReplyID",replyid),
                                        new SqlParameter("@Integral",integral),
@@ -169,7 +169,6 @@ namespace KaoAKao.DAL
                                    };
             paras[0].Direction = ParameterDirection.Output;
             paras[1].Direction = ParameterDirection.Output;
-            paras[2].Direction = ParameterDirection.Output;
 
             ExecuteScalar("P_UserInteractionAdd", paras, CommandType.StoredProcedure);
             id = Convert.ToInt32(paras[0].Value);
