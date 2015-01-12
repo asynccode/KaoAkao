@@ -453,6 +453,20 @@ namespace KaoAKao.Business
             return new CourseDAL().AddCourseInteraction(userid, courseid, replyid, content, (int)type, integral, operateIP, operateID, out result);
         }
 
+        /// <summary>
+        /// 添加评论、提问收藏、点赞
+        /// </summary>
+        /// <param name="userid">会员ID</param>
+        /// <param name="interactionid">评论、提问ID</param>
+        /// <param name="type">UserCourseType 类型</param>
+        /// <param name="operateIP">操作IP</param>
+        /// <param name="operateID">操作ID</param>
+        /// <returns></returns>
+        public void AddUserInteraction(string userid, string interactionid, UserCourseType type, string operateIP, string operateID)
+        {
+            new CourseDAL().AddUserInteraction(userid, interactionid, (int)type, operateIP, operateID);
+        }
+
         #endregion
 
         #region 编辑

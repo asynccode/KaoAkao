@@ -177,6 +177,17 @@ namespace KaoAKao.DAL
             return id;
         }
 
+        public void AddUserInteraction(string userid, string interactionid, int type, string operateIP, string operateID)
+        {
+            SqlParameter[] paras = {
+                                       new SqlParameter("@UserID",userid),
+                                       new SqlParameter("@InteractionID",interactionid),
+                                       new SqlParameter("@Type",type)
+                                   };
+
+            ExecuteScalar("P_UserInteractionLogAdd", paras, CommandType.StoredProcedure);
+        }
+
         #endregion
 
         #region 编辑
