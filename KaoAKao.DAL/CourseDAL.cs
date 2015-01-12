@@ -160,7 +160,7 @@ namespace KaoAKao.DAL
                                        new SqlParameter("@Result",SqlDbType.Int),
                                        new SqlParameter("@UserID",userid),
                                        new SqlParameter("@CourseID",courseid),
-                                       new SqlParameter("@TypeID",type),
+                                       new SqlParameter("@Type",type),
                                        new SqlParameter("@Content",content),
                                        new SqlParameter("@ReplyID",replyid),
                                        new SqlParameter("@Integral",integral),

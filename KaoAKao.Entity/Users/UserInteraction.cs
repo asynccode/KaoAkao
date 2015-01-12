@@ -63,7 +63,7 @@ namespace KaoAKao.Entity
 		/// <summary>
 		/// 
 		/// </summary>
-        public InteractiveType TypeID
+        public InteractiveType Type
 		{
 			set{ _typeid=value;}
 			get{return _typeid;}
@@ -204,7 +204,7 @@ namespace KaoAKao.Entity
             var cl = dr.Table.Columns;
             this.ID = cl.Contains("ID") && dr["ID"] != DBNull.Value ? Convert.ToInt32(dr["ID"]) : 0;
             this.UserID = cl.Contains("UserID") && dr["UserID"] != DBNull.Value ? dr["UserID"].ToString() : "";
-            this.TypeID = cl.Contains("TypeID") && dr["TypeID"] != DBNull.Value ? (InteractiveType)Convert.ToInt32(dr["TypeID"]) : InteractiveType.Review;
+            this.Type = cl.Contains("Type") && dr["Type"] != DBNull.Value ? (InteractiveType)Convert.ToInt32(dr["Type"]) : InteractiveType.Review;
             this.Content = cl.Contains("Content") && dr["Content"] != DBNull.Value ? dr["Content"].ToString() : "";
             this.IsReply = cl.Contains("IsReply") && dr["IsReply"] != DBNull.Value ? dr["IsReply"].ToString() : "";
             this.IsBest = cl.Contains("IsBest") && dr["IsBest"] != DBNull.Value ? dr["IsBest"].ToString() : "";
