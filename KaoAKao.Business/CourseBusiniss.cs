@@ -256,6 +256,78 @@ namespace KaoAKao.Business
             return model;
         }
 
+        /// <summary>
+        /// 获取评论、问题列表
+        /// </summary>
+        /// <param name="courseid">课程ID 可为空</param>
+        /// <param name="type">InteractiveType 类型</param>
+        /// <param name="pageSize">每页记录数</param>
+        /// <param name="index">页码</param>
+        /// <param name="total">总记录数</param>
+        /// <param name="pages">总页数</param>
+        /// <returns></returns>
+        public static List<Entity.UserInteraction> GetUserInteractions(string courseid, InteractiveType type, int pageSize, int index, out int total, out int pages)
+        {
+            List<Entity.UserInteraction> list = new List<UserInteraction>();
+
+            string table = "UserInteraction";
+            string columns = "*";
+            StringBuilder build = new StringBuilder();
+            build.Append(" Status <> 9 and IsReply='0' and TypeID=" + (int)type);
+
+            if (!string.IsNullOrEmpty(courseid) && courseid != "1")
+            {
+                build.Append(" and CourseID='" + courseid + "'");
+            }
+
+            DataTable dt = CommonBusiness.GetPagerData(table, columns, build.ToString(), "ID", pageSize, index, out total, out pages);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                UserInteraction model = new UserInteraction();
+                model.FillData(dr);
+                list.Add(model);
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// 根据ID评论回复、问题答案列表
+        /// </summary>
+        /// <param name="userInteractionID">评论、问题ID</param>
+        /// <param name="pageSize">每页记录数</param>
+        /// <param name="index">页码</param>
+        /// <param name="total">总记录数</param>
+        /// <param name="pages">总页数</param>
+        /// <returns></returns>
+        public static List<Entity.UserInteraction> GetUserInteractionReplysByID(int userInteractionID, int pageSize, int index, out int total, out int pages)
+        {
+            List<Entity.UserInteraction> list = new List<UserInteraction>();
+
+            string table = "UserInteraction";
+            string columns = "*";
+            StringBuilder build = new StringBuilder();
+            build.Append(" Status <> 9 and IsReply='1' and ID=" + userInteractionID);
+
+            DataTable dt = CommonBusiness.GetPagerData(table, columns, build.ToString(), "ID", pageSize, index, out total, out pages);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                UserInteraction model = new UserInteraction();
+                model.FillData(dr);
+                list.Add(model);
+            }
+
+            //填充回复实体
+            foreach (var model in list)
+            {
+                model.ReplyEntity = list.Where(m => m.ID == model.ReplyID.Value && m.ID != userInteractionID).FirstOrDefault();
+            }
+
+            return list;
+        }
+
         #endregion
 
         #region 添加

@@ -189,6 +189,16 @@ namespace KaoAKao.Entity
 			get{return _status;}
 		}
 
+        /// <summary>
+        /// 回复评论实体
+        /// </summary>
+        public UserInteraction ReplyEntity { get; set; }
+
+        /// <summary>
+        /// 回复、评论列表
+        /// </summary>
+        public List<UserInteraction> ChildReply { get; set; }
+
         public void FillData(DataRow dr)
         {
             var cl = dr.Table.Columns;
