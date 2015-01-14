@@ -16,7 +16,8 @@
   </div>
   <div class="play-main">
     <div class="play-container clearfix">
-      <div class="play-box"></div>
+        <script src='http://static.polyv.net/file/polyvplayer_v2.0.min.js'></script>
+        <div class="play-box" id='lesson_playBox'></div>
       <div class="play-list">
         <div class="p-l-up clearfix">
           <h2>讲师介绍</h2>
@@ -30,8 +31,8 @@
     </div>
     <div class="play-foot">
       <div class="p-f-main clearfix">
-        <a href="javascript:void(0);" class="pra" BindType="2"><i></i><div id="s_lessonPraiseCount"></div></a>
-        <a href="javascript:void(0);" class="sub" BindType="3"><i></i>订阅</a>
+        <a href="javascript:void(0);" class="pra" BindType="2"><i></i><div id="s_lessonPraiseCount">@Model.course.PraiseCount</div></a>
+      @*  <a href="javascript:void(0);" class="sub" BindType="3"><i></i>订阅</a>*@
         <a href="javascript:void(0);" class="col" BindType="1"><i></i>收藏</a>
       </div>
     </div>
@@ -45,13 +46,13 @@
         </dd>
       </dl>
       <div id="gallery" class="clearfix">
-        <div class="now" title="Comment"><span>评论</span></div>
-        <div class="old" title="Answer"><span>问答</span></div>
+        <div class="now" title="Comment" id="d_comment"><span>评论</span></div>
+        <div class="old" title="Answer" id="d_answer"><span>问答</span></div>
       </div>
       <div id="Comment" class="reveal">
         <div class="p20">
           <div class="comment-top">
-            <textarea onKeyDown="textdown(event)"onKeyUp="textup()" onfocus="if(value=='快来吐槽'){value=''}" onblur="if (value ==''){value='快来吐槽'}" class="comment-area">快来吐槽</textarea>
+            <textarea id="txt_commentMsg" onfocus="if(value=='快来吐槽'){value=''}" onblur="if (value ==''){value='快来吐槽'}" class="comment-area">快来吐槽</textarea>
             <div class="c-t-tj clearfix">
               <div class="l clearfix">
                <div class="share-left">同步到：</div>
@@ -63,60 +64,12 @@
                </ul>
               </div>
               <div class="r">
-                <input type="button" value="提交" class="comment-btn" />
+                <input type="button" value="提交" id="btn_addComment" class="comment-btn" />
               </div>
             </div>
           </div>
           <div class="comment-main">
             <ul>
-              <li id="panel">
-                <div class="user_icon"><img src="/modules/home/images/index_16.jpg" alt=""/></div>
-                <div class="c-m-nr">
-                  <p class="c-m-top"><a href="#">考啊考</a>- 1小时前</p>
-                    <div class="c-m-mid">
-                      <p>卧槽，课太栏了，时间短，低画质，看蛋蛋啊。。。。</p>
-                      <a onclick="return click_box('child1')" class="reply">回复</a>
-                    </div>
-                    <p class="c-m-down">
-                      <a href="#"><i><img src="/modules/home/images/course_09.png" alt=""/></i>1</a>
-                      <a href="#"><i><img src="/modules/home/images/course_10.png" alt=""/></i>0</a>
-                      <a href="#"><i><img src="/modules/home/images/course_11.png" alt=""/></i>0</a>
-                    </p>
-                </div>
-                <div id="child1" class="child">
-                  <textarea onKeyDown="textdown(event)"onKeyUp="textup()" onfocus="if(value=='回复内容'){value=''}" onblur="if (value ==''){value='回复内容'}" class="comment-area2">回复内容</textarea>
-                  <div class="p10 clearfix">
-                      <div class="r">
-                        <input type="button" value="提交" class="comment-btn" />
-                        <input type="button" value="取消" class="comment-btn2" />
-                      </div>
-                    </div>
-                </div>
-              </li>
-              <li id="panel">
-                <div class="user_icon"><img src="/modules/home/images/test.jpg" alt=""/></div>
-                <div class="c-m-nr">
-                  <p class="c-m-top"><a href="#">樱木</a>- 1小时前</p>
-                    <div class="c-m-mid">
-                      <p>呵呵了，你说空调制冷不好你也要能制冷吗？难道除了定义嘲讽你就不会别的了吗？//<a href="#"></a>1:卧槽，课太栏了，时间短，低画质，看蛋蛋啊。。。。 //<a href="#">没素质就别来上网</a>:让我想起来了当初发布会的时候，牛气轰轰的连乔布斯都搬出来嘲讽。你配吗？老乔对世界的贡献就是一百万个公孙罗也没发比的了!如果不是乔布斯当年发明了多媒体计算机，也就是现在的电脑。现在电脑都还是一种大型运算设备而已，就天河一号那种。微软也只会编一些286小软件而已。</p>
-                      <a onclick="return click_box('child2')" class="reply">回复</a>
-                    </div>
-                    <p class="c-m-down">
-                      <a href="#"><i><img src="/modules/home/images/course_09.png" alt=""/></i>1</a>
-                      <a href="#"><i><img src="/modules/home/images/course_10.png" alt=""/></i>0</a>
-                      <a href="#"><i><img src="/modules/home/images/course_11.png" alt=""/></i>0</a>
-                    </p>
-                </div>
-                <div id="child2" class="child">
-                  <textarea onKeyDown="textdown(event)"onKeyUp="textup()" onfocus="if(value=='回复内容'){value=''}" onblur="if (value ==''){value='回复内容'}" class="comment-area2">回复内容</textarea>
-                  <div class="p10 clearfix">
-                      <div class="r">
-                        <input type="button" value="提交" class="comment-btn" />
-                        <input type="button" value="取消" class="comment-btn2" />
-                      </div>
-                    </div>
-                </div>
-              </li>
             </ul>
           </div>
           <div class="comment-end">
@@ -135,7 +88,7 @@
         <div class="quiz-down">
           <div class="quiz-bt">提出问题</div>
           <div class="p20">
-            <textarea onKeyDown="textdown(event)"onKeyUp="textup()" onfocus="if(value=='提出你的问题，大家来帮你答疑解惑..'){value=''}" onblur="if (value ==''){value='提出你的问题，大家来帮你答疑解惑..'}" class="comment-area">提出你的问题，大家来帮你答疑解惑..</textarea>
+            <textarea id="txt_answerMsg" onfocus="if(value=='提出你的问题，大家来帮你答疑解惑..'){value=''}" onblur="if (value ==''){value='提出你的问题，大家来帮你答疑解惑..'}" class="comment-area">提出你的问题，大家来帮你答疑解惑..</textarea>
             <div class="c-t-tj clearfix">
               <div class="l clearfix">
                <div class="share-left">同步到：</div>
@@ -150,14 +103,14 @@
                 <div class="quiz-reward">
                   <a href="#">悬赏 5</a>
                 </div>
-                <input type="button" value="提交" class="comment-btn" />
+                <input type="button" value="提交" id="btn_addAnswer" class="comment-btn" />
               </div>
             </div>
           </div>
         </div>
         <div class="quiz-main">
           <ul>
-            <li class="quiz_children">
+         @*   <li class="quiz_children">
               <div class="q-c-main clearfix">
                 <div class="q-c-num">41</div>
                 <div class="q-c-doc">
@@ -197,89 +150,7 @@
                   <div class="r">2015-01-01  23：12</div>
                 </dd>
               </dl>
-            </li>
-            <li class="quiz_children">
-              <div class="q-c-main clearfix">
-                <div class="q-c-num">41</div>
-                <div class="q-c-doc">
-                  <div class="q-c-bt">
-                    丰富的金融在线课程和学习资源合集<span>10</span>
-                  </div>
-                  <p>管理会计是一种深度参与管理决策..</p>
-                </div>
-                <div class="q-c-time">2015-01-01</div>
-                <div class="q-c-ico"><img src="/modules/home/images/test.jpg" alt=""/><span>6</span></div>
-              </div>
-              <dl class="q-c-nr clearfix">
-                <dt class="tinct1">提问</dt>
-                <dd>管理会计是一种深度参与管理决策、制订计划与绩效管理系统、提供财务报告与控制方面的专业知识以及帮助	管理者制定并实施组织战略的职业。不同于传统的财务会计，管理会计服务于企业内部各级管理者，面向企业未来发展，通过分析解读财务数据，从财务角度为企业经营决策提供可行性方案。</dd>
-                <dt class="tinct2">回答</dt>
-                <dd>
-                  <p class="clearfix"><span class="l">共6条</span><span class="r">0/500</span></p>
-                  <textarea class="q-c-area"></textarea>
-                  <div class="q-c-dw">
-                    <input type="button" value="提交回答" class="q-c-btn" />
-                  </div>
-                </dd>
-                <dt><img src="/modules/home/images/test.jpg" alt=""/></dt>
-                <dd class="q-c-cont clearfix">
-                  <div class="q-c-message">
-                    <p>对于企业家而言，毕竟，做好企业才是第一位的，你“秀”的再好也不如股票上涨一毛钱，所以说，专业的人做专业的事儿，“秀”，这个活还是留给专业模特去做吧。</p>
-                    <a href="#">120</a>
-                  </div>
-                  <div class="r">2015-01-01  23：12</div>
-                </dd>
-                <dt><img src="/modules/home/images/test.jpg" alt=""/></dt>
-                <dd class="q-c-cont clearfix">
-                  <div class="q-c-message">
-                    <p>对于企业家而言，毕竟，做好企业才是第一位的，你“秀”的再好也不如股票上涨一毛钱，所以说，专业的人做专业的事儿，“秀”，这个活还是留给专业模特去做吧。</p>
-                    <a href="#">120</a>
-                  </div>
-                  <div class="r">2015-01-01  23：12</div>
-                </dd>
-              </dl>
-            </li>
-            <li class="quiz_children">
-              <div class="q-c-main clearfix">
-                <div class="q-c-num">41</div>
-                <div class="q-c-doc">
-                  <div class="q-c-bt">
-                    丰富的金融在线课程和学习资源合集<span>10</span>
-                  </div>
-                  <p>管理会计是一种深度参与管理决策..</p>
-                </div>
-                <div class="q-c-time">2015-01-01</div>
-                <div class="q-c-ico"><img src="/modules/home/images/test.jpg" alt=""/><span>6</span></div>
-              </div>
-              <dl class="q-c-nr clearfix">
-                <dt class="tinct1">提问</dt>
-                <dd>管理会计是一种深度参与管理决策、制订计划与绩效管理系统、提供财务报告与控制方面的专业知识以及帮助	管理者制定并实施组织战略的职业。不同于传统的财务会计，管理会计服务于企业内部各级管理者，面向企业未来发展，通过分析解读财务数据，从财务角度为企业经营决策提供可行性方案。</dd>
-                <dt class="tinct2">回答</dt>
-                <dd>
-                  <p class="clearfix"><span class="l">共6条</span><span class="r">0/500</span></p>
-                  <textarea class="q-c-area"></textarea>
-                  <div class="q-c-dw">
-                    <input type="button" value="提交回答" class="q-c-btn" />
-                  </div>
-                </dd>
-                <dt><img src="/modules/home/images/test.jpg" alt=""/></dt>
-                <dd class="q-c-cont clearfix">
-                  <div class="q-c-message">
-                    <p>对于企业家而言，毕竟，做好企业才是第一位的，你“秀”的再好也不如股票上涨一毛钱，所以说，专业的人做专业的事儿，“秀”，这个活还是留给专业模特去做吧。</p>
-                    <a href="#">120</a>
-                  </div>
-                  <div class="r">2015-01-01  23：12</div>
-                </dd>
-                <dt><img src="/modules/home/images/test.jpg" alt=""/></dt>
-                <dd class="q-c-cont clearfix">
-                  <div class="q-c-message">
-                    <p>对于企业家而言，毕竟，做好企业才是第一位的，你“秀”的再好也不如股票上涨一毛钱，所以说，专业的人做专业的事儿，“秀”，这个活还是留给专业模特去做吧。</p>
-                    <a href="#">120</a>
-                  </div>
-                  <div class="r">2015-01-01  23：12</div>
-                </dd>
-              </dl>
-            </li>
+            </li>*@
           </ul>
         </div>
       </div>

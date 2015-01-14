@@ -1,0 +1,27 @@
+﻿{%
+	var item = $data;
+%}
+<li>
+    <div class="user_icon"><img src="/modules/home/images/index_16.jpg" alt=""/></div>
+    <div class="c-m-nr">
+        <p class="c-m-top"><a href="#">考啊考</a>- 1小时前</p>
+        <div class="c-m-mid">
+            <p>{%=item.Content%}</p>
+            <a onclick="return click_box('child{%=item.ID%}')" class="reply">回复</a>
+        </div>
+        <p class="c-m-down">
+            <a href="#"><i><img src="/modules/home/images/course_09.png" alt=""/></i>1</a>
+            <a href="#"><i><img src="/modules/home/images/course_10.png" alt=""/></i>0</a>
+            <a href="#"><i><img src="/modules/home/images/course_11.png" alt=""/></i>0</a>
+        </p>
+    </div>
+    <div id="child{%=item.ID%}" class="child">
+        <textarea onfocus="if(value=='回复内容'){value=''}" id="txt_replyContent_{%=item.ID%}" onblur="if (value ==''){value='回复内容'}" class="comment-area2">回复内容</textarea>
+        <div class="p10 clearfix">
+            <div class="r">
+            <input type="button" value="提交" id="btn_replyComment_{%=item.ID%}" BindReplyID="{%=item.ID%}"  class="comment-btn" />
+            <input type="button" value="取消" onclick="click_box('child{%=item.ID%}')" class="comment-btn2" />
+            </div>
+        </div>
+    </div>
+  </li>

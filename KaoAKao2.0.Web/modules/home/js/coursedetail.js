@@ -1,5 +1,6 @@
 ﻿define(function (require, exports, module) {
     var Global = require("global");
+    var DoT = require("dot");
 
     var CourseDetail = {};
     //基本参数
@@ -7,7 +8,9 @@
         ajaxUrl: "/Home/GetLessonsByCid",
         cID: '',
         lID: '',
-        operateLessonType:2,
+        operateLessonType: 2,
+        interactiveType: 1,
+        displayType: 1,
         lessonsData:null
     };
 
@@ -18,6 +21,8 @@
         CourseDetail.getLessonsByCid();
 
         CourseDetail.getOtherCourses();
+
+        CourseDetail.getUserInteractions();
     }
 
     //绑定事件
@@ -26,6 +31,28 @@
             var type = $(this).attr("BindType");
             CourseDetail.options.operateLessonType = parseInt(type);
             CourseDetail.operateLesson();
+        });
+
+        $("#btn_addComment").bind("click", function () {
+            CourseDetail.options.interactiveType = 1;
+            CourseDetail.addCourseInteraction();
+        });
+
+        $("#btn_addAnswer").bind("click", function () {
+            CourseDetail.options.interactiveType = 2;
+            CourseDetail.addCourseInteraction();
+        });
+
+        $("#d_comment").bind("click", function () {
+            CourseDetail.options.displayType = 1;
+
+            CourseDetail.getUserInteractions();
+        });
+
+        $("#d_answer").bind("click", function () {
+            CourseDetail.options.displayType = 2;
+
+            CourseDetail.getUserInteractions();
         });
     }
 
@@ -93,7 +120,7 @@
         Global.AjaxRequest("/Home/GetGoodCourses", "post",
         null,
             function (data) {
-                if (data.result = 1) {
+                if (data.result == 1) {
                     var len = data.courses.length;
                     for (var i = 0; i < len; i++)
                     {
@@ -113,6 +140,54 @@
             });
     };
 
+    //获取课程的评价或问题列表
+    CourseDetail.getUserInteractions = function () {
+
+        Global.AjaxRequest("/Home/getUserInteractions", "post",
+        {
+            CID: CourseDetail.options.cID,
+            InteractiveType: CourseDetail.options.displayType,
+            PageIndex:1
+        },
+            function (data) {
+                if (data.result == 1) {
+                    if (CourseDetail.options.displayType == 1) {
+                        $(".comment-main ul").html('');
+                    }
+                    else {
+                        $(".quiz-main ul").html('');
+                    }
+
+                    var len = data.userInteractions.length;
+                    for (var i = 0; i < len; i++)
+                    {
+                        var item = data.userInteractions[i];
+                        if (CourseDetail.options.displayType == 1) {
+                            DoT.exec("/modules/home/template/replycourse.html", function (templateFun) {
+                                var innerText = templateFun(item);
+                                innerText = $(innerText);
+                                $(".comment-main ul").append(innerText).fadeIn();
+
+                                $("#btn_replyComment_" + item.ID).bind("click", function () {
+                                    CourseDetail.options.interactiveType == 1;
+                                    CourseDetail.addCourseInteraction(item.ID);
+                                });
+
+                            });
+                        }
+                        else if (CourseDetail.options.displayType == 2) {
+                            DoT.exec("/modules/home/template/qacourse.html", function (templateFun) {
+                                var innerText = templateFun(item);
+                                innerText = $(innerText);
+                                $(".quiz-main ul").append(innerText).fadeIn();
+                            });
+                        }
+
+                    }
+                }
+            });
+    };
+
     //填充课程章节内容
     CourseDetail.fillCourseDetail = function (item,index) {
         $("#s_lessonCountE").html("P" + (index + 1));
@@ -120,6 +195,12 @@
 
         $("#s_lessonPraiseCount").html(item.PraiseCount);
         $("#txt_LessonID").val(item.LessonID);
+
+        var player = polyvObject('#lesson_playBox').videoPlayer({
+            'width': '860',
+            'height': '500',
+            'vid': item.RadioURL
+        });
     };
 
     //操作课程章节 点赞、喜欢、分享
@@ -130,14 +211,93 @@
         {
             CID: CourseDetail.options.cID,
             lID: CourseDetail.options.lID,
-            Type: CourseDetail.options.operateLessonType
+            OperateLessonType: CourseDetail.options.operateLessonType
         },
             function (data) {
-                if (data.result = 1) {
+                if (data.result == 1) {
                     alert("操作成功");
+                }
+                else if (data.result == 0)
+                {
+                    alert("操作失败");
+                }
+                else if (data.result == -1)
+                {
+                    alert("您未登录，请先登录");
+                    setTimeout(function () { location.href="/home/login"}, 1000);
                 }
             });
     };
 
+    //对课程进行评论或提出问答
+    CourseDetail.addCourseInteraction = function (replyID) {
+        CourseDetail.options.ajaxUrl = "/home/AddCourseInteraction";
+
+        var content = '';
+        if (CourseDetail.options.interactiveType == 1) {
+            if(replyID) 
+                content = $("#txt_replyContent_" + replyID).val();
+            else
+                content = $("#txt_commentMsg").val();
+        }
+        else {
+            content = $("#txt_answerMsg").val();
+        }
+
+        Global.AjaxRequest(CourseDetail.options.ajaxUrl, "post",
+        {
+            CID: CourseDetail.options.cID,
+            Content:content,
+            InteractiveType: CourseDetail.options.interactiveType
+        },
+            function (data) {
+                if (data.result == 1) {
+                    var item = {};
+                    item.Content = content;
+                    item.ID = data.replyID;
+                    if (CourseDetail.options.interactiveType == 1)
+                    {
+                        if (replyID)
+                            $("#txt_replyContent_" + replyID).val('');
+                        else
+                            $("#txt_commentMsg").val('');
+                        $("#child" + replyID).hide();
+                            
+                        DoT.exec("/modules/home/template/replycourse.html", function (templateFun) {
+                            var innerText = templateFun(item);
+                            innerText = $(innerText);
+                            $(".comment-main ul").prepend(innerText).fadeIn();
+
+                            $("#btn_replyComment_" + item.ID).bind("click", function () {
+                                CourseDetail.options.interactiveType == 1;
+                                CourseDetail.addCourseInteraction(item.ID);
+                            });
+
+                        });
+                    }
+                    else if (CourseDetail.options.interactiveType == 2)
+                    {
+                        $("#txt_answerMsg").val('');
+                        DoT.exec("/modules/home/template/qacourse.html", function (templateFun) {
+                            var innerText = templateFun(item);
+                            innerText = $(innerText);
+                            $(".quiz-main ul").prepend(innerText).fadeIn();
+                        });
+                    }
+
+                }
+                else if (data.result == 0) {
+                    alert("操作失败");
+                }
+                else if (data.result == -1) {
+                    alert("您未登录，请先登录");
+                    setTimeout(function () { location.href = "/home/login" }, 1000);
+                }
+            });
+    };
+
+    CourseDetail.createReplyHtml = function () {
+
+    };
     module.exports = CourseDetail;
 });

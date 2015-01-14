@@ -202,6 +202,8 @@
     <Content Include="modules\home\js\index.js" />
     <Content Include="modules\home\js\tabbed_pages.js" />
     <Content Include="modules\home\template\courseOfIndex.html" />
+    <Content Include="modules\home\template\replycourse.html" />
+    <Content Include="modules\home\template\qacourse.html" />
     <Content Include="modules\manage\scripts\course-lesson.js" />
     <Content Include="modules\home\template\course.html" />
     <Content Include="modules\plug\datapager\css\stylewithhome.css" />

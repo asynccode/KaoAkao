@@ -169,7 +169,6 @@ namespace KaoAKao.DAL
                                    };
             paras[0].Direction = ParameterDirection.Output;
             paras[1].Direction = ParameterDirection.Output;
-            paras[2].Direction = ParameterDirection.Output;
 
             ExecuteScalar("P_UserInteractionAdd", paras, CommandType.StoredProcedure);
             id = Convert.ToInt32(paras[0].Value);
