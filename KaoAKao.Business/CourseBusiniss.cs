@@ -273,7 +273,7 @@ namespace KaoAKao.Business
             string table = "UserInteraction";
             string columns = "*";
             StringBuilder build = new StringBuilder();
-            build.Append(" Status <> 9 and IsReply='0' and TypeID=" + (int)type);
+            build.Append(" Status <> 9 and IsReply='0' and Type=" + (int)type);
 
             if (!string.IsNullOrEmpty(courseid) && courseid != "1")
             {

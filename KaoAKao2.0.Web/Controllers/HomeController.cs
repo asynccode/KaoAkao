@@ -401,14 +401,64 @@ pageSize, pageIndex, out total, out pages);
                 int result = 0;
 
                 CourseBusiniss courseBusiniss = new CourseBusiniss();
-                courseBusiniss.AddCourseInteraction(UserDetail.UserID, cID, 0,content,
+                int replyID= courseBusiniss.AddCourseInteraction(UserDetail.UserID, cID, 0,content,
                     (InteractiveType)type,0, string.Empty,
                     UserDetail.UserID, out result);
 
                 ResultObj.Add("result", result > 0 ? 1 : 0);
+                ResultObj.Add("replyID", replyID);
             }
             else
                 ResultObj.Add("result", -1);
+
+            return Json(ResultObj, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        ///对课程评论进行回复
+        /// </summary>
+        public ActionResult AddReplyComment(FormCollection paras)
+        {
+            if (UserDetail != null)
+            {
+                string cID = paras["CID"] ?? string.Empty;
+                string content = paras["Content"] ?? string.Empty;
+                int type = int.Parse(paras["InteractiveType"] ?? "1");
+                int replyID = int.Parse(paras["ReplyID"] ?? "1");
+                int result = 0;
+
+                CourseBusiniss courseBusiniss = new CourseBusiniss();
+                int id = courseBusiniss.AddCourseInteraction(UserDetail.UserID, cID, replyID, content,
+                    (InteractiveType)type, 0, string.Empty,
+                    UserDetail.UserID, out result);
+
+                ResultObj.Add("result", result > 0 ? 1 : 0);
+                ResultObj.Add("replyID", id);
+            }
+            else
+                ResultObj.Add("result", -1);
+
+            return Json(ResultObj, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 获取课程的评价或问题列表
+        /// </summary>
+        public ActionResult GetUserInteractions(FormCollection paras)
+        {
+            string cID = paras["CID"] ?? string.Empty;
+            int type = int.Parse(paras["InteractiveType"] ?? "1");
+            int pageSize=10;
+            int pageIndex = int.Parse(paras["PageIndex"] ?? "1");
+             int total=0;
+            int pages=0;
+            string resultDes = string.Empty;
+
+            List<UserInteraction> userInteractions = CourseBusiniss.GetUserInteractions(cID, (InteractiveType)type, pageSize, pageIndex, out total, out pages);
+            ResultObj.Add("result",1);
+            ResultObj.Add("total", total);
+            ResultObj.Add("pages", pages);
+            ResultObj.Add("userInteractions", userInteractions);
 
             return Json(ResultObj, JsonRequestBehavior.AllowGet);
         }
