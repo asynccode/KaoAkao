@@ -389,6 +389,28 @@ pageSize, pageIndex, out total, out pages);
         }
 
         /// <summary>
+        /// 获取课程的评价或问题列表
+        /// </summary>
+        public ActionResult GetUserInteractions(FormCollection paras)
+        {
+            string cID = paras["CID"] ?? string.Empty;
+            int type = int.Parse(paras["InteractiveType"] ?? "1");
+            int pageSize = 10;
+            int pageIndex = int.Parse(paras["PageIndex"] ?? "1");
+            int total = 0;
+            int pages = 0;
+            string resultDes = string.Empty;
+
+            List<UserInteraction> userInteractions = CourseBusiniss.GetUserInteractions(cID, (InteractiveType)type, pageSize, pageIndex, out total, out pages);
+            ResultObj.Add("result", 1);
+            ResultObj.Add("total", total);
+            ResultObj.Add("pages", pages);
+            ResultObj.Add("userInteractions", userInteractions);
+
+            return Json(ResultObj, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
         ///对课程进行评论或提出问答
         /// </summary>
         public ActionResult AddCourseInteraction(FormCollection paras)
@@ -441,27 +463,7 @@ pageSize, pageIndex, out total, out pages);
             return Json(ResultObj, JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>
-        /// 获取课程的评价或问题列表
-        /// </summary>
-        public ActionResult GetUserInteractions(FormCollection paras)
-        {
-            string cID = paras["CID"] ?? string.Empty;
-            int type = int.Parse(paras["InteractiveType"] ?? "1");
-            int pageSize=10;
-            int pageIndex = int.Parse(paras["PageIndex"] ?? "1");
-             int total=0;
-            int pages=0;
-            string resultDes = string.Empty;
-
-            List<UserInteraction> userInteractions = CourseBusiniss.GetUserInteractions(cID, (InteractiveType)type, pageSize, pageIndex, out total, out pages);
-            ResultObj.Add("result",1);
-            ResultObj.Add("total", total);
-            ResultObj.Add("pages", pages);
-            ResultObj.Add("userInteractions", userInteractions);
-
-            return Json(ResultObj, JsonRequestBehavior.AllowGet);
-        }
+        
         #endregion
 
         #endregion

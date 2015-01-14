@@ -11,7 +11,7 @@
   <div class="play-summary">
     <p><a href="#">课程</a><span>></span><a href="#">@Model.course.CName</a><span>></span><a href="#">@Model.course.CourseName</a></p>
     <div class="fix">
-      <h1><a href="#">@Model.course.Keywords:</a>@Model.course.CourseName-<span id="s_lessonCountE">P1</span><span  id="s_lessonCountZ">（01）</span></h1>
+      <h1><a href="#">@Model.course.CourseName:</a><span id="s_lessonName"></span>-<span id="s_lessonCountE">P1</span><span  id="s_lessonCountZ">（01）</span></h1>
     </div>
   </div>
   <div class="play-main">
@@ -31,7 +31,7 @@
     </div>
     <div class="play-foot">
       <div class="p-f-main clearfix">
-        <a href="javascript:void(0);" class="pra" BindType="2"><i></i><div id="s_lessonPraiseCount">@Model.course.PraiseCount</div></a>
+        <a href="javascript:void(0);" class="pra" BindType="2"><i></i><div id="s_coursePraiseCount">@Model.course.PraiseCount</div></a>
       @*  <a href="javascript:void(0);" class="sub" BindType="3"><i></i>订阅</a>*@
         <a href="javascript:void(0);" class="col" BindType="1"><i></i>收藏</a>
       </div>

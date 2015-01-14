@@ -27,28 +27,33 @@
 
     //绑定事件
     CourseDetail.bindEvent = function () {
+        //点赞和收藏
         $(".play-foot .p-f-main a").bind("click", function () {
             var type = $(this).attr("BindType");
             CourseDetail.options.operateLessonType = parseInt(type);
             CourseDetail.operateLesson();
         });
 
+        //添加评价
         $("#btn_addComment").bind("click", function () {
             CourseDetail.options.interactiveType = 1;
             CourseDetail.addCourseInteraction();
         });
 
+        //添加提问
         $("#btn_addAnswer").bind("click", function () {
             CourseDetail.options.interactiveType = 2;
             CourseDetail.addCourseInteraction();
         });
 
+        //评价菜单栏点击
         $("#d_comment").bind("click", function () {
             CourseDetail.options.displayType = 1;
 
             CourseDetail.getUserInteractions();
         });
 
+        //提问菜单栏点击
         $("#d_answer").bind("click", function () {
             CourseDetail.options.displayType = 2;
 
@@ -188,12 +193,13 @@
             });
     };
 
-    //填充课程章节内容
+    //填充课程章节基本信息
     CourseDetail.fillCourseDetail = function (item,index) {
         $("#s_lessonCountE").html("P" + (index + 1));
         $("#s_lessonCountZ").html("(" + (index + 1) + ")");
 
-        $("#s_lessonPraiseCount").html(item.PraiseCount);
+        $("#s_lessonName").html(item.LessonName);
+        $("#d_lessonDes").html(item.Description);
         $("#txt_LessonID").val(item.LessonID);
 
         var player = polyvObject('#lesson_playBox').videoPlayer({
@@ -207,6 +213,7 @@
     CourseDetail.operateLesson = function () {
         CourseDetail.options.ajaxUrl = "/home/OperateLesson";
         CourseDetail.options.lID = $("#txt_LessonID").val();
+
         Global.AjaxRequest(CourseDetail.options.ajaxUrl, "post",
         {
             CID: CourseDetail.options.cID,
@@ -215,7 +222,15 @@
         },
             function (data) {
                 if (data.result == 1) {
-                    alert("操作成功");
+                    if (CourseDetail.options.operateLessonType == 2) {
+                        $(".p-f-main .pra i").css("backgroundPosition", "24px -24px");
+                        var count = $("#s_coursePraiseCount").html();
+                        count = parseInt(count);
+                        $("#s_coursePraiseCount").html((count + 1));
+                    }
+                    else {
+                        $(".p-f-main .col i").css("backgroundPosition", "24px -48px");
+                    }
                 }
                 else if (data.result == 0)
                 {
@@ -296,8 +311,5 @@
             });
     };
 
-    CourseDetail.createReplyHtml = function () {
-
-    };
     module.exports = CourseDetail;
 });
