@@ -1,0 +1,15 @@
+﻿{%
+	for(var i=0, j=$data.length; i < j; i++){
+	var item = $data[i];
+%}
+
+<dt><img src="/modules/home/images/test.jpg" alt=""/></dt>
+<dd class="q-c-cont clearfix">
+    <div class="q-c-message">
+    <p>{%=item.Content%}</p>
+    <a href="#">120</a>
+    </div>
+    <div class="r">2015-01-01  23：12</div>
+</dd>
+
+{% } %}

@@ -69,7 +69,7 @@
             </div>
           </div>
           <div class="comment-main">
-            <ul>
+            <ul name="ul_comment_main">
             </ul>
           </div>
           <div class="comment-end">
@@ -101,7 +101,15 @@
               </div>
               <div class="r">
                 <div class="quiz-reward">
-                  <a href="#">悬赏 5</a>
+                      <a href="javascript:void(0);" class="answer_count" onclick="$(this).next().slideToggle();">悬赏 <span id="s_answer_count">5</span></a>
+                      <ul class="clearfix e-s-nr hide" id="ul_cOrder">
+                          <li BindCount="5"><a href="javascript:void(0);">5</a></li>
+                          <li BindCount="10"><a href="javascript:void(0);" >10</a></li>
+                          <li BindCount="20"><a href="javascript:void(0);" >20</a></li>
+                           <li BindCount="30"><a href="javascript:void(0);" >30</a></li>
+                          <li BindCount="50"><a href="javascript:void(0);" >50</a></li>
+                          <li BindCount="100"><a href="javascript:void(0);" >100</a></li>
+                    </ul>
                 </div>
                 <input type="button" value="提交" id="btn_addAnswer" class="comment-btn" />
               </div>
