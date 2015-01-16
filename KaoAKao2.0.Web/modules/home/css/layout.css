@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* 桌面电脑布局: 1200px 及更高 */
 .toppt{padding-top:60px;margin-bottom:80px;}
 .toppt2{padding-top:60px;margin-bottom:130px;}
@@ -323,7 +323,8 @@
 .c-t-tj .share-left{font-family:"Microsoft YaHei";color:#333;}
 .comment-main{height:auto !important;height:450px;min-height:450px;overflow:visible;padding-top:15px;}
 .comment-main li{position:relative;padding:10px 0;}
-.user_icon{position:absolute;left:0px;top:10px;}
+/*.user_icon{position:absolute;left:0px;top:10px;}*/
+.user_icon{float:left;}
 .user_icon img{width:48px;height:48px;-moz-border-radius:24px;-webkit-border-radius:24px;border-radius:24px;}
 .c-m-nr{padding-left:65px;}
 .c-m-top{font-size:12px;color:#666;line-height:25px;}
@@ -345,7 +346,7 @@
 .quiz-down{padding-top:10px;}
 .quiz-bt{width:100px;height:40px;margin-bottom:10px;font-size:18px;line-height:40px;color:#fff;text-align:center;background:#999;}
 .quiz-reward{position:relative;float:left;padding:3px 0;margin-right:20px;}
-.quiz-reward a{display:block;height:30px;width:70px;line-height:30px;font-size:14px;color:#999;padding:0 10px;background:url(../Images/course_03.png) no-repeat 63px 6px;}
+.quiz-reward .answer_count{display:block;height:30px;width:70px;line-height:30px;font-size:14px;color:#999;padding:0 10px;background:url(../Images/course_03.png) no-repeat 63px 6px;}
 .quiz-main li{padding:10px 20px;}
 .q-c-main{cursor:pointer;}
 .q-c-num{float:left;width:30px;height:40px;font-size:14px;color:#999;text-align:center;border:1px solid #ccc;background:url(../Images/play_04.png) no-repeat center 25px;}

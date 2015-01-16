@@ -1,8 +1,9 @@
 ﻿{%
-	var item = $data;
+	for(var i=0, j=$data.length; i < j; i++){
+	var item = $data[i];
 %}
- <li class="quiz_children">
-    <div class="q-c-main clearfix">
+ <li class="quiz_children" id="li_qa{%=item.ID%}">
+    <div class="q-c-main clearfix" BindID="{%=item.ID%}">
     <div class="q-c-num">41</div>
     <div class="q-c-doc">
         <div class="q-c-bt">
@@ -13,32 +14,18 @@
     <div class="q-c-time">2015-01-01</div>
     <div class="q-c-ico"><img src="/modules/home/images/test.jpg" alt=""/><span>6</span></div>
     </div>
+
     <dl class="q-c-nr clearfix">
     <dt class="tinct1">提问</dt>
-    <dd>管理会计是一种深度参与管理决策、制订计划与绩效管理系统、提供财务报告与控制方面的专业知识以及帮助	管理者制定并实施组织战略的职业。不同于传统的财务会计，管理会计服务于企业内部各级管理者，面向企业未来发展，通过分析解读财务数据，从财务角度为企业经营决策提供可行性方案。</dd>
+    <dd>{%=item.Content%}</dd>
     <dt class="tinct2">回答</dt>
     <dd>
         <p class="clearfix"><span class="l">共6条</span><span class="r">0/500</span></p>
-        <textarea class="q-c-area"></textarea>
+        <textarea class="q-c-area" id="txt_answerMsg{%=item.ID%}"></textarea>
         <div class="q-c-dw">
-        <input type="button" value="提交回答" class="q-c-btn" />
+        <input type="button" value="提交回答" class="q-c-btn" BindID="{%=item.ID%}" />
         </div>
-    </dd>
-    <dt><img src="/modules/home/images/test.jpg" alt=""/></dt>
-    <dd class="q-c-cont clearfix">
-        <div class="q-c-message">
-        <p>对于企业家而言，毕竟，做好企业才是第一位的，你“秀”的再好也不如股票上涨一毛钱，所以说，专业的人做专业的事儿，“秀”，这个活还是留给专业模特去做吧。</p>
-        <a href="#">120</a>
-        </div>
-        <div class="r">2015-01-01  23：12</div>
-    </dd>
-    <dt><img src="/modules/home/images/test.jpg" alt=""/></dt>
-    <dd class="q-c-cont clearfix">
-        <div class="q-c-message">
-        <p>对于企业家而言，毕竟，做好企业才是第一位的，你“秀”的再好也不如股票上涨一毛钱，所以说，专业的人做专业的事儿，“秀”，这个活还是留给专业模特去做吧。</p>
-        <a href="#">120</a>
-        </div>
-        <div class="r">2015-01-01  23：12</div>
     </dd>
     </dl>
 </li>
+{% } %}

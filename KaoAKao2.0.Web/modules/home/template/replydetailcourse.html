@@ -1,14 +1,16 @@
 ﻿{%
-	for(var i=0, j=$data.length; i < j; i++){
+for(var i=0, j=$data.length; i < j; i++){
 	var item = $data[i];
 %}
-<li>
+<li id="li_{%=item.ID%}">
+    <div style="padding-left:60px;">
     <div class="user_icon"><img src="/modules/home/images/index_16.jpg" alt=""/></div>
     <div class="c-m-nr">
-        <p class="c-m-top"><a href="#">考啊考</a>- {%=item.CreateDate%}</p>
-        <div class="c-m-mid">
+        <p class="c-m-top"><a href="#">考啊考</a>- 1小时前</p>
+
+       <div class="c-m-mid">
             <p>{%=item.Content%}</p>
-            <a name="a_showReplyDiv" class="reply" BindReplyID="{%=item.ID%}">回复</a>
+            <a name="b_showReplyDiv" class="reply" BindReplyID="{%=item.ID%}">回复</a>
         </div>
         <p class="c-m-down">
             <a href="#"><i><img src="/modules/home/images/course_09.png" alt=""/></i>1</a>
@@ -18,7 +20,7 @@
     </div>
     <div class="clear"></div>
     <div id="child{%=item.ID%}" class="child" style="padding-left:60px;">
-        <textarea onfocus="if(value=='回复内容'){value=''}" id="txt_replyContent_{%=item.ID%}" onblur="if (value ==''){value='回复内容'}" class="comment-area2">回复内容</textarea>
+        <textarea style="width:680px;" onfocus="if(value=='回复内容'){value=''}" id="txt_replyContent_{%=item.ID%}" onblur="if (value ==''){value='回复内容'}" class="comment-area2">回复内容</textarea>
         <div class="p10 clearfix">
             <div class="r">
             <input type="button" value="提交" name="btn_replyComment" BindReplyID="{%=item.ID%}"  class="comment-btn" />
@@ -26,6 +28,7 @@
             </div>
         </div>
     </div>
-    <div id="d_list{%=item.ID%}"><ul></ul></div>
+
+    </div>
   </li>
 {% } %}

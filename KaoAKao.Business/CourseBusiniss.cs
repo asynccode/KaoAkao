@@ -308,7 +308,7 @@ namespace KaoAKao.Business
             string table = "UserInteraction";
             string columns = "*";
             StringBuilder build = new StringBuilder();
-            build.Append(" Status <> 9 and IsReply='1' and ID=" + userInteractionID);
+            build.Append(" Status <> 9 and IsReply='1' and originalid=" + userInteractionID);
 
             DataTable dt = CommonBusiness.GetPagerData(table, columns, build.ToString(), "ID", pageSize, index, out total, out pages);
 
