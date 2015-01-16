@@ -258,15 +258,17 @@ namespace KaoAKao2._0.Web.Controllers
         /// </summary>
         public ActionResult GetCourses(FormCollection paras)
         {
-            int pageSize=1;
+            int pageSize=2;
             int pageIndex = int.Parse(paras["PageIndex"] ?? "1");
             int total=0;
             int pages=0;
             string keywords=paras["Keywords"]??string.Empty;
             string cID = paras["CID"] ?? string.Empty;
+            int orderType =int.Parse( paras["OrderType"] ??"1");
+            List<CourseEntity> courses = new List<CourseEntity>();
 
-            List<CourseEntity> courses = CourseBusiniss.GetCourses(cID, keywords, 
-                CourseOrderBy.CreateDate, false, pageSize, pageIndex, out total, out pages);
+            courses = CourseBusiniss.GetCourses(cID, keywords, 
+  CourseOrderBy.CreateDate, false, pageSize, pageIndex, out total, out pages);
             ResultObj.Add("result",1);
             ResultObj.Add("total", total);
             ResultObj.Add("pages", pages);
