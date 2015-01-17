@@ -41,8 +41,6 @@
         Global.AjaxRequest("/Home/Validate", "get", null,
             function (data) {
                 if (data.result == 1) {
-                    $("#ul_nav a.button-min").hide();
-
                     $("#ul_nav .user").show();
                     $("#ul_nav .user .effigy").append("<i><img src='/modules/home/Images/index_16.jpg' /></i>" + data.userName);
 
@@ -59,6 +57,9 @@
                     }
 
                     );
+                }
+                else {
+                    $("#ul_nav a.button-min").show();
                 }
             }
         );

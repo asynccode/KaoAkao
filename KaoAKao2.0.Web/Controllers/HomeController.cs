@@ -258,15 +258,17 @@ namespace KaoAKao2._0.Web.Controllers
         /// </summary>
         public ActionResult GetCourses(FormCollection paras)
         {
-            int pageSize=1;
+            int pageSize=2;
             int pageIndex = int.Parse(paras["PageIndex"] ?? "1");
             int total=0;
             int pages=0;
             string keywords=paras["Keywords"]??string.Empty;
             string cID = paras["CID"] ?? string.Empty;
+            int orderType =int.Parse( paras["OrderType"] ??"1");
+            List<CourseEntity> courses = new List<CourseEntity>();
 
-            List<CourseEntity> courses = CourseBusiniss.GetCourses(cID, keywords, 
-                CourseOrderBy.CreateDate, false, pageSize, pageIndex, out total, out pages);
+            courses = CourseBusiniss.GetCourses(cID, keywords, 
+  CourseOrderBy.CreateDate, false, pageSize, pageIndex, out total, out pages);
             ResultObj.Add("result",1);
             ResultObj.Add("total", total);
             ResultObj.Add("pages", pages);
@@ -389,6 +391,48 @@ pageSize, pageIndex, out total, out pages);
         }
 
         /// <summary>
+        /// 获取课程的评价或问题列表
+        /// </summary>
+        public ActionResult GetUserInteractions(FormCollection paras)
+        {
+            string cID = paras["CID"] ?? string.Empty;
+            int type = int.Parse(paras["InteractiveType"] ?? "1");
+            int pageSize = 10;
+            int pageIndex = int.Parse(paras["PageIndex"] ?? "1");
+            int total = 0;
+            int pages = 0;
+            string resultDes = string.Empty;
+
+            List<UserInteraction> userInteractions = CourseBusiniss.GetUserInteractions(cID, (InteractiveType)type, pageSize, pageIndex, out total, out pages);
+            ResultObj.Add("result", 1);
+            ResultObj.Add("total", total);
+            ResultObj.Add("pages", pages);
+            ResultObj.Add("userInteractions", userInteractions);
+
+            return Json(ResultObj, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 根据ID 获取评论回复、问题答案列表
+        /// </summary>
+        public ActionResult GetUserInteractionReplysByID(FormCollection paras)
+        {
+            int rID =int.Parse( paras["RID"] ??"0");
+            int pageSize = 10;
+            int pageIndex = int.Parse(paras["PageIndex"] ?? "1");
+            int total = 0;
+            int pages = 0;
+            string resultDes = string.Empty;
+
+            List<UserInteraction> userInteractions = CourseBusiniss.GetUserInteractionReplysByID(rID, pageSize, pageIndex, out total, out pages);
+            ResultObj.Add("result", 1);
+            ResultObj.Add("total", total);
+            ResultObj.Add("pages", pages);
+            ResultObj.Add("userInteractions", userInteractions);
+
+            return Json(ResultObj, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
         ///对课程进行评论或提出问答
         /// </summary>
         public ActionResult AddCourseInteraction(FormCollection paras)
@@ -398,38 +442,12 @@ pageSize, pageIndex, out total, out pages);
                 string cID = paras["CID"] ?? string.Empty;
                 string content = paras["Content"] ?? string.Empty;
                 int type = int.Parse(paras["InteractiveType"] ?? "1");
-                int result = 0;
-
-                CourseBusiniss courseBusiniss = new CourseBusiniss();
-                int replyID= courseBusiniss.AddCourseInteraction(UserDetail.UserID, cID, 0,content,
-                    (InteractiveType)type,0, string.Empty,
-                    UserDetail.UserID, out result);
-
-                ResultObj.Add("result", result > 0 ? 1 : 0);
-                ResultObj.Add("replyID", replyID);
-            }
-            else
-                ResultObj.Add("result", -1);
-
-            return Json(ResultObj, JsonRequestBehavior.AllowGet);
-        }
-
-        /// <summary>
-        ///对课程评论进行回复
-        /// </summary>
-        public ActionResult AddReplyComment(FormCollection paras)
-        {
-            if (UserDetail != null)
-            {
-                string cID = paras["CID"] ?? string.Empty;
-                string content = paras["Content"] ?? string.Empty;
-                int type = int.Parse(paras["InteractiveType"] ?? "1");
-                int replyID = int.Parse(paras["ReplyID"] ?? "1");
+                int replyID = int.Parse(paras["ReplyID"] ?? "0");
                 int result = 0;
 
                 CourseBusiniss courseBusiniss = new CourseBusiniss();
                 int id = courseBusiniss.AddCourseInteraction(UserDetail.UserID, cID, replyID, content,
-                    (InteractiveType)type, 0, string.Empty,
+                    (InteractiveType)type,0, string.Empty,
                     UserDetail.UserID, out result);
 
                 ResultObj.Add("result", result > 0 ? 1 : 0);
@@ -441,27 +459,6 @@ pageSize, pageIndex, out total, out pages);
             return Json(ResultObj, JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>
-        /// 获取课程的评价或问题列表
-        /// </summary>
-        public ActionResult GetUserInteractions(FormCollection paras)
-        {
-            string cID = paras["CID"] ?? string.Empty;
-            int type = int.Parse(paras["InteractiveType"] ?? "1");
-            int pageSize=10;
-            int pageIndex = int.Parse(paras["PageIndex"] ?? "1");
-             int total=0;
-            int pages=0;
-            string resultDes = string.Empty;
-
-            List<UserInteraction> userInteractions = CourseBusiniss.GetUserInteractions(cID, (InteractiveType)type, pageSize, pageIndex, out total, out pages);
-            ResultObj.Add("result",1);
-            ResultObj.Add("total", total);
-            ResultObj.Add("pages", pages);
-            ResultObj.Add("userInteractions", userInteractions);
-
-            return Json(ResultObj, JsonRequestBehavior.AllowGet);
-        }
         #endregion
 
         #endregion

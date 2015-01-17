@@ -11,3 +11,13 @@
 
 .e-p-goto{float:left;font-size:14px;margin-left:10px;}
 .e-p-goto li{height:30px;line-height:30px;margin-left:15px;float:left;}
+
+.comment-area2 {
+    width: 740px;
+}
+.clear {
+    clear: both;
+}
+#ul_nav a.button-min {
+display:none;
+}

@@ -102,8 +102,8 @@ define(function (require, exports, module) {
             _goPageHtml += '<div class="e-p-goto">';
             _goPageHtml += '<ul class="clearfix ">';
             _goPageHtml += '<li>跳转到</li>';
-            _goPageHtml += '<li><input type="text" class="e-p-txt" /></li>';
-            _goPageHtml += '<li><input type="button" class="e-p-btn" value="确定" /></li>';
+            _goPageHtml += '<li><input type="text" class="e-p-txt" id="txt_goPageIndex" /></li>';
+            _goPageHtml += '<li><input type="button" class="e-p-btn" id="btn_goPageIndex" value="确定" /></li>';
             _goPageHtml += '</ul>';
             _goPageHtml += '</div>';
             $this.append(_goPageHtml);
@@ -127,11 +127,11 @@ define(function (require, exports, module) {
             //calculate width of the ones displayed:
             var outsidewidth = outsidewidth_tmp - _first.parent().width() - 3;
             if (ver == 'ie7') {
-                _ulwrapdiv.css('width', outsidewidth + 50 + 'px');
+                _ulwrapdiv.css('width', outsidewidth + 45 + 'px');
                 _divwrapright.css('left', outsidewidth_tmp + 6 + 72 + 'px');
             }
             else {
-                _ulwrapdiv.css('width', outsidewidth-22 + 'px');
+                _ulwrapdiv.css('width', outsidewidth-17 + 'px');
                 _divwrapright.css('left', outsidewidth_tmp + 6 + 'px');
             }
 
@@ -267,7 +267,7 @@ define(function (require, exports, module) {
                 }
                 insidewidth += this.offsetWidth;
             })
-            _ul.css('width', insidewidth + 'px');
+            _ul.css('width', (insidewidth-80) + 'px');
         }
     })(jQuery);
     module.exports = jQuery;
