@@ -149,8 +149,8 @@ namespace KaoAKao.Business
         public static List<Entity.CourseEntity> GetCourses(string pid, string keywords, CourseOrderBy orderby, bool isAsc, int pageSize, int index, out int total, out int pages)
         {
             List<Entity.CourseEntity> list = new List<Entity.CourseEntity>();
-            string table = "Courses c left join CourseCategory p on c.CategoryID=p.CategoryID";
-            string columns = " c.*,p.CategoryName CName";
+            string table = "Courses c left join CourseCategory p on c.CategoryID=p.CategoryID join Users u on c.TeacherID=u.UserID";
+            string columns = " c.*,p.CategoryName CName,u.Name TName,u.PhotoPath";
             StringBuilder build = new StringBuilder();
             build.Append(" c.Status!= 9 and p.Status!= 9");
             if (pid != "-1" && pid != "")
