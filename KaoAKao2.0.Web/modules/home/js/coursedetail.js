@@ -242,6 +242,10 @@
 
                             //评级点赞
                             $("#li_qa" + rID + " a[name='abtn_PraiseCount']").unbind().bind("click", function () {
+                                var PraiseCount = parseInt($(this).html());
+                                PraiseCount = PraiseCount + 1;
+                                $(this).html(PraiseCount);
+
                                 var id = $(this).attr("BindReplyID");
                                 CourseDetail.addUserInteraction(id);
                             });
@@ -389,6 +393,9 @@
                                 //评级点赞
                                 $("#li_qa" + replyID + " a[name='abtn_PraiseCount']").unbind().bind("click", function () {
                                     var id = $(this).attr("BindReplyID");
+                                    var PraiseCount = parseInt($(this).html());
+                                    PraiseCount = PraiseCount + 1;
+                                    $(this).html(PraiseCount);
                                     CourseDetail.addUserInteraction(id);
                                 });
                             });
