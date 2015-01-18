@@ -149,8 +149,8 @@ namespace KaoAKao.Business
         public static List<Entity.CourseEntity> GetCourses(string pid, string keywords, CourseOrderBy orderby, bool isAsc, int pageSize, int index, out int total, out int pages)
         {
             List<Entity.CourseEntity> list = new List<Entity.CourseEntity>();
-            string table = "Courses c left join CourseCategory p on c.CategoryID=p.CategoryID";
-            string columns = " c.*,p.CategoryName CName";
+            string table = "Courses c left join CourseCategory p on c.CategoryID=p.CategoryID join Users u on c.TeacherID=u.UserID";
+            string columns = " c.*,p.CategoryName CName,u.Name TName,u.PhotoPath";
             StringBuilder build = new StringBuilder();
             build.Append(" c.Status!= 9 and p.Status!= 9");
             if (pid != "-1" && pid != "")
@@ -270,17 +270,17 @@ namespace KaoAKao.Business
         {
             List<Entity.UserInteraction> list = new List<UserInteraction>();
 
-            string table = "UserInteraction";
-            string columns = "*";
+            string table = "UserInteraction ui join Users u on ui.UserID=u.UserID";
+            string columns = "ui.*,u.PetName ,u.PhotoPath";
             StringBuilder build = new StringBuilder();
-            build.Append(" Status <> 9 and IsReply='0' and Type=" + (int)type);
+            build.Append(" ui.Status <> 9 and ui.IsReply='0' and ui.Type=" + (int)type);
 
             if (!string.IsNullOrEmpty(courseid) && courseid != "1")
             {
-                build.Append(" and CourseID='" + courseid + "'");
+                build.Append(" and ui.CourseID='" + courseid + "'");
             }
 
-            DataTable dt = CommonBusiness.GetPagerData(table, columns, build.ToString(), "ID", pageSize, index, out total, out pages);
+            DataTable dt = CommonBusiness.GetPagerData(table, columns, build.ToString(), "ui.ID", pageSize, index, out total, out pages);
 
             foreach (DataRow dr in dt.Rows)
             {
@@ -305,12 +305,12 @@ namespace KaoAKao.Business
         {
             List<Entity.UserInteraction> list = new List<UserInteraction>();
 
-            string table = "UserInteraction";
-            string columns = "*";
+            string table = "UserInteraction ui join Users u on ui.UserID=u.UserID";
+            string columns = "ui.*,u.PetName ,u.PhotoPath";
             StringBuilder build = new StringBuilder();
-            build.Append(" Status <> 9 and IsReply='1' and originalid=" + userInteractionID);
+            build.Append(" ui.Status <> 9 and ui.IsReply='1' and ui.originalid=" + userInteractionID);
 
-            DataTable dt = CommonBusiness.GetPagerData(table, columns, build.ToString(), "ID", pageSize, index, out total, out pages);
+            DataTable dt = CommonBusiness.GetPagerData(table, columns, build.ToString(), "ui.ID", pageSize, index, out total, out pages);
 
             foreach (DataRow dr in dt.Rows)
             {

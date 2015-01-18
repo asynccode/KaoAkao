@@ -199,6 +199,17 @@ namespace KaoAKao.Entity
         /// </summary>
         public List<UserInteraction> ChildReply { get; set; }
 
+        /// <summary>
+        /// 会员名称
+        /// </summary>
+        public string UserName { get; set; }
+
+        /// <summary>
+        /// 会员图片
+        /// </summary>
+        public string PhotoPath { get; set; }
+
+
         public void FillData(DataRow dr)
         {
             var cl = dr.Table.Columns;
@@ -220,6 +231,9 @@ namespace KaoAKao.Entity
             this.CreateDate = cl.Contains("CreateDate") && dr["CreateDate"] != DBNull.Value ? Convert.ToDateTime(dr["CreateDate"]) : DateTime.MinValue;
             this.OperateIP = cl.Contains("OperateIP") && dr["OperateIP"] != DBNull.Value ? dr["OperateIP"].ToString() : "";
             this.OperateID = cl.Contains("OperateID") && dr["OperateID"] != DBNull.Value ? dr["OperateID"].ToString() : "";
+
+            this.UserName = cl.Contains("PetName") && dr["PetName"] != DBNull.Value ? dr["PetName"].ToString() : "";
+            this.PhotoPath = cl.Contains("PhotoPath") && dr["PhotoPath"] != DBNull.Value ? dr["PhotoPath"].ToString() : "";
         }
 		#endregion Model
 

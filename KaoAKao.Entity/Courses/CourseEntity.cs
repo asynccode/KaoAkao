@@ -237,6 +237,22 @@ namespace KaoAKao.Entity
         /// </summary>
         public string PID { get; set; }
 
+        /// <summary>
+        /// 教师名称
+        /// </summary>
+        public string TName { get; set; }
+
+        /// <summary>
+        /// 教师图片
+        /// </summary>
+        public string PhotoPath { get; set; }
+
+        /// <summary>
+        /// 评论次数
+        /// </summary>
+        public int InteractionCount { get; set; }
+
+
         public void FillData(DataRow dr)
         {
             var cl = dr.Table.Columns;
@@ -254,6 +270,7 @@ namespace KaoAKao.Entity
             this.PraiseCount = cl.Contains("PraiseCount") && dr["PraiseCount"] != DBNull.Value ? Convert.ToInt32(dr["PraiseCount"]) : 0;
             this.ShareCount = cl.Contains("ShareCount") && dr["ShareCount"] != DBNull.Value ? Convert.ToInt32(dr["ShareCount"]) : 0;
             this.CollectCount = cl.Contains("CollectCount") && dr["CollectCount"] != DBNull.Value ? Convert.ToInt32(dr["CollectCount"]) : 0;
+            this.InteractionCount = cl.Contains("InteractionCount") && dr["InteractionCount"] != DBNull.Value ? Convert.ToInt32(dr["InteractionCount"]) : 0;
             this.Sort = cl.Contains("Sort") && dr["Sort"] != DBNull.Value ? Convert.ToInt32(dr["Sort"]) : 0;
             this.IsHot = cl.Contains("IsHot") && dr["IsHot"] != DBNull.Value ? Convert.ToInt32(dr["IsHot"]) : 0;
             this.CreateDate = cl.Contains("CreateDate") && dr["CreateDate"] != DBNull.Value ? Convert.ToDateTime(dr["CreateDate"]) : DateTime.MinValue;
@@ -264,6 +281,8 @@ namespace KaoAKao.Entity
             this.OperateID = cl.Contains("OperateID") && dr["OperateID"] != DBNull.Value ? dr["OperateID"].ToString() : "";
             this.CName = cl.Contains("CName") && dr["CName"] != DBNull.Value ? dr["CName"].ToString() : "";
             this.PID = cl.Contains("PID") && dr["PID"] != DBNull.Value ? dr["PID"].ToString() : "";
+            this.TName = cl.Contains("TName") && dr["TName"] != DBNull.Value ? dr["TName"].ToString() : "";
+            this.PhotoPath = cl.Contains("PhotoPath") && dr["PhotoPath"] != DBNull.Value ? dr["PhotoPath"].ToString() : "";
         }
 		#endregion Model
 
