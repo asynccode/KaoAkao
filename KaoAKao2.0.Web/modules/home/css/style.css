@@ -19,5 +19,8 @@
     clear: both;
 }
 #ul_nav a.button-min {
-display:none;
+visibility:hidden;
+}
+.q-c-message {
+    width:610px;
 }

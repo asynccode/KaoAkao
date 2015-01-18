@@ -59,7 +59,7 @@
                     );
                 }
                 else {
-                    $("#ul_nav a.button-min").show();
+                    $("#ul_nav a.button-min").css("visibility","visible");
                 }
             }
         );

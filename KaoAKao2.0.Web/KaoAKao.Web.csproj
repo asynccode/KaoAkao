@@ -98,7 +98,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Code\AuthorizeLogin.cs" />
+    <Content Include="App_Data\AuthorizeLogin.cs" />
     <Compile Include="Areas\Manage\Controllers\BaseController.cs" />
     <Compile Include="Areas\Manage\Controllers\CourseController.cs" />
     <Compile Include="Areas\Manage\Controllers\CustomerController.cs" />
@@ -346,7 +346,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Areas\Manage\Models\" />
     <Folder Include="Content\upload_images\" />
     <Folder Include="modules\plug\uploadify\tempFiles\" />

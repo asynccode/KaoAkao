@@ -10,6 +10,7 @@
     Course.options = {
         ajaxUrl: "/Home/GetCourses",
         pageIndex: 1,
+        pID:'',
         cID: '',
         cOrderType: 0,
         orderType:1
@@ -28,12 +29,14 @@
 
     //绑定事件
     Course.bindEvent = function () {
-        $("#ul_cOrder li").bind("click", function () {
-            $(this).parent().slideUp();
+        $("#a_courseOrder,#a_courseCid").bind("click", function (event) {
+            event.stopPropagation();
+            $(this).next().slideToggle();
+        });
 
-            var cOrderType = $(this).attr("cOrderType");
-            Course.options.cOrderType = parseInt(cOrderType);
-            Course.getCourses(Course.options.cID);
+        $(document).on('click', function (e) {
+            $("#ul_order").slideUp();
+            $("#ul_cOrder").slideUp();
         });
 
         $("#ul_order li").bind("click", function () {
@@ -44,54 +47,77 @@
             Course.options.pageIndex = 1;
             Course.getCourses(Course.options.cID);
         });
+
+        
     };
 
-    Course.getCourseCategorys = function () {
+    Course.getCourseCategorys = function (pID) {
+        
         Course.options.ajaxUrl = "/home/GetCourseCategorys";
         Global.AjaxRequest(Course.options.ajaxUrl, "post",
-            null,
+            {PID:Course.options.pID},
             function (data) {
                 if (data.result == 1) {
                     var len = data.categorys.length;
                     for (var i = 0; i < len; i++) {
                         var item = data.categorys[i];
-                        var html = '<li><a href="javascript:void(0);" class="csy-0' + (i + 1) + '" BindCID=' + item.CategoryID + '><i></i>' + item.CategoryName + '</a></li>';
-                        $(".content11 .clearfix").append(html);
+                        if (!pID) {
+                            var html = '<li><a href="javascript:void(0);" class="csy-0' + (i + 1) + '" BindCID=' + item.CategoryID + '><i></i>' + item.CategoryName + '</a></li>';
+                            $(".content11 .clearfix").append(html);
 
-                        html = '<li><a href="javascript:void(0);" class="csy2-0' + (i + 1) + '" BindCID=' + item.CategoryID + '>' + item.CategoryName + '</a></li>';
-                        $(".content15 .clearfix").append(html);
+                            html = '<li><a href="javascript:void(0);" class="csy2-0' + (i + 1) + '" BindCID=' + item.CategoryID + '>' + item.CategoryName + '</a></li>';
+                            $(".content15 .clearfix").append(html);
 
-                        if (i == 0)
-                            html = '<li><a href="javascript:void(0);" class="active" BindCID=' + item.CategoryID + '>' + item.CategoryName + '</a></li>';
-                        else
-                            html = '<li><a href="javascript:void(0);" BindCID=' + item.CategoryID + '>' + item.CategoryName + '</a></li>';
-                        $(".content16 .clearfix").append(html);
+                            if (i == 0)
+                                html = '<li><a href="javascript:void(0);" class="active" BindCID=' + item.CategoryID + '>' + item.CategoryName + '</a></li>';
+                            else
+                                html = '<li><a href="javascript:void(0);" BindCID=' + item.CategoryID + '>' + item.CategoryName + '</a></li>';
+                            $(".content16 .clearfix").append(html);
+
+                        }
+                        else {
+                            var html = '<li BindCID=' + item.CategoryID + '><a href="javascript:void(0);" >' + item.CategoryName + '</a></li>';
+                            $("#ul_cOrder").append(html);
+
+                        }
                     }
 
-                    $(".content11 .clearfix li a,.content15 .clearfix li a,.content16 .clearfix li a").bind("click", function () {
-                        Course.options.pageIndex = 1;
-                        $(this).parent().parent().find("li a").removeClass("active");
-                        $(this).addClass("active");
+                    if (!pID) {
+                        $(".content11 .clearfix li a,.content15 .clearfix li a,.content16 .clearfix li a").unbind().bind("click", function () {
+                            Course.options.pageIndex = 1;
+                            $(this).parent().parent().find("li a").removeClass("active");
+                            $(this).addClass("active");
 
-                        var cID = $(this).attr("BindCID");
-                        Course.getCourses(cID);
-                    });
+                            var PID = $(this).attr("BindCID");
+                            $("#ul_cOrder").html('');
+                            Course.options.pID = PID;
+                            Course.options.cID = '';
+                            Course.getCourses();
+                            Course.getCourseCategorys(PID);
+                        });
+                    }
+                    else {
+                        $("#ul_cOrder li").unbind().bind("click", function () {
+                            $(this).parent().slideUp();
+
+                            var cID = $(this).attr("BindCID");
+                            Course.options.cID = parseInt(cID);
+                            Course.getCourses();
+                        });
+                    }
 
                 }
             });
     };
 
-    Course.getCourses = function (cID) {
+    Course.getCourses = function () {
         Course.options.ajaxUrl = "/Home/GetCourses";
-        if (cID)
-            Course.options.cID = cID;
-        else
-            Course.options.cID = '';
 
         Global.AjaxRequest(Course.options.ajaxUrl, "post",
             {
                 PageIndex: Course.options.pageIndex,
                 CID: Course.options.cID,
+                PID:Course.options.pID,
                 OrderType: Course.options.orderType
             },
             function (data) {
