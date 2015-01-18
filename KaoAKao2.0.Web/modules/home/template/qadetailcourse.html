@@ -7,9 +7,9 @@
 <dd class="q-c-cont clearfix">
     <div class="q-c-message">
     <p>{%=item.Content%}</p>
-    <a href="#">120</a>
+    <a href="javascript:void(0);" name="abtn_PraiseCount" BindReplyID="{%=item.ID%}">{%=item.PraiseCount%}</a>
     </div>
-    <div class="r">2015-01-01  23：12</div>
+    <div class="r">{%=item.CreateDate%}</div>
 </dd>
 
 {% } %}
