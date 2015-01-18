@@ -342,6 +342,7 @@
                     var item = {};
                     item.Content = content;
                     item.ID = data.replyID;
+                    item.UserID = "aaa";
                     item.PraiseCount = 0;
                     item.ReplyCount = 0;
                     item.Integral = CourseDetail.options.integral;
@@ -501,6 +502,10 @@
 
         //评级点赞
         $(".comment-main ul a[name='abtn_PraiseCount']").unbind().bind("click", function () {
+            var PraiseCount = parseInt($(this).find("span").html());
+            PraiseCount = PraiseCount + 1;
+            $(this).find("span").html(PraiseCount);
+
             var id = $(this).attr("BindReplyID");
             CourseDetail.addUserInteraction(id);
         });
