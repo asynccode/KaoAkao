@@ -19,5 +19,5 @@
     clear: both;
 }
 #ul_nav a.button-min {
-display:none;
+visibility:hidden;
 }

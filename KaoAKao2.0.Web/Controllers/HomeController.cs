@@ -264,11 +264,15 @@ namespace KaoAKao2._0.Web.Controllers
             int pages=0;
             string keywords=paras["Keywords"]??string.Empty;
             string cID = paras["CID"] ?? string.Empty;
+            string pID = paras["PID"] ?? string.Empty;
+            if (string.IsNullOrEmpty(cID))
+                cID = pID;
+
             int orderType =int.Parse( paras["OrderType"] ??"1");
             List<CourseEntity> courses = new List<CourseEntity>();
 
             courses = CourseBusiniss.GetCourses(cID, keywords, 
-  CourseOrderBy.CreateDate, false, pageSize, pageIndex, out total, out pages);
+  (CourseOrderBy)orderType, false, pageSize, pageIndex, out total, out pages);
             ResultObj.Add("result",1);
             ResultObj.Add("total", total);
             ResultObj.Add("pages", pages);
