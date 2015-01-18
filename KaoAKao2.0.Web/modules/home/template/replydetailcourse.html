@@ -6,16 +6,16 @@ for(var i=0, j=$data.length; i < j; i++){
     <div style="padding-left:60px;">
     <div class="user_icon"><img src="/modules/home/images/index_16.jpg" alt=""/></div>
     <div class="c-m-nr">
-        <p class="c-m-top"><a href="#">考啊考</a>- 1小时前</p>
+        <p class="c-m-top"><a href="#">{%=item.UserID%}</a>- {%=item.CreateDate%}</p>
 
        <div class="c-m-mid">
             <p>{%=item.Content%}</p>
-            <a name="b_showReplyDiv" class="reply" BindReplyID="{%=item.ID%}">回复</a>
+            <a name="a_showReplyDiv" class="reply" BindReplyID="{%=item.ID%}">回复</a>
         </div>
         <p class="c-m-down">
-            <a href="#"><i><img src="/modules/home/images/course_09.png" alt=""/></i>1</a>
-            <a href="#"><i><img src="/modules/home/images/course_10.png" alt=""/></i>0</a>
-            <a href="#"><i><img src="/modules/home/images/course_11.png" alt=""/></i>0</a>
+            <a href="javascript:void(0);" name="abtn_PraiseCount" BindReplyID="{%=item.ID%}"><i><img src="/modules/home/images/course_09.png" alt=""/></i>{%=item.PraiseCount%}</a>
+            <a href="javascript:void(0);"><i><img src="/modules/home/images/course_10.png" alt=""/></i>{%=item.ReplyCount%}</a>
+          <!--  <a href="#"><i><img src="/modules/home/images/course_11.png" alt=""/></i>0</a>-->
         </p>
     </div>
     <div class="clear"></div>

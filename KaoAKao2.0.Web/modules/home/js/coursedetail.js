@@ -8,9 +8,11 @@
         ajaxUrl: "/Home/GetLessonsByCid",
         cID: '',
         lID: '',
-        rID:'',
+        rID: '',
+        integral:0,
         operateLessonType: 2,
         interactiveType: 1,
+        ReplyInteractiveType:2,
         displayType: 1,
         lessonsData:null
     };
@@ -177,17 +179,7 @@
                             innerText = $(innerText);
                             $(".comment-main ul[name='ul_comment_main']").prepend(innerText).fadeIn();
 
-                            $(".comment-main ul input[name='btn_replyComment']").unbind().bind("click", function () {
-                                var id = $(this).attr("BindReplyID");
-                                CourseDetail.options.interactiveType == 1;
-                                CourseDetail.addCourseInteraction(id);
-                            });
-
-                            $(".comment-main ul a[name='a_showReplyDiv']").unbind().bind("click", function () {
-                                var id = $(this).attr("BindReplyID");
-                                CourseDetail.showReplyDiv(id);
-                            });
-
+                            CourseDetail.bindReplyEvent();
                         });
                     }
                     else {
@@ -214,6 +206,8 @@
                         });
                     }
 
+
+
                 }
             });
     };
@@ -237,24 +231,20 @@
                             innerText = $(innerText);
                             $("#d_list" + rID + " ul").append(innerText).fadeIn();
 
-                            $(".comment-main ul input[name='btn_replyComment']").unbind().bind("click", function () {
-                                var id = $(this).attr("BindReplyID");
-                                CourseDetail.options.interactiveType == 1;
-                                CourseDetail.addCourseInteraction(id);
-                            });
-
-                            $(".comment-main ul a[name='b_showReplyDiv']").unbind().bind("click", function () {
-                                var id = $(this).attr("BindReplyID");
-                                CourseDetail.showReplyDiv(id);
-                            });
-
+                            CourseDetail.bindReplyEvent();
                         });
                     }
                     else {
                         DoT.exec("/modules/home/template/qadetailcourse.html", function (templateFun) {
                             var innerText = templateFun(data.userInteractions);
                             innerText = $(innerText);
-                            $("#li_qa" + rID+" dl").append(innerText).fadeIn();
+                            $("#li_qa" + rID + " dl").append(innerText).fadeIn();
+
+                            //评级点赞
+                            $("#li_qa" + rID + " a[name='abtn_PraiseCount']").unbind().bind("click", function () {
+                                var id = $(this).attr("BindReplyID");
+                                CourseDetail.addUserInteraction(id);
+                            });
                         });
                     }
                 }
@@ -307,7 +297,6 @@
                 else if (data.result == -1)
                 {
                     alert("您未登录，请先登录");
-                    setTimeout(function () { location.href="/home/login"}, 1000);
                 }
             });
     };
@@ -316,26 +305,32 @@
     CourseDetail.addCourseInteraction = function (replyID) {
         CourseDetail.options.ajaxUrl = "/home/AddCourseInteraction";
 
+        //获取内容
         var content = '';
         if (CourseDetail.options.interactiveType == 1) {
-            if(replyID) 
+            CourseDetail.options.integral = 0;
+            if (replyID)
                 content = $("#txt_replyContent_" + replyID).val();
             else
                 content = $("#txt_commentMsg").val();
         }
-        else {
+        else
+        {
+            CourseDetail.options.integral =parseInt( $("#s_answer_count").html());
             if (replyID)
                 content=$("#txt_answerMsg" + replyID).val();
            else
                 content = $("#txt_answerMsg").val();
         }
 
+
         Global.AjaxRequest(CourseDetail.options.ajaxUrl, "post",
         {
             CID: CourseDetail.options.cID,
             Content: content,
-            ReplyID:replyID,
-            InteractiveType: CourseDetail.options.interactiveType
+            ReplyID: replyID,
+            Integral:CourseDetail.options.integral,
+            InteractiveType: CourseDetail.options.interactiveType//interactiveType=1 课程评价；interactiveType=2 课程问答
         },
             function (data) {
                 if (data.result == 1) {
@@ -343,7 +338,10 @@
                     var item = {};
                     item.Content = content;
                     item.ID = data.replyID;
-                    item.CreateDate = "2015-1-15";
+                    item.PraiseCount = 0;
+                    item.ReplyCount = 0;
+                    item.Integral = CourseDetail.options.integral;
+                    item.CreateDate = "刚刚";
                     returnData.push(item);
                     
                     if (CourseDetail.options.interactiveType == 1)
@@ -363,16 +361,8 @@
                                 else
                                     $("#d_list" + replyID).prepend(innerText).fadeIn();
 
-                                $(".comment-main ul input[name='btn_replyComment']").unbind().bind("click", function () {
-                                    var id = $(this).attr("BindReplyID");
-                                    CourseDetail.options.interactiveType == 1;
-                                    CourseDetail.addCourseInteraction(id);
-                                });
+                                CourseDetail.bindReplyEvent();
 
-                                $(".comment-main ul a[name='b_showReplyDiv']").unbind().bind("click", function () {
-                                    var id = $(this).attr("BindReplyID");
-                                    CourseDetail.showReplyDiv(id);
-                                });
                             });
                         }
                         else
@@ -382,17 +372,7 @@
                                 innerText = $(innerText);
                                 $(".comment-main ul[name='ul_comment_main']").prepend(innerText).fadeIn();
 
-                                $(".comment-main ul input[name='btn_replyComment']").unbind().bind("click", function () {
-                                    var id = $(this).attr("BindReplyID");
-                                    CourseDetail.options.interactiveType == 1;
-                                    CourseDetail.addCourseInteraction(id);
-                                });
-
-                                $(".comment-main ul a[name='a_showReplyDiv']").unbind().bind("click", function () {
-                                    var id = $(this).attr("BindReplyID");
-                                    CourseDetail.showReplyDiv(id);
-                                });
-
+                                CourseDetail.bindReplyEvent();
                             });
                         }
 
@@ -400,15 +380,21 @@
                     else if (CourseDetail.options.interactiveType == 2)
                     {
                         if (replyID) {
-                            $("#txt_answerMsg").val('');
+                            $("#txt_answerMsg" + replyID).val('');
                             DoT.exec("/modules/home/template/qadetailcourse.html", function (templateFun) {
                                 var innerText = templateFun(returnData);
                                 innerText = $(innerText);
-                                $("#li_qa" + replyID + " dl").append(innerText).fadeIn();
+                                $("#li_qa" + replyID + " dl dd[name='dd_firstqa']").after(innerText).fadeIn();
+
+                                //评级点赞
+                                $("#li_qa" + replyID + " a[name='abtn_PraiseCount']").unbind().bind("click", function () {
+                                    var id = $(this).attr("BindReplyID");
+                                    CourseDetail.addUserInteraction(id);
+                                });
                             });
                         }
                         else {
-                            $("#txt_answerMsg"+replyID).val('');
+                            $("#txt_answerMsg").val('');
                             DoT.exec("/modules/home/template/qacourse.html", function (templateFun) {
                                 var innerText = templateFun(returnData);
                                 innerText = $(innerText);
@@ -428,6 +414,7 @@
                                     }
                                     $(this).next().slideToggle();
                                 });
+
                             });
                         }
                     }
@@ -459,6 +446,58 @@
         }
     }
 
+    //添加评论、提问收藏、点赞
+    CourseDetail.addUserInteraction = function (replyID) {
+        CourseDetail.options.ajaxUrl = "/home/addUserInteraction";
+
+        Global.AjaxRequest(CourseDetail.options.ajaxUrl, "post",
+        {
+            RID: replyID,
+            ReplyInteractiveType: CourseDetail.options.ReplyInteractiveType
+        },
+            function (data) {
+                if (data.result == 1) {
+                    alert("操作成功");
+                    //if (CourseDetail.options.ReplyInteractiveType == 2) {
+                    //    $(".p-f-main .pra i").css("backgroundPosition", "24px -24px");
+                    //    var count = $("#s_coursePraiseCount").html();
+                    //    count = parseInt(count);
+                    //    $("#s_coursePraiseCount").html((count + 1));
+                    //}
+                    //else {
+                    //    $(".p-f-main .col i").css("backgroundPosition", "24px -48px");
+                    //}
+                }
+                else if (data.result == 0) {
+                    alert("操作失败");
+                }
+                else if (data.result == -1) {
+                    alert("您未登录，请先登录");
+                }
+            });
+    };
+
+    //绑定评级回复相关事件
+    CourseDetail.bindReplyEvent = function () {
+        //评价回复
+        $(".comment-main ul input[name='btn_replyComment']").unbind().bind("click", function () {
+            var id = $(this).attr("BindReplyID");
+            CourseDetail.options.interactiveType == 1;
+            CourseDetail.addCourseInteraction(id);
+        });
+
+        //评价输入框
+        $(".comment-main ul a[name='a_showReplyDiv']").unbind().bind("click", function () {
+            var id = $(this).attr("BindReplyID");
+            CourseDetail.showReplyDiv(id);
+        });
+
+        //评级点赞
+        $(".comment-main ul a[name='abtn_PraiseCount']").unbind().bind("click", function () {
+            var id = $(this).attr("BindReplyID");
+            CourseDetail.addUserInteraction(id);
+        });
+    };
 
     module.exports = CourseDetail;
 });

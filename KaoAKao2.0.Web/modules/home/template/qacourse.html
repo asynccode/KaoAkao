@@ -4,23 +4,23 @@
 %}
  <li class="quiz_children" id="li_qa{%=item.ID%}">
     <div class="q-c-main clearfix" BindID="{%=item.ID%}">
-    <div class="q-c-num">41</div>
+    <div class="q-c-num">{%=item.ReplyCount%}</div>
     <div class="q-c-doc">
         <div class="q-c-bt">
-        {%=item.Content%}<span>10</span>
+        {%=item.Content%}<span>{%=item.PraiseCount%}</span>
         </div>
         <p>管理会计是一种深度参与管理决策..</p>
     </div>
-    <div class="q-c-time">2015-01-01</div>
-    <div class="q-c-ico"><img src="/modules/home/images/test.jpg" alt=""/><span>6</span></div>
+    <div class="q-c-time">{%=item.CreateDate%}</div>
+    <div class="q-c-ico"><img src="/modules/home/images/test.jpg" alt=""/><span>{%=item.Integral%}</span></div>
     </div>
 
     <dl class="q-c-nr clearfix">
     <dt class="tinct1">提问</dt>
     <dd>{%=item.Content%}</dd>
     <dt class="tinct2">回答</dt>
-    <dd>
-        <p class="clearfix"><span class="l">共6条</span><span class="r">0/500</span></p>
+    <dd name="dd_firstqa">
+        <p class="clearfix"><span class="l">共{%=item.ReplyCount%}条</span><span class="r">0/500</span></p>
         <textarea class="q-c-area" id="txt_answerMsg{%=item.ID%}"></textarea>
         <div class="q-c-dw">
         <input type="button" value="提交回答" class="q-c-btn" BindID="{%=item.ID%}" />
