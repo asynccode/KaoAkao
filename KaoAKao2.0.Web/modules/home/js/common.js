@@ -44,6 +44,10 @@
                     $("#ul_nav .user").show();
                     $("#ul_nav .user .effigy").append("<i><img src='/modules/home/Images/index_16.jpg' /></i>" + data.userName);
 
+                    $("#txt_hiddenUserID").val(data.userID);
+                    $("#txt_hiddenPhotoPath").val(data.PhotoPath);
+                    $("#txt_hiddenUserName").val(data.userName);
+
                     var mst = null;
                     $("#ul_nav .user").hover(function () {
                         mst = setTimeout(function () {//延时触发

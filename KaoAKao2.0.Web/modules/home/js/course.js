@@ -59,6 +59,7 @@
             function (data) {
                 if (data.result == 1) {
                     var len = data.categorys.length;
+
                     for (var i = 0; i < len; i++) {
                         var item = data.categorys[i];
                         if (!pID) {
@@ -89,14 +90,18 @@
                             $(this).addClass("active");
 
                             var PID = $(this).attr("BindCID");
-                            $("#ul_cOrder").html('');
-                            Course.options.pID = PID;
                             Course.options.cID = '';
                             Course.getCourses();
-                            Course.getCourseCategorys(PID);
+                            $("#ul_cOrder").html('');
+
+                            if (PID != -1) {
+                                Course.options.pID = PID;
+                                Course.getCourseCategorys(PID);
+                            }
                         });
                     }
-                    else {
+                    else
+                    {
                         $("#ul_cOrder li").unbind().bind("click", function () {
                             $(this).parent().slideUp();
 
@@ -212,9 +217,9 @@
     Course.createTeacher= function (item) { 
         var html='';
         html+='<dl class="clearfix">';
-        html+='<dt><a href="#"><img src="/modules/home/images/index_16.jpg" alt="David"/></a></dt>';
+        html += '<dt><a href="#"><img src="' + item.PhotoPath + '" alt="' + item.UserName + '"/></a></dt>';
         html += '<dd><a href="#">' + item.KeyWords + '</a></dd>';
-        html += '<dd><a href="#">' + item.KeyWords + '</a></dd>';
+        html += '<dd><a href="#">' + item.UserName + '</a></dd>';
         html += '</dl>';
 
         return html;

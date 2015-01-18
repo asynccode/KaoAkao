@@ -3,15 +3,15 @@
 	var item = $data[i];
 %}
 <li>
-        <a href="/course/detail/{%=item.CourseID%}"><img src="/modules/home/Images/index_07.png" alt=""/></a>
+        <a href="/course/detail/{%=item.CourseID%}"><img src="{%=item.ImgURL%}" alt=""/></a>
         <div class="v-bt">{%=item.CourseName%}</div>
         <div class="v-js">
           <p>{%=item.Keywords%}</p>
           <ul class="clearfix v-zt">
-            <li class="v-praise">120</li>
-            <li class="v-news">41</li>
-            <li class="v-link">41</li>
-            <li class="v-name">David</li>
+            <li class="v-praise">{%=item.PraiseCount%}</li>
+            <li class="v-news">{%=item.InteractionCount%}</li>
+            <li class="v-link">{%=item.ShareCount%}</li>
+            <li class="v-name">{%=item.TName%}</li>
           </ul>
         </div>
       </li>
