@@ -40,13 +40,13 @@
         //添加评价
         $("#btn_addComment").bind("click", function () {
             CourseDetail.options.interactiveType = 1;
-            CourseDetail.addCourseInteraction(null,$(this));
+            CourseDetail.addCourseInteraction(null,null,$(this));
         });
 
         //添加提问
         $("#btn_addAnswer").bind("click", function () {
             CourseDetail.options.interactiveType = 2;
-            CourseDetail.addCourseInteraction(null,$(this));
+            CourseDetail.addCourseInteraction(null,null,$(this));
         });
 
         //评价菜单栏点击
@@ -202,7 +202,7 @@
                             $(".quiz-main ul input.q-c-btn").unbind().bind("click", function () {
                                 var id = $(this).attr("BindID");
                                 CourseDetail.options.interactiveType = 2;
-                                CourseDetail.addCourseInteraction(id,$(this));
+                                CourseDetail.addCourseInteraction(id,null,$(this));
                             });
 
                             $(".q-c-main").unbind().bind("click", function () {
@@ -317,12 +317,13 @@
     };
 
     //对课程进行评论或提出问答
-    CourseDetail.addCourseInteraction = function (replyID,obj) {
+    CourseDetail.addCourseInteraction = function (replyID, replyUserName,obj) {
         CourseDetail.options.ajaxUrl = "/home/AddCourseInteraction";
 
         var btn_value = $(obj).val();
         $(obj).val("提交中...");
         $(obj).attr("disabled", "disabled");
+
         //获取内容
         var content = '';
         if (CourseDetail.options.interactiveType == 1) {
@@ -366,6 +367,12 @@
                     item.ReplyCount = 0;
                     item.Integral = CourseDetail.options.integral;
                     item.CreateDate = "刚刚";
+                    
+                    if (replyUserName) {
+                        var ReplyEntity = {};
+                        ReplyEntity.UserName = replyUserName;
+                        item.ReplyEntity = ReplyEntity;
+                    }
                     returnData.push(item);
                     
                     if (CourseDetail.options.interactiveType == 1)
@@ -509,8 +516,9 @@
         //评价回复
         $(".comment-main ul input[name='btn_replyComment']").unbind().bind("click", function () {
             var id = $(this).attr("BindReplyID");
+            var replyUserName = $(this).attr("BindReplyUserName");
             CourseDetail.options.interactiveType == 1;
-            CourseDetail.addCourseInteraction(id,$(this));
+            CourseDetail.addCourseInteraction(id, replyUserName, $(this));
         });
 
         //评价输入框

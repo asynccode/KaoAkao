@@ -9,7 +9,7 @@
     <p>{%=item.Content%}</p>
     <a href="javascript:void(0);" name="abtn_PraiseCount" BindReplyID="{%=item.ID%}">{%=item.PraiseCount%}</a>
     </div>
-    <div class="r">{%=item.CreateDate%}</div>
+    <div class="r"> {%=item.CreateDate.createDateFormat()%}</div>
 </dd>
 
 {% } %}

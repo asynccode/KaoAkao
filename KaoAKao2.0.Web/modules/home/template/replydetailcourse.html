@@ -6,7 +6,17 @@ for(var i=0, j=$data.length; i < j; i++){
     <div style="padding-left:60px;">
     <div class="user_icon"><img src="{%=item.PhotoPath%}" alt=""/></div>
     <div class="c-m-nr">
-        <p class="c-m-top"><a href="#">{%=item.UserName%}</a>- {%=item.CreateDate%}</p>
+        <p class="c-m-top">
+            <a href="#">{%=item.UserName%}</a>
+            {%
+                if(item.ReplyEntity){
+            %}
+                <span style="padding:0px 5px;">回复</span>
+                <a href="#">{%=item.ReplyEntity.UserName%}</a>
+             {% } %}
+
+            - {%=item.CreateDate.createDateFormat()%}
+        </p>
 
        <div class="c-m-mid">
             <p>{%=item.Content%}</p>
@@ -23,7 +33,7 @@ for(var i=0, j=$data.length; i < j; i++){
         <textarea style="width:680px;" onfocus="if(value=='回复内容'){value=''}" id="txt_replyContent_{%=item.ID%}" onblur="if (value ==''){value='回复内容'}" class="comment-area2">回复内容</textarea>
         <div class="p10 clearfix">
             <div class="r">
-            <input type="button" value="提交" name="btn_replyComment" BindReplyID="{%=item.ID%}"  class="comment-btn" />
+            <input type="button" value="提交" name="btn_replyComment" BindReplyID="{%=item.ID%}"  BindReplyUserName="{%=item.UserName%}" class="comment-btn" />
             <input type="button" value="取消" onclick="click_box('child{%=item.ID%}')" class="comment-btn2" />
             </div>
         </div>

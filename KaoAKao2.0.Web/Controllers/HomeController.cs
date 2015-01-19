@@ -117,7 +117,9 @@ namespace KaoAKao2._0.Web.Controllers
             {
                 ResultObj.Add("result", 1);
                 string userName = string.Empty;
-                if (!string.IsNullOrEmpty(user.Email))
+                if (!string.IsNullOrEmpty(user.UserName))
+                    userName = user.UserName;
+                else if (!string.IsNullOrEmpty(user.Email))
                     userName = user.Email;
                 else if (!string.IsNullOrEmpty(user.MobileTele))
                     userName = user.MobileTele;
@@ -125,8 +127,7 @@ namespace KaoAKao2._0.Web.Controllers
                     userName = user.PetName;
                 else if (!string.IsNullOrEmpty(user.Name))
                     userName = user.Name;
-                else if (!string.IsNullOrEmpty(user.UserName))
-                    userName = user.UserName;
+                
 
                 ResultObj.Add("PhotoPath", user.PhotoPath);
                 ResultObj.Add("userName", userName);

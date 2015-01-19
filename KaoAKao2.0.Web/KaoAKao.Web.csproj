@@ -119,6 +119,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\upload_images\index_16.jpg" />
     <Content Include="modules\home\css\common.css" />
     <Content Include="modules\home\css\global.css" />
     <Content Include="modules\home\css\layout.css" />
@@ -331,6 +332,7 @@
     <Content Include="modules\scripts\jquery-1.11.1.js" />
     <Content Include="modules\scripts\sea-config.js" />
     <Content Include="modules\scripts\sea.js" />
+    <Content Include="test.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -347,7 +349,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Manage\Models\" />
-    <Folder Include="Content\upload_images\" />
     <Folder Include="modules\plug\uploadify\tempFiles\" />
   </ItemGroup>
   <ItemGroup>
