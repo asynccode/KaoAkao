@@ -117,12 +117,19 @@ namespace KaoAKao2._0.Web.Controllers
             {
                 ResultObj.Add("result", 1);
                 string userName = string.Empty;
-                if (!string.IsNullOrEmpty(user.Email))
+                if (!string.IsNullOrEmpty(user.UserName))
+                    userName = user.UserName;
+                else if (!string.IsNullOrEmpty(user.Email))
                     userName = user.Email;
                 else if (!string.IsNullOrEmpty(user.MobileTele))
                     userName = user.MobileTele;
+                else if (!string.IsNullOrEmpty(user.PetName))
+                    userName = user.PetName;
                 else if (!string.IsNullOrEmpty(user.Name))
                     userName = user.Name;
+                
+
+                ResultObj.Add("PhotoPath", user.PhotoPath);
                 ResultObj.Add("userName", userName);
                 ResultObj.Add("userID", user.UserID);
             }
@@ -341,6 +348,31 @@ pageSize, pageIndex, out total, out pages);
             return Json(ResultObj, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        ///对课程章节进行 点赞、喜欢、分享
+        /// </summary>
+        public ActionResult OperateLesson(FormCollection paras)
+        {
+            if (UserDetail != null)
+            {
+                string lID = paras["LID"] ?? string.Empty;
+                string cID = paras["CID"] ?? string.Empty;
+                int type = int.Parse(paras["OperateLessonType"] ?? "0");
+                int result = 0;
+                string resultDes = string.Empty;
+
+                CourseBusiniss courseBusiniss = new CourseBusiniss();
+                courseBusiniss.AddUserCourse(UserDetail.UserID, cID, lID,
+                    (UserCourseType)type, string.Empty, UserDetail.UserID,
+                    out result, out resultDes);
+
+                ResultObj.Add("result", result > 0 ? 1 : 0);
+            }
+            else
+                ResultObj.Add("result", -1);
+
+            return Json(ResultObj, JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
         #region 课程章节
@@ -414,32 +446,6 @@ pageSize, pageIndex, out total, out pages);
         }
 
         /// <summary>
-        ///对课程章节进行 点赞、喜欢、分享
-        /// </summary>
-        public ActionResult OperateLesson(FormCollection paras)
-        {
-            if (UserDetail != null)
-            {
-                string lID = paras["LID"] ?? string.Empty;
-                string cID = paras["CID"] ?? string.Empty;
-                int type = int.Parse(paras["OperateLessonType"] ?? "0");
-                int result = 0;
-                string resultDes = string.Empty;
-
-                CourseBusiniss courseBusiniss = new CourseBusiniss();
-                courseBusiniss.AddUserCourse(UserDetail.UserID, cID, lID,
-                    (UserCourseType)type, string.Empty,UserDetail.UserID,
-                    out result, out resultDes);
-
-                ResultObj.Add("result", result > 0 ? 1 : 0);
-            }
-            else
-                ResultObj.Add("result", -1);
-
-            return Json(ResultObj, JsonRequestBehavior.AllowGet);
-        }
-
-        /// <summary>
         ///对课程进行评论或提出问答
         /// </summary>
         public ActionResult AddCourseInteraction(FormCollection paras)
@@ -449,7 +455,7 @@ pageSize, pageIndex, out total, out pages);
                 string cID = paras["CID"] ?? string.Empty;
                 string content = paras["Content"] ?? string.Empty;
                 int type = int.Parse(paras["InteractiveType"] ?? "1");
-                int replyID = int.Parse(paras["ReplyID"] ?? "0");
+                int replyID = int.Parse(string.IsNullOrEmpty(paras["ReplyID"]) ? "0" : paras["ReplyID"]);
                 int integral = int.Parse(paras["Integral"] ?? "0");
                 int result = 0;
 

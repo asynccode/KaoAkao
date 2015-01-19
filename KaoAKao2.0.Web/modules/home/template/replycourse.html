@@ -3,9 +3,9 @@
 	var item = $data[i];
 %}
 <li>
-    <div class="user_icon"><img src="/modules/home/images/index_16.jpg" alt=""/></div>
+    <div class="user_icon"><img src="{%=item.PhotoPath%}" alt=""/></div>
     <div class="c-m-nr">
-        <p class="c-m-top"><a href="#">{%=item.UserID%}</a>- {%=item.CreateDate%}</p>
+        <p class="c-m-top"><a href="#">{%=item.UserName%}</a>-  {%=item.CreateDate.createDateFormat()%}</p>
         <div class="c-m-mid">
             <p>{%=item.Content%}</p>
             <a name="a_showReplyDiv" class="reply" BindReplyID="{%=item.ID%}">回复</a>
