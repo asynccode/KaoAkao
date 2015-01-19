@@ -54,6 +54,8 @@
     //将json日期字符串转换日期格式
     String.prototype.createDateFormat = function () {
         var jsondate = this;
+        if (jsondate == "刚刚")
+            return jsondate;
         jsondate = jsondate.replace("/Date(", "").replace(")/", "");
         if (jsondate.indexOf("+") > 0) {
             jsondate = jsondate.substring(0, jsondate.indexOf("+"));
