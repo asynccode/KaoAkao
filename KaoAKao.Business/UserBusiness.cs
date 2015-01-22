@@ -173,6 +173,18 @@ namespace KaoAKao.Business
             return new UserDAL().IsExistUserName(userID, userName);
         }
 
+        /// <summary>
+        /// 判断用户是否收藏、点赞课程
+        /// </summary>
+        /// <param name="userid">会员ID</param>
+        /// <param name="courseid">课程ID</param>
+        /// <param name="type">UserCourseType类型</param>
+        /// <returns></returns>
+        public static bool IsExistUserCourse(string userid, string courseid, UserCourseType type)
+        {
+            return CommonBusiness.isExistValue("UserCourse", "UserID", userid, " Type=" + (int)type);
+        }
+
         #endregion
 
         #region 添加
