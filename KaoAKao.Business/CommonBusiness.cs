@@ -19,7 +19,7 @@ namespace KaoAKao.Business
         /// <param name="tableName">表名</param>
         /// <param name="columnName">字段名</param>
         /// <param name="columnValue">字段值</param>
-        /// <param name="where">附加条件 已 and 开头</param>
+        /// <param name="where">附加条件</param>
         /// <returns>true已存在</returns>
         public static bool isExistValue(string tableName, string columnName, string columnValue, string where)
         {

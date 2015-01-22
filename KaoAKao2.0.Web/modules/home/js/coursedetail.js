@@ -40,13 +40,13 @@
         //添加评价
         $("#btn_addComment").bind("click", function () {
             CourseDetail.options.interactiveType = 1;
-            CourseDetail.addCourseInteraction();
+            CourseDetail.addCourseInteraction(null,null,$(this));
         });
 
         //添加提问
         $("#btn_addAnswer").bind("click", function () {
             CourseDetail.options.interactiveType = 2;
-            CourseDetail.addCourseInteraction();
+            CourseDetail.addCourseInteraction(null,null,$(this));
         });
 
         //评价菜单栏点击
@@ -63,11 +63,22 @@
             CourseDetail.getUserInteractions();
         });
 
-        //
-        $(".quiz-reward #ul_cOrder li").bind("click", function () {
+        //选择悬赏积分
+        $(".quiz-reward #ul_cOrder li").bind("click", function (event) {
             $("#ul_cOrder").slideToggle();
             var count=$(this).attr("BindCount");
             $("#s_answer_count").html(count);
+        });
+
+        //
+        $(".quiz-reward .answer_count").bind("click", function (event) {
+            event.stopPropagation();
+            $("#ul_cOrder").slideToggle();
+        });
+
+        //
+        $(document).on('click', function (e) {
+            $("#ul_cOrder").slideUp();
         });
     }
 
@@ -119,7 +130,7 @@
                     //填充课程教师信息
                     var teacher=data.teacher;
                     var teacherHtml = '<div class="p-l-name">';
-                    teacherHtml += ' <a href="#"><i><img src="/modules/home/images/index_16.jpg" alt=""/></i>' + teacher.UserName + '</a>';
+                    teacherHtml += ' <a href="#"><i><img src="' + teacher.PhotoPath + '" alt=""/></i>' + teacher.PetName + '</a>';
                     teacherHtml += '</div>';
                     teacherHtml += '<div class="p-l-brief">' + teacher.Description + '</div>';
                     $(".play-container div.p-l-up").append(teacherHtml);
@@ -142,7 +153,7 @@
                         var item=data.courses[i];
                         var html = '';
                         html += '<dd class="clearfix">';
-                        html += '<div class="l"><img src="/modules/home/images/play_02.jpg" alt=""/></div>';
+                        html += '<div class="l"><img src="' + item.PhotoPath + '" alt=""/></div>';
                         html += '<div class="r">';
                         html += '<h3>' + item.Keywords + '</h3>';
                         html += '<p>' + item.CourseName + '</p>';
@@ -191,7 +202,7 @@
                             $(".quiz-main ul input.q-c-btn").unbind().bind("click", function () {
                                 var id = $(this).attr("BindID");
                                 CourseDetail.options.interactiveType = 2;
-                                CourseDetail.addCourseInteraction(id);
+                                CourseDetail.addCourseInteraction(id,null,$(this));
                             });
 
                             $(".q-c-main").unbind().bind("click", function () {
@@ -306,8 +317,12 @@
     };
 
     //对课程进行评论或提出问答
-    CourseDetail.addCourseInteraction = function (replyID) {
+    CourseDetail.addCourseInteraction = function (replyID, replyUserName,obj) {
         CourseDetail.options.ajaxUrl = "/home/AddCourseInteraction";
+
+        var btn_value = $(obj).val();
+        $(obj).val("提交中...");
+        $(obj).attr("disabled", "disabled");
 
         //获取内容
         var content = '';
@@ -337,16 +352,27 @@
             InteractiveType: CourseDetail.options.interactiveType//interactiveType=1 课程评价；interactiveType=2 课程问答
         },
             function (data) {
+                $(obj).val(btn_value);
+                $(obj).removeAttr("disabled");
+
                 if (data.result == 1) {
                     var returnData = new Array();
                     var item = {};
                     item.Content = content;
                     item.ID = data.replyID;
-                    item.UserID = "aaa";
+                    item.UserID = $("#txt_hiddenUserID").val();
+                    item.UserName = $("#txt_hiddenUserName").val();
+                    item.PhotoPath = $("#txt_hiddenPhotoPath").val();
                     item.PraiseCount = 0;
                     item.ReplyCount = 0;
                     item.Integral = CourseDetail.options.integral;
                     item.CreateDate = "刚刚";
+                    
+                    if (replyUserName) {
+                        var ReplyEntity = {};
+                        ReplyEntity.UserName = replyUserName;
+                        item.ReplyEntity = ReplyEntity;
+                    }
                     returnData.push(item);
                     
                     if (CourseDetail.options.interactiveType == 1)
@@ -411,7 +437,7 @@
                                 $(".quiz-main ul input.q-c-btn").unbind().bind("click", function () {
                                     var id = $(this).attr("BindID");
                                     CourseDetail.options.interactiveType = 2;
-                                    CourseDetail.addCourseInteraction(id);
+                                    CourseDetail.addCourseInteraction(id,$(this));
                                 });
 
                                 $(".q-c-main").unbind().bind("click", function () {
@@ -490,8 +516,9 @@
         //评价回复
         $(".comment-main ul input[name='btn_replyComment']").unbind().bind("click", function () {
             var id = $(this).attr("BindReplyID");
+            var replyUserName = $(this).attr("BindReplyUserName");
             CourseDetail.options.interactiveType == 1;
-            CourseDetail.addCourseInteraction(id);
+            CourseDetail.addCourseInteraction(id, replyUserName, $(this));
         });
 
         //评价输入框
