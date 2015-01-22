@@ -33,8 +33,10 @@
         //点赞和收藏
         $(".play-foot .p-f-main a").bind("click", function () {
             var type = $(this).attr("BindType");
-            CourseDetail.options.operateLessonType = parseInt(type);
-            CourseDetail.operateLesson();
+            if (type) {
+                CourseDetail.options.operateLessonType = parseInt(type);
+                CourseDetail.operateLesson();
+            }
         });
 
         //添加评价
@@ -153,7 +155,7 @@
                         var item=data.courses[i];
                         var html = '';
                         html += '<dd class="clearfix">';
-                        html += '<div class="l"><img src="' + item.PhotoPath + '" alt=""/></div>';
+                        html += '<div class="l"><img style="width:160px;height:90px;" src="' + item.PhotoPath + '" alt=""/></div>';
                         html += '<div class="r">';
                         html += '<h3>' + item.Keywords + '</h3>';
                         html += '<p>' + item.CourseName + '</p>';
@@ -275,11 +277,11 @@
         $("#d_lessonDes").html(item.Description);
         $("#txt_LessonID").val(item.LessonID);
 
-        //var player = polyvObject('#lesson_playBox').videoPlayer({
-        //    'width': '860',
-        //    'height': '500',
-        //    'vid': item.RadioURL
-        //});
+        var player = polyvObject('#lesson_playBox').videoPlayer({
+            'width': '860',
+            'height': '500',
+            'vid': item.RadioURL
+        });
     };
 
     //操作课程章节 点赞、喜欢、分享
@@ -296,13 +298,31 @@
             function (data) {
                 if (data.result == 1) {
                     if (CourseDetail.options.operateLessonType == 2) {
-                        $(".p-f-main .pra i").css("backgroundPosition", "24px -24px");
                         var count = $("#s_coursePraiseCount").html();
                         count = parseInt(count);
-                        $("#s_coursePraiseCount").html((count + 1));
+
+                        if ($("#txt_isPraiseCourse").val() == "0") {
+                            $(".p-f-main .pra i").css("backgroundPosition", "24px -24px");
+                            $("#s_coursePraiseCount").html((count + 1));
+                            $("#txt_isPraiseCourse").val("1");
+                        }
+                        else {
+                            $(".p-f-main .pra i").css("backgroundPosition", "0px -24px");
+                            $("#s_coursePraiseCount").html((count-1));
+                            $("#txt_isPraiseCourse").val("0");
+                        }
+                        
                     }
-                    else {
-                        $(".p-f-main .col i").css("backgroundPosition", "24px -48px");
+                    else
+                    {
+                        if ($("#txt_isFavCourse").val() == "0") {
+                            $(".p-f-main .col i").css("backgroundPosition", "24px -48px");
+                            $("#txt_isFavCourse").val("1");
+                        }
+                        else {
+                            $(".p-f-main .col i").css("backgroundPosition", "0px -48px");
+                            $("#txt_isFavCourse").val("0");
+                        }
                     }
                 }
                 else if (data.result == 0)
