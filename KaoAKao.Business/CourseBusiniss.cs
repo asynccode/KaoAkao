@@ -549,7 +549,18 @@ namespace KaoAKao.Business
             return CommonBusiness.updateValue("Lessons", "Sort", sort.ToString(), " LessonID='" + lessonid + "'");
         }
 
-
+        /// <summary>
+        /// 设置答案为最佳答案
+        /// </summary>
+        /// <param name="interactionid">答案ID</param>
+        /// <param name="isBest">是否最佳</param>
+        /// <param name="operateIP">操作IP</param>
+        /// <param name="operateID">操作ID</param>
+        /// <returns></returns>
+        public bool EditAnswerBest(string interactionid, bool isBest, string operateIP, string operateID)
+        {
+            return new CourseDAL().EditAnswerBest(interactionid, isBest ? 1 : 0, operateIP, operateID);
+        }
       
         #endregion
 
