@@ -11,6 +11,9 @@ namespace KaoAKao2._0.Web.Models
     {
        public CourseEntity course;
 
-       public List<LessonEntity> lessons;
+       public int isPraiseCourse=0;
+
+       public int isFavCourse=0;
+
     }
 }

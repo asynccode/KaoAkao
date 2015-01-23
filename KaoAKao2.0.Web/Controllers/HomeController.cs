@@ -39,13 +39,16 @@ namespace KaoAKao2._0.Web.Controllers
         {
             ViewBag.CourseID = CourseID;
             CourseEntity  course= CourseBusiniss.GetCourseByID(CourseID);
-            //List<LessonEntity> lessons= CourseBusiniss.GetCourseLessons(CourseID);
 
             KaoAKao2._0.Web.Models.CourseDetail courseDetail = new CourseDetail();
             courseDetail.course = course;
             ViewBag.TeacherID = course.TeacherID;
-            //courseDetail.lessons = lessons;
-
+            if (UserDetail != null)
+            {
+                courseDetail.isPraiseCourse = UserBusiness.IsExistUserCourse(UserDetail.UserID, CourseID, UserCourseType.Praise)?1:0;
+                courseDetail.isFavCourse = UserBusiness.IsExistUserCourse(UserDetail.UserID, CourseID, UserCourseType.Collect)?1:0;
+            }
+            
             return View(courseDetail);
         }
 
@@ -151,6 +154,10 @@ namespace KaoAKao2._0.Web.Controllers
             if (user != null)
             {
                 Session["User"] = user;
+                if (Url.RequestContext.HttpContext.Request.UrlReferrer == null)
+                    ResultObj.Add("isUrlReferrer", 0);
+                else
+                    ResultObj.Add("isUrlReferrer", 1);
                 ResultObj.Add("result", 1);
             }
             else

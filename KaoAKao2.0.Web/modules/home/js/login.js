@@ -108,7 +108,11 @@ define(function (require, exports, module) {
                         {
                             Global.setCookie("passportInfo", Login.options.userName + "|" + Login.options.userPwd);
                         }
-                        location.href = "/home/index"
+
+                        if (data.isUrlReferrer==0)
+                            location.href = "/home/index";
+                        else
+                            history.go(-1);
                     }
 
                 }
