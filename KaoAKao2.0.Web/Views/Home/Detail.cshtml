@@ -32,9 +32,15 @@
     </div>
     <div class="play-foot">
       <div class="p-f-main clearfix">
-        <a href="javascript:void(0);" class="pra" BindType="2"><i></i><div id="s_coursePraiseCount">@Model.course.PraiseCount</div></a>
+
+        <a href="javascript:void(0);" class="pra" BindType="2">
+           <i></i>
+            <div id="s_coursePraiseCount">@Model.course.PraiseCount</div>
+        </a>
       @*  <a href="javascript:void(0);" class="sub" BindType="3"><i></i>订阅</a>*@
-        <a href="javascript:void(0);" class="col" BindType="1"><i></i>收藏</a>
+        <a href="javascript:void(0);" class="col" BindType="1">
+        <i></i>
+       收藏</a>
       </div>
     </div>
   </div>
@@ -74,7 +80,7 @@
             </ul>
           </div>
           <div class="comment-end">
-            <input type="button" value="评论" class="comment-btn3" />
+            <input type="button" value="评论" id="btn_againGetUserInteractions" class="comment-btn3" />
           </div>
         </div>
       </div>
@@ -134,8 +140,15 @@
 <input type="hidden" id="txt_courseID" value="@ViewBag.CourseID" />
 <input type="hidden" id="txt_LessonID" value="" />
 <input type="hidden" id="txt_teacherID" value="@ViewBag.TeacherID" />
+<input type="hidden" id="txt_isPraiseCourse" value="@Model.isPraiseCourse" />
+<input type="hidden" id="txt_isFavCourse" value="@Model.isFavCourse" />
 <script type="text/javascript">
     $(function () {
+        if ($("#txt_isPraiseCourse").val() == "1")
+            $(".p-f-main .pra i").css("backgroundPosition", "24px -24px");
+        if ($("#txt_isFavCourse").val() == "1")
+            $(".p-f-main .col i").css("backgroundPosition", "24px -48px");
+
         seajs.use(["home/js/coursedetail.js"], function (CourseDetail) {
             CourseDetail.init();
         });

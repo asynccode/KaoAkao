@@ -3,8 +3,8 @@
 	var item = $data[i];
 %}
 
-<dt><img src="{%=item.PhotoPath%}" alt=""/></dt>
-<dd class="q-c-cont clearfix">
+<dt  name="dt_qadetailcourse"><img src="{%=item.PhotoPath%}" alt=""/></dt>
+<dd class="q-c-cont clearfix" name="dd_qadetailcourse">
     <div class="q-c-message">
     <p>{%=item.Content%}</p>
     <a href="javascript:void(0);" name="abtn_PraiseCount" BindReplyID="{%=item.ID%}">{%=item.PraiseCount%}</a>

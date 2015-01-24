@@ -14,6 +14,7 @@
         //搜索事件
         $("#btn_search").bind("click", function () {
             $('.search-input').show();
+            $("#txt_searchkeywords").focus();
         });
 
         $("#btn_mobileGenreSearch").bind("click", function () {
@@ -29,9 +30,10 @@
             $(".content0").show();
             $("#btn_mobileGenreSearch").next().hide();
             $("#btn_mobileGenreSearch").removeClass("play");
-
+            
             $(this).addClass("play");
             $(this).next().show();
+            $("#txt_mobileSearchKeywords").focus();
         });
 
     };

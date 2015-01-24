@@ -252,6 +252,17 @@ namespace KaoAKao.DAL
             return ExecuteNonQuery(sql, paras, CommandType.Text) > 0;
         }
 
+        public bool EditAnswerBest(string interactionid, int isBest, string operateIP, string operateID)
+        {
+            SqlParameter[] paras = { 
+                                       new SqlParameter("@InteractionID",interactionid),
+                                       new SqlParameter("@IsBest",isBest),
+                                       new SqlParameter("@OperateIP",operateIP),
+                                       new SqlParameter("@OperateID",operateID)
+                                   };
+            return ExecuteNonQuery("P_UpdateAnswerBest", paras, CommandType.StoredProcedure) > 0;
+        }
+
         #endregion
 
         #region 删除

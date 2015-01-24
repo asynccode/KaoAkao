@@ -3,7 +3,7 @@
  
 .user{position:relative;display:none;padding-bottom:15px;}
 .user-center{position:relative;display:none;}
-.user-pers{position:absolute;left:-105px;top:0px; margin-top:7px;display:block;}
+.user-pers{position:absolute;left:-105px;top:0px; margin-top:7px;display:block; z-index:1000;}
 
 .code {width: 110px;padding: 5px;display:inline-block;}
 
@@ -24,3 +24,9 @@ visibility:hidden;
 .q-c-message {
     width:610px;
 }
+/*.coursePraiseActive {
+    background-position:24px -24px;
+}
+.courseFavActive {
+    background-position:24px -48px
+}*/
