@@ -25,7 +25,8 @@
             var len = @Model.Count;
                 for(var i=0;i<len;i++)
                 {
-                    <li><span class="img_1"></span></li>
+                    var item = @Model[i];
+                    <li><span class="img_1"><img src="@item.ImgURL" title="@item.CourseName" /></span></li>
                 }
          }	
         </ul>

@@ -210,6 +210,8 @@
     <Content Include="modules\manage\scripts\course-lesson.js" />
     <Content Include="modules\home\template\course.html" />
     <Content Include="modules\plug\datapager\css\stylewithhome.css" />
+    <Content Include="modules\plug\datapager\images\new_next.png" />
+    <Content Include="modules\plug\datapager\images\new_previous.png" />
     <Content Include="modules\plug\datapager\paginatewithhome.js" />
     <Content Include="modules\plug\touchSlider\jquery.event.drag-1.5.min.js" />
     <Content Include="modules\plug\touchSlider\jquery.touchSlider.js" />

@@ -94,14 +94,14 @@ ul.jPag-pages li span.jPag-next-img{
             }
 span.jPag-sprevious-img{
     width: 17px;
-background: url(../Images/previous2.png) no-repeat center center;
+background: url(../Images/new_previous.png) no-repeat center center;
 text-indent: 999px;
 overflow: hidden;
 border-radius: 0;
             }
 span.jPag-snext-img{
         width: 17px;
-background: url(../Images/next2.png) no-repeat center center;
+background: url(../Images/new_next.png) no-repeat center center;
 text-indent: 999px;
 overflow: hidden;
 border-radius: 0;

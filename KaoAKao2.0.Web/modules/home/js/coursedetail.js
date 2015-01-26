@@ -161,7 +161,7 @@
                         var item=data.courses[i];
                         var html = '';
                         html += '<dd class="clearfix">';
-                        html += '<div style="cursor:pointer;" class="l" onclick="location.href=\'/course/detail/' + item.CourseID + '\'"><img style="width:160px;height:90px;" src="' + item.PhotoPath + '" alt=""/></div>';
+                        html += '<div style="cursor:pointer;" class="l" onclick="location.href=\'/course/detail/' + item.CourseID + '\'"><img style="width:160px;height:90px;" src="' + item.ImgURL + '" alt=""/></div>';
                         html += '<div class="r">';
                         html += '<h3>' + item.Keywords + '</h3>';
                         html += '<p>' + item.CourseName + '</p>';
