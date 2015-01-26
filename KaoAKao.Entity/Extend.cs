@@ -19,7 +19,7 @@ namespace KaoAKao.Entity
                 {
                     if (pro.Name.ToUpper() == col.ColumnName.ToUpper())
                     {
-                        pro.SetValue(model, dr[col.ColumnName]);
+                        //pro.SetValue(model, dr[col.ColumnName]);
                     }
                 }
             }

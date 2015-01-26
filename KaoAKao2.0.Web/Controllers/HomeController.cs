@@ -8,7 +8,7 @@ using KaoAKao.Entity;
 using KaoAKao.Entity.Enum;
 using KaoAKao.Business;
 
-using Newtonsoft.Json.Linq;
+//using Newtonsoft.Json.Linq;
 using KaoAKao2._0.Web.Models;
 using System.Drawing;
 
@@ -294,7 +294,7 @@ pageSize, pageIndex, out total, out pages);
         /// </summary>
         public ActionResult GetCourses(FormCollection paras)
         {
-            int pageSize=2;
+            int pageSize=12;
             int pageIndex = int.Parse(paras["PageIndex"] ?? "1");
             int total=0;
             int pages=0;
