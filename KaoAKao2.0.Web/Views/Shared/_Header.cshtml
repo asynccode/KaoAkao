@@ -3,7 +3,6 @@
     <div class="l"><a href="/Home/Index" class="logo">考啊考</a></div>
     <div class="nav" id="example">
       <ul class="group clearfix">
-           @* <li class="current"><a></a></li>*@
             <li  ><a href="/home/course">课程</a></li>
             <li><a href="#">答疑</a></li>
             <li><a href="#">社区</a></li>
@@ -21,10 +20,10 @@
                       <div class="m-b-p">
                        <h1>个人中心</h1>
                        <ul class="clearfix m-b-cont">
-                         <li><a href="#"><i class="bp1"></i>观看记录</a><span>(3)</span></li>
-                         <li><a href="#"><i class="bp2"></i>我的消息</a><span>(3)</span></li>
-                         <li><a href="#"><i class="bp3"></i>我的问答</a><span>(3)</span></li>
-                         <li><a href="#"><i class="bp4"></i>账户设置</a></li>
+                         <li><a href="/UserCenter/Index"><i class="bp1"></i>观看记录</a><span>(3)</span></li>
+                         <li><a href="/UserCenter/Index"><i class="bp2"></i>我的消息</a><span>(3)</span></li>
+                         <li><a href="/UserCenter/Index"><i class="bp3"></i>我的问答</a><span>(3)</span></li>
+                         <li><a href="/UserCenter/Index"><i class="bp4"></i>账户设置</a></li>
                        </ul>
                        </div>
                        <div class="m-b-foot clearfix">
@@ -39,10 +38,10 @@
         <li class="search-cont">
           <a href="#" class="search" id="btn_search">搜索</a>
           <div class="search-input">
-            <input type="text" value="搜索你想看课程"  onfocus="this.value=''" onblur="this.value='搜索你想看课程';$(this).parent().hide();" class="search-txt" />
+            <input type="text" id="txt_searchkeywords" value="搜索你想看课程"  onfocus="this.value=''" onblur="this.value='搜索你想看课程';$(this).parent().hide();" class="search-txt" />
             <i>搜索</i>
           </div>
-        </li>
+        </li> 
       </ul>
     </div>
     <div class="h-m-right">
@@ -60,7 +59,7 @@
         <li class="mobile-search">
           <a href="#" id="btn_mobileSearch"><i>搜索</i></a>
           <div class="m-s-cont hide">
-            <input type="text" class="m-s-text" value="搜索你想看课程" onfocus="this.value=''" onblur="this.value='搜索你想看课程'" />
+            <input type="text" class="m-s-text" id="txt_mobileSearchKeywords" value="搜索你想看课程" onfocus="this.value=''" onblur="this.value='搜索你想看课程'" />
           </div>
         </li>
       </ul>

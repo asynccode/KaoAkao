@@ -322,7 +322,7 @@ pageSize, pageIndex, out total, out pages);
         /// </summary>
         public ActionResult GetGoodCourses()
         {
-            int pageSize = 5;
+            int pageSize = 8;
             int pageIndex = 1;
             int total = 0;
             int pages = 0;
@@ -416,7 +416,7 @@ pageSize, pageIndex, out total, out pages);
         {
             string cID = paras["CID"] ?? string.Empty;
             int type = int.Parse(paras["InteractiveType"] ?? "1");
-            int pageSize = 10;
+            int pageSize = 4;
             int pageIndex = int.Parse(paras["PageIndex"] ?? "1");
             int total = 0;
             int pages = 0;

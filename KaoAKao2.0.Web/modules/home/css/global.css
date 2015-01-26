@@ -5,8 +5,9 @@ img, object, embed, video {max-width: 100%;}
 /* 加载外部字体 */
 @font-face {
 font-family:Regular;
-src:url('../Font/SourceHanSansCN-Regular.otf');
+src:url('../Fonts/SourceHanSansCN-Regular.otf');
 } 
+@font-face{font-family:'FontAwesome';src:url('../Fonts/fontawesome-webfont.eot?v=4.0.3');src:url('../Fonts/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'),url('../Fonts/fontawesome-webfont.woff?v=4.0.3') format('woff'),url('../Fonts/fontawesome-webfont.ttf?v=4.0.3') format('truetype'),url('../Fonts/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg');font-weight:normal;font-style:normal}
 html{position:relative;}
 /* 桌面电脑布局: 1200px 及更高 *
 /*页头*/

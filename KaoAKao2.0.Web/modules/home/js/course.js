@@ -20,7 +20,7 @@
     Course.init = function () {
         Course.bindEvent();
 
-        Course.getCourseCategorys();
+        //Course.getCourseCategorys();
 
         Course.getCourses('');
         
@@ -41,77 +41,51 @@
 
         $("#ul_order li").bind("click", function () {
             $(this).parent().slideUp();
+            $("#a_courseOrder").html( $(this).find("a").html() );
 
             var orderType = $(this).attr("orderType");
             Course.options.orderType = parseInt(orderType);
             Course.options.pageIndex = 1;
-            Course.getCourses(Course.options.cID);
+            Course.getCourses();
         });
 
-        
+        $(".content11 .clearfix li a,.content15 .clearfix li a,.content16 .clearfix li a").unbind().bind("click", function () {
+            Course.options.pageIndex = 1;
+            $(this).parent().parent().find("li a").removeClass("active");
+            $(this).addClass("active");
+
+            var PID = $(this).attr("BindCID");
+            Course.options.pID = PID;
+            if (PID == -1) {
+                Course.options.pID = '';
+                $("#a_courseCid").parent().hide();
+            }
+            else {
+                $("#a_courseCid").parent().show();
+            }
+            Course.getCourseCategorys(PID);
+
+            Course.options.cID = '';
+            Course.getCourses();
+            $("#ul_cOrder").html('');
+        });
+
     };
 
-    Course.getCourseCategorys = function (pID) {
-        
+    Course.getCourseCategorys = function () {
         Course.options.ajaxUrl = "/home/GetCourseCategorys";
         Global.AjaxRequest(Course.options.ajaxUrl, "post",
             {PID:Course.options.pID},
             function (data) {
                 if (data.result == 1) {
                     var len = data.categorys.length;
-
                     for (var i = 0; i < len; i++) {
                         var item = data.categorys[i];
-                        if (!pID) {
-                            var html = '<li><a href="javascript:void(0);" class="csy-0' + (i + 1) + '" BindCID=' + item.CategoryID + '><i></i>' + item.CategoryName + '</a></li>';
-                            $(".content11 .clearfix").append(html);
-
-                            html = '<li><a href="javascript:void(0);" class="csy2-0' + (i + 1) + '" BindCID=' + item.CategoryID + '>' + item.CategoryName + '</a></li>';
-                            $(".content15 .clearfix").append(html);
-
-                            if (i == 0)
-                                html = '<li><a href="javascript:void(0);" class="active" BindCID=' + item.CategoryID + '>' + item.CategoryName + '</a></li>';
-                            else
-                                html = '<li><a href="javascript:void(0);" BindCID=' + item.CategoryID + '>' + item.CategoryName + '</a></li>';
-                            $(".content16 .clearfix").append(html);
-
-                        }
-                        else {
                             var html = '<li BindCID=' + item.CategoryID + '><a href="javascript:void(0);" >' + item.CategoryName + '</a></li>';
                             $("#ul_cOrder").append(html);
-
-                        }
                     }
-
-                    if (!pID) {
-                        $(".content11 .clearfix li a,.content15 .clearfix li a,.content16 .clearfix li a").unbind().bind("click", function () {
-                            Course.options.pageIndex = 1;
-                            $(this).parent().parent().find("li a").removeClass("active");
-                            $(this).addClass("active");
-
-                            var PID = $(this).attr("BindCID");
-                            Course.options.cID = '';
-                            Course.getCourses();
-                            $("#ul_cOrder").html('');
-
-                            if (PID != -1) {
-                                Course.options.pID = PID;
-                                Course.getCourseCategorys(PID);
-                            }
-                        });
-                    }
-                    else
-                    {
-                        $("#ul_cOrder li").unbind().bind("click", function () {
-                            $(this).parent().slideUp();
-
-                            var cID = $(this).attr("BindCID");
-                            Course.options.cID = parseInt(cID);
-                            Course.getCourses();
-                        });
-                    }
-
                 }
+
             });
     };
 
@@ -143,20 +117,16 @@
                         if ($("#noDataDiv").html())
                             $("#noDataDiv").remove();
 
+                        //$("#pager").html('');
                         $("#pager").paginate({
                             total_count: data.total,
                             count: data.pages,
                             start: Course.options.pageIndex,
-                            display: 2,
-                            border: true,
-                            border_color: '#fff',
-                            text_color: '#333',
-                            background_color: '#fff',
+                            display: 10,
                             rotate: true,
-                            images: true,
                             mouse: 'slide',
                             onChange: function (page) {
-                                Course.options.pageIndex = page;
+                                Course.options.pageIndex =parseInt(page);
                                 Course.getCourses();
                             }
                         });
