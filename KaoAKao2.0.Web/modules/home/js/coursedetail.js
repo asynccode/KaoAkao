@@ -288,11 +288,11 @@
         $("#d_lessonDes").html(item.Description);
         $("#txt_LessonID").val(item.LessonID);
 
-        //var player = polyvObject('#lesson_playBox').videoPlayer({
-        //    'width': '860',
-        //    'height': '500',
-        //    'vid': item.RadioURL
-        //});
+        var player = polyvObject('#lesson_playBox').videoPlayer({
+            'width': '860',
+            'height': '500',
+            'vid': item.RadioURL
+        });
     };
 
     //操作课程章节 点赞、喜欢、分享
