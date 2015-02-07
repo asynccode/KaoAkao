@@ -20,8 +20,6 @@
     Course.init = function () {
         Course.bindEvent();
 
-        //Course.getCourseCategorys();
-
         Course.getCourses('');
         
         Course.getTeachers();
@@ -63,7 +61,7 @@
             else {
                 $("#a_courseCid").parent().show();
             }
-            Course.getCourseCategorys(PID);
+            Course.getCourseCategorys();
 
             Course.options.cID = '';
             Course.getCourses();
@@ -79,11 +77,29 @@
             function (data) {
                 if (data.result == 1) {
                     var len = data.categorys.length;
+                    if (len < 1)
+                    {
+                        $("#a_courseCid").parent().hide();
+                        $("#a_courseOrder").parent().hide();
+                    }
+
                     for (var i = 0; i < len; i++) {
                         var item = data.categorys[i];
                             var html = '<li BindCID=' + item.CategoryID + '><a href="javascript:void(0);" >' + item.CategoryName + '</a></li>';
                             $("#ul_cOrder").append(html);
                     }
+
+
+                    $("#ul_cOrder li").unbind().bind("click", function () {
+                        $(this).parent().slideUp();
+                        $("#a_courseCid").html($(this).find("a").html());
+
+                        var cID = $(this).attr("BindCID");
+                        Course.options.cID = parseInt(cID);
+                        Course.options.pageIndex = 1;
+                        Course.getCourses();
+                    });
+
                 }
 
             });

@@ -52,15 +52,16 @@ html{position:relative;}
 .bp5{background-position:0px 12px;}
 .h-m-right{display:none;}
 /*页脚*/
-.footer{position:absolute;left:0;bottom:10px;width:100%;background:#fff;}
-.footer-top{font-size:18px;border-bottom:1px solid #c4c4c4;}
+.footer{position:absolute;left:0;bottom:0px;width:100%;background:#fff;}
+.footer-top{padding-top:20px;font-size:18px;border-bottom:1px solid #c4c4c4;}
 .footer-top li{float:left;height:36px;padding-right:28px;line-height:36px;}
 .footer-top a{color:#333;}
-.footer-top a:hover{text-decoration:underline;}
-.footer-bottom{font-size:12px;color:#666;line-height:32px;}
+.footer-top a:hover{color:#009cdd;}
+.footer-bottom{padding-bottom:20px;font-size:12px;color:#666;line-height:32px;}
 .f-b-left{float:left;}
 .f-b-left li{float:left;padding-right:28px;}
 .f-b-left a{color:#666;}
+.f-b-left a:hover{text-decoration:underline;}
 .f-b-right{float:right;}
 
 /* 平板电脑布局: 769px 至 1200px */

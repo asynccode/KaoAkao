@@ -1,4 +1,4 @@
-﻿@charset "utf-8";
+@charset "utf-8";
 /* 桌面电脑布局: 1200px 及更高 */
 .toppt{padding-top:60px;margin-bottom:80px;}
 .toppt2{padding-top:60px;margin-bottom:130px;}
@@ -155,7 +155,7 @@
 .course_image ul{position:absolute;top:0;left:0;width:9999px;height:500px;overflow:hidden;}
 .course_image li{float:left;width:100%;height:500px;}
 .course_image li span{display:block;width:100%;height:500px;}
-.course_image li .img_1 img{background-position:center top;background-size:cover;}
+.course_image li .img_1{background:url(../images/course_01.jpg) center top no-repeat;background-size:cover;}
 .course_image li .img_2{background:url(../images/course_01.jpg) center top no-repeat;background-size:cover;}
 .course_image li .img_3{background:url(../images/course_01.jpg) center top no-repeat;background-size:cover;}
 .course_image li .img_4{background:url(../images/course_01.jpg) center top no-repeat;background-size:cover;}
@@ -280,7 +280,7 @@
 .p-l-name a{display:block;font-size:18px;color:#fff;text-align:center;}
 .p-l-name a i{display:block;margin-bottom:10px;}
 .p-l-brief{float:right;width:216px;font-size:12px;line-height:20px; text-indent:24px;}
-.p-l-down{padding:0 25px 0 15px;}
+.p-l-down{padding:0 20px 0 15px;}
 .p-l-down h2{height:50px;font-size:18px;color:#009cdd;line-height:50px;border-bottom:1px solid #666;}
 .p-l-inner{padding-top:10px;}
 .p-l-inner a{position:relative;display:block;float:left;width:58px;height:58px;margin:0 2px 2px 0;line-height:58px;font-size:24px;color:#ccc;text-align:center;background:#666;}
@@ -557,6 +557,15 @@ font-size: 14px;
 line-height: 26px;
 cursor: pointer;
 }
+.noSelect { user-select: none; -o-user-select: none; -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; }
+
+#scrollbar1{width:340px;}
+#scrollbar1 .viewport{width:335px;height:300px;overflow:hidden;position:relative;}
+#scrollbar1 .overview{list-style:none;position:absolute;left:0;top:0;}
+#scrollbar1 .scrollbar{position:relative;background-position:0 0;float:right;width:5px;}
+#scrollbar1 .track{background-color:#333;height:100%;width:5px;position:relative;}
+#scrollbar1 .thumb{background:#666;height:20px;width:5px;cursor:pointer;overflow: hidden;position:absolute;top:0;left:0;}
+#scrollbar1 .disable{display: none;}
 
 /*平板电脑布局:769px 至 1200px*/
 @media only screen and (max-width: 1200px) {
