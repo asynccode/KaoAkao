@@ -136,65 +136,65 @@ define(function (require, exports, module) {
             }
 
             if (o.rotate) {
-                _rotright.hover(
-                    function () {
-                        thumbs_scroll_interval = setInterval(
-                          function () {
-                              var left = _ulwrapdiv.scrollLeft() + 1;
-                              _ulwrapdiv.scrollLeft(left);
-                          },
-                          20
-                        );
-                    },
-                    function () {
-                        clearInterval(thumbs_scroll_interval);
-                    }
-                );
-                _rotleft.hover(
-                    function () {
-                        thumbs_scroll_interval = setInterval(
-                          function () {
-                              var left = _ulwrapdiv.scrollLeft() - 1;
-                              _ulwrapdiv.scrollLeft(left);
-                          },
-                          20
-                        );
-                    },
-                    function () {
-                        clearInterval(thumbs_scroll_interval);
-                    }
-                );
+                //_rotright.hover(
+                //    function () {
+                //        thumbs_scroll_interval = setInterval(
+                //          function () {
+                //              var left = _ulwrapdiv.scrollLeft() + 1;
+                //              _ulwrapdiv.scrollLeft(left);
+                //          },
+                //          20
+                //        );
+                //    },
+                //    function () {
+                //        clearInterval(thumbs_scroll_interval);
+                //    }
+                //);
+                //_rotleft.hover(
+                //    function () {
+                //        thumbs_scroll_interval = setInterval(
+                //          function () {
+                //              var left = _ulwrapdiv.scrollLeft() - 1;
+                //              _ulwrapdiv.scrollLeft(left);
+                //          },
+                //          20
+                //        );
+                //    },
+                //    function () {
+                //        clearInterval(thumbs_scroll_interval);
+                //    }
+                //);
                 if (o.mouse == 'press') {
-                    _rotright.mousedown(
-                        function () {
-                            thumbs_mouse_interval = setInterval(
-                              function () {
-                                  var left = _ulwrapdiv.scrollLeft() + 5;
-                                  _ulwrapdiv.scrollLeft(left);
-                              },
-                              20
-                            );
-                        }
-                    ).mouseup(
-                        function () {
-                            clearInterval(thumbs_mouse_interval);
-                        }
-                    );
-                    _rotleft.mousedown(
-                        function () {
-                            thumbs_mouse_interval = setInterval(
-                              function () {
-                                  var left = _ulwrapdiv.scrollLeft() - 5;
-                                  _ulwrapdiv.scrollLeft(left);
-                              },
-                              20
-                            );
-                        }
-                    ).mouseup(
-                        function () {
-                            clearInterval(thumbs_mouse_interval);
-                        }
-                    );
+                    //_rotright.mousedown(
+                    //    function () {
+                    //        thumbs_mouse_interval = setInterval(
+                    //          function () {
+                    //              var left = _ulwrapdiv.scrollLeft() + 5;
+                    //              _ulwrapdiv.scrollLeft(left);
+                    //          },
+                    //          20
+                    //        );
+                    //    }
+                    //).mouseup(
+                    //    function () {
+                    //        clearInterval(thumbs_mouse_interval);
+                    //    }
+                    //);
+                    //_rotleft.mousedown(
+                    //    function () {
+                    //        thumbs_mouse_interval = setInterval(
+                    //          function () {
+                    //              var left = _ulwrapdiv.scrollLeft() - 5;
+                    //              _ulwrapdiv.scrollLeft(left);
+                    //          },
+                    //          20
+                    //        );
+                    //    }
+                    //).mouseup(
+                    //    function () {
+                    //        clearInterval(thumbs_mouse_interval);
+                    //    }
+                    //);
                 }
                 else {
                     _rotleft.click(function (e) {

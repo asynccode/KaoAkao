@@ -112,7 +112,15 @@
                             html += '<a href="javascript:void(0);" class="active" BindIndex="'+i+'">'+(i+1)+'';
                         else
                             html += '<a href="javascript:void(0);" BindIndex="' + i + '">' + (i + 1) + '';
-                        html += '<div class="p-l-ts">';
+                        var left = 0;
+                        if (i < 5 && i > 0)
+                            left = i * -60;
+                        else {
+                            var j = i % 5;
+                            left = i * -60;
+                        }
+
+                        html += '<div class="p-l-ts" style="left:'+left+'px;">';
                         html += '<h3>大纲简介</h3>';
                         html += '<p>'+item.Description+'</p>';
                         html += '</div>';
@@ -140,6 +148,8 @@
                     var teacherHtml = '<div class="p-l-name">';
                     teacherHtml += ' <a href="#"><i><img src="' + teacher.PhotoPath + '" alt=""/></i>' + teacher.PetName + '</a>';
                     teacherHtml += '</div>';
+                    if (teacher.Description.length > 69)
+                        teacher.Description = teacher.Description.substring(0, 69) + "... " + "<a href='#'>查看详情</a>";
                     teacherHtml += '<div class="p-l-brief">' + teacher.Description + '</div>';
                     $(".play-container div.p-l-up").append(teacherHtml);
            

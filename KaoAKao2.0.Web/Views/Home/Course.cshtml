@@ -26,7 +26,7 @@
                 for(var i=0;i<len;i++)
                 {
                     var item = @Model[i];
-                    <li><span class="img_1"><img style="width:100%;" src="@item.ImgURL" title="@item.CourseName" /></span></li>
+                    <li><a href="/course/detail/@item.CourseID" title="@item.CourseName"><span class="img_1"><img style="width:100%;" src="@item.ImgURL" title="@item.CourseName" /></span></a></li>
                 }
          }	
         </ul>
@@ -113,7 +113,7 @@
       
       <!---课程列表 -->
       <div class="e-nr video">
-            <ul class="clearfix"></ul>
+            <ul class="clearfix" id="ul_courseList"></ul>
       </div>
         <div id="pager"></div> 
     </div>

@@ -27,6 +27,32 @@
 
     //绑定事件
     Course.bindEvent = function () {
+        $(window).unbind().bind("scroll", function () {
+            var width = document.body.offsetWidth;
+            if (width < 1200) {
+                var bottom = $(document).height() - document.documentElement.scrollTop - document.body.scrollTop - $(window).height();
+                if (bottom <= 50) {
+                    $("#pager").hide();
+
+                    setTimeout(function () {
+                        Course.options.pageIndex++;
+                        Course.getCourses();
+                    }, 1000);
+                }
+            }
+
+        });
+
+        window.onresize = function () {
+            var width = document.body.offsetWidth;
+            if (width < 1200) {
+                $("#pager").hide();
+            }
+            else {
+                $("#pager").show();
+            }
+        }
+
         $("#a_courseOrder,#a_courseCid").bind("click", function (event) {
             event.stopPropagation();
             $(this).next().slideToggle();
@@ -117,12 +143,14 @@
             },
             function (data) {
                 if (data.result == 1) {
-                    $(".e-nr .clearfix").html('');
+                    var width = document.body.offsetWidth;
+                    if (width >=1200)
+                        $(".e-nr .clearfix").html('');
 
                     DoT.exec("/modules/home/template/course.html", function (templateFun) {
                         var innerText = templateFun(data.courses);
                         innerText = $(innerText);
-                        $(".e-nr .clearfix").append(innerText).fadeIn();
+                        $(".e-nr #ul_courseList").append(innerText).fadeIn();
                     });
 
                     var pages=parseInt(data.pages);
@@ -133,7 +161,6 @@
                         if ($("#noDataDiv").html())
                             $("#noDataDiv").remove();
 
-                        //$("#pager").html('');
                         $("#pager").paginate({
                             total_count: data.total,
                             count: data.pages,
@@ -142,7 +169,7 @@
                             rotate: true,
                             mouse: 'slide',
                             onChange: function (page) {
-                                Course.options.pageIndex =parseInt(page);
+                                Course.options.pageIndex = parseInt(page);
                                 Course.getCourses();
                             }
                         });
@@ -159,6 +186,10 @@
                             }
 
                         });
+
+                        var width = document.body.offsetWidth;
+                        if (width < 1200)
+                            $("#pager").hide();
                     }
                     else {
                         if ($("#noDataDiv").html())
